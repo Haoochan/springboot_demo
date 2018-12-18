@@ -5,7 +5,7 @@
 
 <html>
 <body>
-<script src="/js/CheckInput.js"></script>
+<script src="/static/js/CheckInput.js"></script>
 <h2>Hello World!</h2>
 <form method="post" action="${pageContext.request.contextPath }/user/login">
     用户名：<input type="text" name="username" id="username"/><br/><br/>

@@ -8,5 +8,9 @@ public interface UserService {
 
     User login(String username, String password, String role);
 
-    int register(String username, String password, String role);
+    int register(User user);
+
+    int userInfoUpdate(User user);
+
+
 }

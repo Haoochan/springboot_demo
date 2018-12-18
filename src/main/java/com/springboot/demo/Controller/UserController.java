@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 //@RestController
 @Controller
@@ -26,11 +27,15 @@ public class UserController {
         return "/showUser.jsp";
     }
 
-
     @RequestMapping("/login")
-    public String login(String username, String password, String role, Model model) {
+    public String login(HttpServletRequest request, Model model) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
         System.out.println("用户登录" + username + password + role);
         User user = this.userService.login(username, password, role);
+        request.getSession().setAttribute("loginUser",user);
+        System.out.println(request.getSession().getAttribute("loginUser"));
         if(!StringUtils.isEmpty(user)){
             model.addAttribute("user", user);
             model.addAttribute("msg", "登录成功");
@@ -41,11 +46,51 @@ public class UserController {
     }
 
     @RequestMapping("/register")
-    public String register(String username, String password, String role, Model model) {
-        System.out.println("用户注册" + username + password + role);
-        this.userService.register(username, password, role);
+    public String register(HttpServletRequest request, Model model) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
+        String name = request.getParameter("name");
+        String sex = request.getParameter("sex");
+        int phone = Integer.parseInt(request.getParameter("phone"));
+        String email = request.getParameter("email");
+        User user = new User(username,password,role,name,sex,phone,email);
+        System.out.println("用户注册" + user.toString());
+        this.userService.register(user);
         model.addAttribute("msg", "注册成功");
         return "/registerSuccess.jsp";
     }
+
+    @RequestMapping("/userInfo")
+    public String userInfo(HttpServletRequest request,Model model){
+        User user = (User) request.getSession().getAttribute("loginUser");
+        model.addAttribute("user",user);
+        return "/WEB-INF/jsp/userInfo.jsp";
+    }
+
+    @RequestMapping("/goUserInfoUpdate")
+    public String goUserInfoUpdate(HttpServletRequest request,Model model){
+        User user = (User) request.getSession().getAttribute("loginUser");
+        model.addAttribute("user",user);
+        return "/WEB-INF/jsp/userInfoUpdate.jsp";
+    }
+
+    @RequestMapping("/userInfoUpdate")
+        public String userInfoUpdate(HttpServletRequest request,Model model){
+            int id = Integer.parseInt(request.getParameter("id"));
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String role = request.getParameter("role");
+            String name = request.getParameter("name");
+            String sex = request.getParameter("sex");
+            int phone = Integer.parseInt(request.getParameter("phone"));
+            String email = request.getParameter("email");
+            User user = new User(id,username,password,role,name,sex,phone,email);
+            this.userService.userInfoUpdate(user);
+            model.addAttribute("user",user);
+            return "/WEB-INF/jsp/userInfo.jsp";
+        }
+
+
 
 }

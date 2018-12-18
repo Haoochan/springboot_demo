@@ -23,8 +23,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int register(String username, String password, String role) {
-        User user = new User(username,password,role);
+    public int register(User user) {
         return this.userMapper.insert(user);
+    }
+
+    @Override
+    public int userInfoUpdate(User user) {
+        System.out.println("执行servece层userInfoUpdate");
+        return this.userMapper.updateByPrimaryKey(user);
     }
 }

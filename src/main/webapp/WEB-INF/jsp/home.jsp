@@ -7,14 +7,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
+    <%
+        String path = request.getContextPath();
+        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    %>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>layout 后台大布局 - Layui</title>
     <%--<link rel="stylesheet" href="../src/css/layui.css">--%>
-    <link rel="stylesheet" href="./layui/css/layui.css">
+    <link rel="stylesheet" href="/static/layui/css/layui.css" charset="utf-8">
 
 
 </head>
@@ -40,10 +43,10 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    贤心
+                    ${user.username}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="/user/userInfo">基本资料</a></dd>
                     <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
@@ -58,7 +61,7 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">所有商品</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">列表一</a></dd>
+                        <dd><a href="/activityCategory/golist">列表一</a></dd>
                         <dd><a href="javascript:;">列表二</a></dd>
                         <dd><a href="javascript:;">列表三</a></dd>
                         <dd><a href="">超链接</a></dd>
@@ -89,7 +92,7 @@
     </div>
 </div>
 <%--<script src="../src/layui.js"></script>--%>
-<script src="./layui/layui.js"></script>
+<script src="/static/layui/layui.js"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){
