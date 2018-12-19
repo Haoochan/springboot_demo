@@ -10,4 +10,6 @@ public interface ActivityCategoryService {
 
     int getTotalCount();
 
+    int add(ActivityCategory activityCategory);
+
 }

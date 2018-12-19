@@ -24,4 +24,9 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
     public int getTotalCount() {
         return this.activityCategoryMapper.getTotalCount();
     }
+
+    @Override
+    public int add(ActivityCategory activityCategory) {
+        return this.activityCategoryMapper.insert(activityCategory);
+    }
 }

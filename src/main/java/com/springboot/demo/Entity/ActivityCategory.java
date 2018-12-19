@@ -7,6 +7,17 @@ public class ActivityCategory {
 
     private String desc;
 
+    public ActivityCategory(Integer id, String name, String desc) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+    }
+
+    public ActivityCategory(String name, String desc) {
+        this.name = name;
+        this.desc = desc;
+    }
+
     @Override
     public String toString() {
         return "ActivityCategory{" +

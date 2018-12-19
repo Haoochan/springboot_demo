@@ -39,7 +39,8 @@ public class UserController {
         if(!StringUtils.isEmpty(user)){
             model.addAttribute("user", user);
             model.addAttribute("msg", "登录成功");
-            return "/WEB-INF/jsp/home.jsp";
+            return "/WEB-INF/jsp/home1.jsp";
+//            return "/WeAdmin/index.html";
         }
         else
             return "/index.jsp";

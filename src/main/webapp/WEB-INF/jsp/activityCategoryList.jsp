@@ -7,12 +7,23 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/layui/css/layui.css"  media="all">
+    <%--<link rel="stylesheet" href="../../static/layui/css/layui.css"  media="all">--%>
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <link rel="stylesheet" href="../../WeAdmin/static/css/font.css">
+    <link rel="stylesheet" href="../../WeAdmin/static/css/weadmin.css">
+    <script type="text/javascript" src="../../WeAdmin/lib/layui/layui.js" charset="utf-8"></script>
+    <script src="../../WeAdmin/static/js/admin.js" charset="utf-8"></script>
+    <script src="../../WeAdmin/static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+
 </head>
 <body>
+<h3>工作类别列表</h3>
+<div class="weadmin-block">
+    <%--<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>--%>
+    <button class="layui-btn" onclick="WeAdminShow('添加用户','/activityCategory/goAdd',600,400)"><i class="layui-icon"></i>添加</button>
+</div>
 
-<table class="layui-table" lay-data="{width: 892, height:332, url:'/activityCategory/list', page:true, id:'idTest'}" lay-filter="demo">
+<table class="layui-table" lay-data="{width: 800, height:800, url:'/activityCategory/list', page:true, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
@@ -31,7 +42,8 @@
 </script>
 
 
-<script src="/static/layui/layui.js" charset="utf-8"></script>
+<%--<script src="/static/layui/layui.js" charset="utf-8"></script>--%>
+
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
     layui.use('table', function(){

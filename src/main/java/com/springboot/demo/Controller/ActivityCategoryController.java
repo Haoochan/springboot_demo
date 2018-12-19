@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,6 @@ public class ActivityCategoryController {
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     public ActivityCategoryResponseData activityCategoryList(){
-
         int totalCount = this.activityCategoryService.getTotalCount();
         ActivityCategoryResponseData activityCategoryResponseData = new ActivityCategoryResponseData();
         activityCategoryResponseData.setCode("0");
@@ -40,5 +40,19 @@ public class ActivityCategoryController {
 
         System.out.println(activityCategoryResponseData);
         return activityCategoryResponseData;
+    }
+
+    @RequestMapping("/goAdd")
+    public String goAdd(){
+        return "/WEB-INF/jsp/activityCategoryAdd.jsp";
+    }
+
+    @RequestMapping("/add")
+    public String add(HttpServletRequest request){
+        String name = request.getParameter("name");
+        String desc = request.getParameter("desc");
+        ActivityCategory activityCategory = new ActivityCategory(name,desc);
+        this.activityCategoryService.add(activityCategory);
+        return goList();
     }
 }
