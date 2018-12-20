@@ -8,9 +8,13 @@ public interface ActivityCategoryService {
 
     List<ActivityCategory> getAllActivityCategory();
 
+    ActivityCategory getActivityCategoryById(int id);
+
     int getTotalCount();
 
     int add(ActivityCategory activityCategory);
 
     int delete(int id);
+
+    int update(ActivityCategory activityCategory);
 }

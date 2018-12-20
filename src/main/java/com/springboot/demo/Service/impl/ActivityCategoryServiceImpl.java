@@ -21,6 +21,12 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
     }
 
     @Override
+    public ActivityCategory getActivityCategoryById(int id) {
+
+        return this.activityCategoryMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public int getTotalCount() {
         return this.activityCategoryMapper.getTotalCount();
     }
@@ -33,5 +39,10 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
     @Override
     public int delete(int id) {
         return this.activityCategoryMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int update(ActivityCategory activityCategory) {
+        return this.activityCategoryMapper.updateByPrimaryKey(activityCategory);
     }
 }

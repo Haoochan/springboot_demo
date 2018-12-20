@@ -21,26 +21,32 @@
     <![endif]-->
 </head>
 <body>
-    <form class="layui-form" action="/activityCategory/add">
+<form class="layui-form" action="/activityCategory/edit" id="form1" name="form1"  method="post">
+    <div class="layui-form-item" >
+        <label class="layui-form-label">id</label>
+        <div class="layui-input-inline">
+            <input type="text" name="id" id="id" value="${activityCategory.id}" readonly="readonly" autocomplete="off" class="layui-input">
+        </div>
+    </div>
 
-        <div class="layui-form-item">
-            <label for="name" class="layui-form-label">
-                <span class="we-red">*</span>类别名称
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="name" name="name" lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
+    <div class="layui-form-item">
+        <label for="name" class="layui-form-label">
+            <span class="we-red">*</span>类别名称
+        </label>
+        <div class="layui-input-inline">
+            <input type="text" id="name" name="name" lay-verify="required" value="${activityCategory.name}" autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-item">
-            <label for="description" class="layui-form-label">描述</label>
-            <div class="layui-input-inline">
-                <input type="text" id="description" name="description" lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
+    </div>
+    <div class="layui-form-item">
+        <label for="description" class="layui-form-label">描述</label>
+        <div class="layui-input-inline">
+            <input type="text" id="description" name="description" lay-verify="required" value="${activityCategory.description}" autocomplete="off" class="layui-input">
         </div>
-        <div class="layui-form-item">
-            <button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>
-        </div>
-    </form>
+    </div>
+    <div class="layui-form-item">
+        <button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>
+    </div>
+</form>
 
 <script>
     // 关闭弹窗 刷新列表

@@ -6,10 +6,8 @@ import com.springboot.demo.Entity.ActivityCategoryResponseData;
 import com.springboot.demo.Service.ActivityCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -58,13 +56,35 @@ public class ActivityCategoryController {
         return goList();
     }
 
+    @ResponseBody
     @RequestMapping("/delete")
-    public void delete(HttpServletRequest request){
-        System.out.println("进来了");
-        System.out.println(request.toString());
+    public String delete(HttpServletRequest request){
         int deleteId = Integer.parseInt(request.getParameter("id"));
+        System.out.println(deleteId);
         this.activityCategoryService.delete(deleteId);
-//        return goList();
+        return "ok";
+    }
+
+    @RequestMapping("/goEdit")
+    public String goEdit(@RequestParam("id") int id,Model model){
+//        System.out.println("111111111"+id);
+        ActivityCategory activityCategory = this.activityCategoryService.getActivityCategoryById(id);
+        model.addAttribute("activityCategory",activityCategory);
+        return "/WEB-INF/jsp/activityCategory/activityCategoryEdit.jsp";
+    }
+
+    @ResponseBody
+    @RequestMapping("/edit")
+    public String edit(HttpServletRequest request){
+        System.out.println("进来了");
+        int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println(id);
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        ActivityCategory activityCategory = new ActivityCategory(id,name,description);
+        this.activityCategoryService.update(activityCategory);
+
+        return "ok";
     }
 
 }
