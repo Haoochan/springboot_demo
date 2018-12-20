@@ -5,17 +5,17 @@ public class ActivityCategory {
 
     private String name;
 
-    private String desc;
+    private String description;
 
-    public ActivityCategory(Integer id, String name, String desc) {
+    public ActivityCategory(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.description = description;
     }
 
-    public ActivityCategory(String name, String desc) {
+    public ActivityCategory(String name, String description) {
         this.name = name;
-        this.desc = desc;
+        this.description = description;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class ActivityCategory {
         return "ActivityCategory{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", desc='" + desc + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 
@@ -43,11 +43,11 @@ public class ActivityCategory {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDesc() {
-        return desc;
+    public String getdescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setdescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }

@@ -13,168 +13,129 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>黄宝康个人搭建的后台管理页面</title>
+    <title>demo</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <script src="/static/layui/layui.js"></script>
 </head>
-<body>
-<div class="layui-layout-admin">
-    <!--头部-->
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">Huang BaoKang</div>
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a href="javascript:void(0)">控制台</a></li>
-            <li class="layui-nav-item"><a href="javascript:;">商品管理</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其他系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">邮件管理</a></dd>
-                    <dd><a href="javascript:;">消息管理</a></dd>
-                    <dd><a href="javascript:;">授权管理</a></dd>
-                </dl>
-            </li>
-        </ul>
+        <div class="layui-logo">XXXX业务管理平台</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href=""><img src="http://m.zhengjinfan.cn/images/0.jpg" class="layui-nav-img">Huang BaoKang</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
-                </dl>
+                欢迎光临，商户001
             </li>
+            <li class="layui-nav-item"><a href="">安全退出</a></li>
         </ul>
     </div>
 
-    <!--左侧-->
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="treenav">
-                <li class="layui-nav-item"><a href="javascript:;" class="site-url" data-id="1" data-title="控制台" data-url="http://www.sohu.com">控制台</a></li>
-                <li class="layui-nav-item"><a href="javascript:;" class="site-url" data-title="组件" data-id="2" data-url="http://www.baidu.com">组件</a></li>
-                <li class="layui-nav-item"><a href="javascript:;" class="site-url" data-title="应用" data-id="3" data-url="http://news.qq.com">应用</a></li>
+            <!-- 左侧垂直导航区域-->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">设置</a>
+                    <a href="javascript:;" data-id="4" data-title="工作类别管理" data-url="/activityCategory/golist"
+                       class="site-demo-active" data-type="tabAdd">工作类别管理</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">工作类别</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" class="site-url" data-title="系统设置" data-id="4" data-url="http://www.sina.com.cn">系统设置</a></dd>
-                        <dd><a href="javascript:;" class="site-url" data-title="网站设置" data-id="5" data-url="http://www.163.com">网站设置</a></dd>
-                        <dd><a href="javascript:;" class="site-url" data-title="修改密码" data-id="6" data-url="http://www.tmall.com">修改密码</a></dd>
+                        <dd>
+                            <a href="javascript:;" data-id="1" data-title="管理员列表" data-url="index.php?&a=adminList"
+                               class="site-demo-active" data-type="tabAdd">管理员列表</a></dd>
+                        <dd><a href="javascript:;" data-id="2" data-title="管理员日志" data-url="index.php?&a=adminLogList"
+                               class="site-demo-active" data-type="tabAdd">管理员日志</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="javascript:;" class="site-url" data-title="社区" data-id="7" data-url="http://fly.layui.com/">社区</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">交易管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;" data-id="" data-id="3" data-title="存款列表"
+                               　data-url="index.php?&a=adminList" class="site-demo-active" data-type="tabAdd">存款列表</a>
+                        </dd>
+                        <dd><a href="javascript:;">代付列表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">系统管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">支付API设置</a></dd>
+                        <dd><a href="javascript:;">公告设置</a></dd>
+                        <dd><a href="javascript:;">控制台</a></dd>
+                    </dl>
+                </li>
             </ul>
-            <div class="layui-tab layui-tab-brief" lay-filter="contentnav" lay-allowClose="true" style="margin-left:200px;margin-top:0;">
-                <ul class="layui-tab-title">
-                    <li class="layui-this">首页</li>
-                </ul>
-                <ul class="layui-bg-green rightmenu" style="display: none;position: absolute;">
-                    <li data-type="closethis">关闭当前</li>
-                    <li data-type="closeall">关闭所有</li>
-                </ul>
-                <div class="layui-tab-content" style="padding:0;">
-                    <div class="layui-tab-item layui-show">首页内容...</div>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!--中间主体-->
-    <div class="layui-body" id="container">
-        <div class="layui-tab" lay-filter="tabs" lay-allowClose="true">
-            <ul class="layui-tab-title">
-                <li class="layui-this">首页</li>
-            </ul>
-            <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show">首页内容</div>
-            </div>
-        </div>
+    <!--tab标签-->
+    <div class="layui-tab" lay-filter="demo" lay-allowclose="true" style="margin-left: 200px;">
+        <ul class="layui-tab-title"></ul>
+        <div class="layui-tab-content"></div>
     </div>
 
-    <!--底部-->
-    <div class="layui-footer">
-        <center>黄宝康版权所有&copy;Tel:18679758769</center>
+    <div class="layui-footer" style="text-align:center;">
+        <!-- 底部固定区域 -->
+        © sunway.tk XXXX业务管理平台
     </div>
 </div>
-
-<script type="text/javascript">
-        layui.use('element', function(){
-            var element = layui.element;
-            var active={
-                tabAdd:function(url,id,name){
-                    element.tabAdd('contentnav',{
-                        title:name,
-                        content:'<iframe data-frameid="'+id+'" scrolling="auto" frameborder="0" src="'+url+'" style="width:100%;"></iframe>',
-                        id:id
-                    });
-                    rightMenu();
-                    iframeWH();
-                },
-                tabChange:function(id){
-                    element.tabChange('contentnav',id);
-                },
-                tabDelete:function(id){
-                    element.tabDelete('contentnav',id);
-                },
-                tabDeleteAll:function(ids){
-                    $.each(ids,function(index,item){
-                        element.tabDelete('contentnav',item);
-                    });
-                }
-            };
-            $(".site-url").on('click',function(){
-                var nav=$(this);
-                var length = $("ul.layui-tab-title li").length;
-                if(length<=0){
-                    active.tabAdd(nav.attr("data-url"),nav.attr("data-id"),nav.attr("data-title"));
-                }else{
-                    var isData=false;
-                    $.each($("ul.layui-tab-title li"),function(){
-                        if($(this).attr("lay-id")==nav.attr("data-id")){
-                            isData=true;
-                        }
-                    });
-                    if(isData==false){
-                        active.tabAdd(nav.attr("data-url"),nav.attr("data-id"),nav.attr("data-title"));
+<%--<script src="/js/layui/layui.js"></script>--%>
+<script>
+    <!--这里是放置js代码区域-->
+    layui.use(['element', 'layer', 'jquery'], function () {
+        var element = layui.element;
+        // var layer = layui.layer;
+        var $ = layui.$;
+        // 配置tab实践在下面无法获取到菜单元素
+        $('.site-demo-active').on('click', function () {
+            var dataid = $(this);
+            //这时会判断右侧.layui-tab-title属性下的有lay-id属性的li的数目，即已经打开的tab项数目
+            if ($(".layui-tab-title li[lay-id]").length <= 0) {
+                //如果比零小，则直接打开新的tab项
+                active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"), dataid.attr("data-title"));
+            } else {
+                //否则判断该tab项是否以及存在
+                var isData = false; //初始化一个标志，为false说明未打开该tab项 为true则说明已有
+                $.each($(".layui-tab-title li[lay-id]"), function () {
+                    //如果点击左侧菜单栏所传入的id 在右侧tab项中的lay-id属性可以找到，则说明该tab项已经打开
+                    if ($(this).attr("lay-id") == dataid.attr("data-id")) {
+                        isData = true;
                     }
-                    active.tabChange(nav.attr("data-id"));
+                })
+                if (isData == false) {
+                    //标志为false 新增一个tab项
+                    active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"), dataid.attr("data-title"));
                 }
-            });
-            function rightMenu(){
-                //右击弹出
-                $(".layui-tab-title li").on('contextmenu',function(e){
-                    var menu=$(".rightmenu");
-                    menu.find("li").attr('data-id',$(this).attr("lay-id"));
-                    l = e.clientX;
-                    t = e.clientY;
-                    menu.css({ left:l, top:t}).show();
-                    return false;
-                });
-                //左键点击隐藏
-                $("body,.layui-tab-title li").click(function(){
-                    $(".rightmenu").hide();
-                });
             }
-            $(".rightmenu li").click(function(){
-                if($(this).attr("data-type")=="closethis"){
-                    active.tabDelete($(this).attr("data-id"));
-                }else if($(this).attr("data-type")=="closeall"){
-                    var tabtitle = $(".layui-tab-title li");
-                    var ids = new Array();
-                    tabtitle.each(function(i){
-                        ids.push($(this).attr("lay-id"));
-                    });
-                    //如果关闭所有 ，即将所有的lay-id放进数组，执行tabDeleteAll
-                    active.tabDeleteAll(ids);
-                }
-                $('.rightmenu').hide(); //最后再隐藏右键菜单
-            });
-            function iframeWH(){
-                var H = $(window).height()-80;
-                $("iframe").css("height",H+"px");
-            }
-            $(window).resize(function(){
-                iframeWH();
-            });
+            //最后不管是否新增tab，最后都转到要打开的选项页面上
+            active.tabChange(dataid.attr("data-id"));
         });
+
+        var active = {
+            //在这里给active绑定几项事件，后面可通过active调用这些事件
+            tabAdd: function (url, id, name) {
+                //新增一个Tab项 传入三个参数，分别对应其标题，tab页面的地址，还有一个规定的id，是标签中data-id的属性值
+                //关于tabAdd的方法所传入的参数可看layui的开发文档中基础方法部分
+                element.tabAdd('demo', {
+                    title: name,
+                    content: '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '" style="width:100%;height:99%;"></iframe>',
+                    id: id //规定好的id
+                })
+                FrameWH();  //计算ifram层的大小
+            },
+            tabChange: function (id) {
+                //切换到指定Tab项
+                element.tabChange('demo', id); //根据传入的id传入到指定的tab项
+            },
+            tabDelete: function (id) {
+                element.tabDelete("demo", id);//删除
+            }
+        };
+        function FrameWH() {
+            var h = $(window).height();
+            $("iframe").css("height",h+"px");
+        }
+    });
 </script>
 </body>
 </html>

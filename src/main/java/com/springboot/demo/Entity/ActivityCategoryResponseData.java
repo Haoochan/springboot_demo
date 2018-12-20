@@ -40,4 +40,13 @@ public class ActivityCategoryResponseData {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "ActivityCategoryResponseData{" +
+                "code='" + code + '\'' +
+                ", msg='" + msg + '\'' +
+                ", count=" + count +
+                ", data=" + data +
+                '}';
+    }
 }

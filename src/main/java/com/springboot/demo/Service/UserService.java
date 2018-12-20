@@ -11,6 +11,4 @@ public interface UserService {
     int register(User user);
 
     int userInfoUpdate(User user);
-
-
 }

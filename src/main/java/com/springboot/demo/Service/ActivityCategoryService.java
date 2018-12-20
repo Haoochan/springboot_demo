@@ -12,4 +12,5 @@ public interface ActivityCategoryService {
 
     int add(ActivityCategory activityCategory);
 
+    int delete(int id);
 }

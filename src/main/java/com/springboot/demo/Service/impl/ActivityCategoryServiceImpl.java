@@ -29,4 +29,9 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
     public int add(ActivityCategory activityCategory) {
         return this.activityCategoryMapper.insert(activityCategory);
     }
+
+    @Override
+    public int delete(int id) {
+        return this.activityCategoryMapper.deleteByPrimaryKey(id);
+    }
 }
