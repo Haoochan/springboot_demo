@@ -15,9 +15,9 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
     private ActivityCategoryMapper activityCategoryMapper;
 
     @Override
-    public List<ActivityCategory> getAllActivityCategory() {
+    public List<ActivityCategory> getAllActivityCategory(int before,int after) {
 
-        return this.activityCategoryMapper.getAllActivityCategory();
+        return this.activityCategoryMapper.getAllActivityCategory(before,after);
     }
 
     @Override

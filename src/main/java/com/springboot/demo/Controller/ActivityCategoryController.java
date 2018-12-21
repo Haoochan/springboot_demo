@@ -26,14 +26,16 @@ public class ActivityCategoryController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public ActivityCategoryResponseData activityCategoryList(){
+    public ActivityCategoryResponseData activityCategoryList(@RequestParam("page")int page,@RequestParam("limit") int limit){
+        int before = limit*(page-1);
+        int after = page*limit;
         int totalCount = this.activityCategoryService.getTotalCount();
         ActivityCategoryResponseData activityCategoryResponseData = new ActivityCategoryResponseData();
         activityCategoryResponseData.setCode("0");
         activityCategoryResponseData.setMsg("");
         activityCategoryResponseData.setCount(totalCount);
 
-        List<ActivityCategory> list = this.activityCategoryService.getAllActivityCategory();
+        List<ActivityCategory> list = this.activityCategoryService.getAllActivityCategory(before,after);
         activityCategoryResponseData.setData(list);
 
 
@@ -67,7 +69,6 @@ public class ActivityCategoryController {
 
     @RequestMapping("/goEdit")
     public String goEdit(@RequestParam("id") int id,Model model){
-//        System.out.println("111111111"+id);
         ActivityCategory activityCategory = this.activityCategoryService.getActivityCategoryById(id);
         model.addAttribute("activityCategory",activityCategory);
         return "/WEB-INF/jsp/activityCategory/activityCategoryEdit.jsp";
@@ -75,16 +76,21 @@ public class ActivityCategoryController {
 
     @ResponseBody
     @RequestMapping("/edit")
-    public String edit(HttpServletRequest request){
-        System.out.println("进来了");
+    public void edit(HttpServletRequest request){
         int id = Integer.parseInt(request.getParameter("id"));
         System.out.println(id);
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         ActivityCategory activityCategory = new ActivityCategory(id,name,description);
         this.activityCategoryService.update(activityCategory);
+    }
 
-        return "ok";
+    @RequestMapping("/goShow")
+    public String goShow(@RequestParam("id") int id,Model model){
+        ActivityCategory activityCategory = this.activityCategoryService.getActivityCategoryById(id);
+        model.addAttribute("activityCategory",activityCategory);
+
+        return "/WEB-INF/jsp/activityCategory/activityCategoryShow.jsp";
     }
 
 }

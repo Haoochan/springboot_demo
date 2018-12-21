@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ActivityCategoryService {
 
-    List<ActivityCategory> getAllActivityCategory();
+    List<ActivityCategory> getAllActivityCategory(int before,int after);
 
     ActivityCategory getActivityCategoryById(int id);
 

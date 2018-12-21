@@ -1,6 +1,7 @@
 package com.springboot.demo.Dao;
 
 import com.springboot.demo.Entity.ActivityCategory;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface ActivityCategoryMapper {
 
     int updateByPrimaryKey(ActivityCategory record);
 
-    List<ActivityCategory> getAllActivityCategory();
+    List<ActivityCategory> getAllActivityCategory(@Param("before") int before, @Param("after") int after);
 
     int getTotalCount();
 }

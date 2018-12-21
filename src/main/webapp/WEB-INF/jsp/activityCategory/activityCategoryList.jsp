@@ -21,15 +21,15 @@
     <i class="layui-icon">&#xe608;</i> 添加
 </button>
 
-<table class="layui-table" lay-data="{height: 'full', cellMinWidth: 80, url:'/activityCategory/list', page:true, id:'idTest'}" lay-filter="demo">
+<table class="layui-table" lay-data="{height: 'full', cellMinWidth: 80, url:'/activityCategory/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <th lay-data="{title: '序号', width:80, templet: '#indexTpl'}">序号</th>
+        <th lay-data="{title: '序号', width:80, templet: '#indexTpl' t'}">序号</th>
         <%--ID不显示 照样可以获取--%>
         <%--<th lay-data="{field:'id', width:80, sort: true, fixed: true}">ID</th>--%>
-        <th lay-data="{field:'name', width:80}">名称</th>
-        <th lay-data="{field:'description', width:180}">描述</th>
+        <th lay-data="{field:'name', width:200}">名称</th>
+        <th lay-data="{field:'description', width:300}">描述</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
     </tr>
     </thead>
@@ -46,32 +46,6 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-<%--<form class="layui-form" action="/activityCategory/edit" id="form1" name="form1" style="display: none;" method="post">--%>
-    <%--<div class="layui-form-item"  style="display:none">--%>
-        <%--<label class="layui-form-label">id</label>--%>
-        <%--<div class="layui-input-inline">--%>
-            <%--<input type="text" name="id" id="id" lay-verify="required" readonly="readonly" autocomplete="off" class="layui-input">--%>
-        <%--</div>--%>
-    <%--</div>--%>
-
-    <%--<div class="layui-form-item">--%>
-        <%--<label for="name" class="layui-form-label">--%>
-            <%--<span class="we-red">*</span>类别名称--%>
-        <%--</label>--%>
-        <%--<div class="layui-input-inline">--%>
-            <%--<input type="text" id="name" name="name" lay-verify="required" autocomplete="off" class="layui-input">--%>
-        <%--</div>--%>
-    <%--</div>--%>
-    <%--<div class="layui-form-item">--%>
-        <%--<label for="description" class="layui-form-label">描述</label>--%>
-        <%--<div class="layui-input-inline">--%>
-            <%--<input type="text" id="description" name="description" lay-verify="required" autocomplete="off" class="layui-input">--%>
-        <%--</div>--%>
-    <%--</div>--%>
-    <%--<div class="layui-form-item">--%>
-        <%--<button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>--%>
-    <%--</div>--%>
-<%--</form>--%>
 
 <script src="../../../static/layui/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
@@ -87,33 +61,25 @@
             content: '/activityCategory/goAdd'  //调到新增页面
         });
     }
-    //编辑修改方法
-    // function  EidtUv(data,obj) {
-    //     $("#id").val(data.id);
-    //     $("#name").val(data.name);
-    //     $("#description").val(data.description);
-    //     $("#status").find("option[value = '"+data.status+"']").attr("selected","selected");
-    //
-    //     layer.open({
-    //         title:'修改类别',
-    //         type:2,
-    //         area:['400px','400px'],
-    //         content:'/activityCategory/goEdit'
-    //     });
-    // }
-
-    function  EidtUv(data) {
+    function  edit(data) {
         console.log(data);
-        // $.ajax({
-        //     url: "/activityCategory/edit",
-        //     type: "POST",
-        //     data: {"id": data.id}
-        // });
         var index = layui.layer.open({
             title : "编辑用户",
             type : 2,
+            closeBtn: 2,         //是否显示关闭按钮
             area: ['500px', '560px'],
             content : "/activityCategory/goEdit?id="+data.id//弹出层页面
+        })
+    }
+
+    function show(data) {
+        console.log(data);
+        var index = layui.layer.open({
+            title : "查看用户",
+            type : 2,
+            closeBtn: 2,         //是否显示关闭按钮
+            area: ['500px', '560px'],
+            content : "/activityCategory/goShow?id="+data.id//弹出层页面
         })
     }
 
@@ -130,7 +96,8 @@
         table.on('tool(demo)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-                layer.msg('ID：'+ data.id + ' 的查看操作');
+            //     layer.msg('ID：'+ data.id + ' 的查看操作');
+            show(data);
             } else if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     console.log(data);
@@ -193,7 +160,7 @@
             } else if(obj.event === 'edit'){
                 //这里一般是发送修改的Ajax请求
                 // EidtUv(data,index,obj);
-                EidtUv(data);
+                edit(data);
             }
         });
 

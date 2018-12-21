@@ -69,10 +69,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getAllActivityCategory"  resultMap="BaseResultMap">
+  <select id="getAllActivityCategory"   resultMap="BaseResultMap">
     select
     *
     from activity_category
+    limit #{before},#{after}
   </select>
 
   <select id="getTotalCount"  resultType="java.lang.Integer">

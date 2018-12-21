@@ -21,7 +21,7 @@
     <![endif]-->
 </head>
 <body>
-<form class="layui-form" action="/activityCategory/edit" id="form1" name="form1"  method="post">
+<form class="layui-form" action="" id="form1" name="form1"  method="post">
     <div class="layui-form-item" >
         <label class="layui-form-label">id</label>
         <div class="layui-input-inline">
@@ -52,7 +52,7 @@
 <script>
     // 关闭弹窗 刷新列表
     function reload() {
-        window.parent.location.reload();
+        // window.parent.location.reload();
         var index = parent.layer.getFrameIndex(window.name);
         parent.layer.close(index);
     }
