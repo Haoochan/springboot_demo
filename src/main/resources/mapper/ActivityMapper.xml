@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.demo.Dao.ActivityMapper">
+  <resultMap id="BaseResultMap" type="com.springboot.demo.Entity.Activity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="topic" jdbcType="VARCHAR" property="topic" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="createby_id" jdbcType="INTEGER" property="createbyId" />
+    <result column="time" jdbcType="DATE" property="time" />
+    <result column="semester" jdbcType="INTEGER" property="semester" />
+    <result column="schoolyear" jdbcType="VARCHAR" property="schoolyear" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.springboot.demo.Entity.Activity">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, topic, img, category_id, createby_id, time, semester, schoolyear, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from activity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from activity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springboot.demo.Entity.Activity">
+    insert into activity (id, topic, img, 
+      category_id, createby_id, time, 
+      semester, schoolyear, create_time, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{topic,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
+      #{categoryId,jdbcType=INTEGER}, #{createbyId,jdbcType=INTEGER}, #{time,jdbcType=DATE}, 
+      #{semester,jdbcType=INTEGER}, #{schoolyear,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.springboot.demo.Entity.Activity">
+    insert into activity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="topic != null">
+        topic,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="createbyId != null">
+        createby_id,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="semester != null">
+        semester,
+      </if>
+      <if test="schoolyear != null">
+        schoolyear,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="topic != null">
+        #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="createbyId != null">
+        #{createbyId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="semester != null">
+        #{semester,jdbcType=INTEGER},
+      </if>
+      <if test="schoolyear != null">
+        #{schoolyear,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.demo.Entity.Activity">
+    update activity
+    <set>
+      <if test="topic != null">
+        topic = #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="createbyId != null">
+        createby_id = #{createbyId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="semester != null">
+        semester = #{semester,jdbcType=INTEGER},
+      </if>
+      <if test="schoolyear != null">
+        schoolyear = #{schoolyear,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.springboot.demo.Entity.Activity">
+    update activity
+    set topic = #{topic,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      createby_id = #{createbyId,jdbcType=INTEGER},
+      time = #{time,jdbcType=DATE},
+      semester = #{semester,jdbcType=INTEGER},
+      schoolyear = #{schoolyear,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springboot.demo.Entity.Activity">
+    update activity
+    set topic = #{topic,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      createby_id = #{createbyId,jdbcType=INTEGER},
+      time = #{time,jdbcType=DATE},
+      semester = #{semester,jdbcType=INTEGER},
+      schoolyear = #{schoolyear,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
