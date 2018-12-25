@@ -2,7 +2,7 @@ package com.springboot.demo.Controller;
 
 
 import com.springboot.demo.Entity.ActivityCategory;
-import com.springboot.demo.Entity.ActivityCategoryResponseData;
+import com.springboot.demo.Entity.LayuiResponseDataUtil;
 import com.springboot.demo.Service.ActivityCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,11 +27,11 @@ public class ActivityCategoryController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public ActivityCategoryResponseData activityCategoryList(@RequestParam("page")int page,@RequestParam("limit") int pageSize){
+    public LayuiResponseDataUtil activityCategoryList(@RequestParam("page")int page,@RequestParam("limit") int pageSize){
 //        pageSize 前端设置10
         int before = pageSize*(page-1);
         int totalCount = this.activityCategoryService.getTotalCount();
-        ActivityCategoryResponseData activityCategoryResponseData = new ActivityCategoryResponseData();
+        LayuiResponseDataUtil activityCategoryResponseData = new LayuiResponseDataUtil();
         activityCategoryResponseData.setCode("0");
         activityCategoryResponseData.setMsg("");
         activityCategoryResponseData.setCount(totalCount);

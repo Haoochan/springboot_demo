@@ -2,11 +2,11 @@ package com.springboot.demo.Entity;
 
 import java.util.List;
 
-public class ActivityCategoryResponseData {
+public class LayuiResponseDataUtil {
     private String code;
     private String msg;
     private int count;
-    private List<ActivityCategory> data;
+    private List<?> data;
 
     public String getCode() {
         return code;
@@ -32,17 +32,17 @@ public class ActivityCategoryResponseData {
         this.count = count;
     }
 
-    public List<ActivityCategory> getData() {
+    public List<?> getData() {
         return data;
     }
 
-    public void setData(List<ActivityCategory> data) {
+    public void setData(List<?> data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
-        return "ActivityCategoryResponseData{" +
+        return "LayuiResponseDataUtil{" +
                 "code='" + code + '\'' +
                 ", msg='" + msg + '\'' +
                 ", count=" + count +

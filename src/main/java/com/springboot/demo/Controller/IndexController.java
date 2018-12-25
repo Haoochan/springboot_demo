@@ -15,7 +15,7 @@ public class IndexController {
 
     @RequestMapping("/user/index")
     public String toIndex(){
-        return "/index.jsp";
+        return "/login.jsp";
     }
 
     @RequestMapping("/register")

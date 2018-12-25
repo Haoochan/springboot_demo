@@ -16,10 +16,10 @@
 </head>
 <body>
 <form class="layui-form layui-form-pane" action="">
-    <div class="layui-form-item" >
+    <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">ID</label>
         <div class="layui-input-block">
-            <input type="text" name="ID" value="${user.id}" class="layui-input" readonly>
+            <input type="text" name="id" value="${user.id}" class="layui-input" readonly>
         </div>
     </div>
     <div class="layui-form-item">

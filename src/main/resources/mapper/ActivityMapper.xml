@@ -168,4 +168,21 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getAllActivity"  resultMap="ResultMapWithBLOBs">
+    select
+      a.id as id,
+      a.topic as topic,
+      ac.name as category,
+      u.`name` as creator,
+      u.role as creatorRole,
+      a.time as time,
+      a.schoolyear as schoolyear,
+      a.semester as semester
+    from activity as a
+         LEFT JOIN activity_category as ac on ac.id=a.category_id
+         LEFT JOIN `user` as u on u.id = a.createby_id
+    limit #{before},#{after}
+  </select>
+
 </mapper>

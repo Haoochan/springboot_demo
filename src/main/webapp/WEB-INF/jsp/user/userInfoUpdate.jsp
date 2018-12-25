@@ -17,68 +17,81 @@
 </head>
 <body>
 <script src="/static/js/CheckInput.js"></script>
-<form class="layui-form layui-form-pane" action="/user/userInfoUpdate">
-    <div class="layui-form-item" >
+<form class="layui-form layui-form-pane" action="/user/userInfoUpdate" method="post">
+    <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">ID</label>
         <div class="layui-input-block">
-            <input type="text" name="ID" value="${user.id}" class="layui-input" >
+            <input type="text"  name="id" value="${user.id}" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">登录用户名</label>
         <div class="layui-input-block">
-            <input type="text" name="username" value="${user.username}" class="layui-input" >
+            <input type="text"  name="username" value="${user.username}" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
         <div class="layui-input-block">
-            <input type="text" name="password" value="${user.password}" class="layui-input" >
+            <input type="text"  name="password" value="${user.password}" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">姓名</label>
         <div class="layui-input-block">
-            <input type="text" name="name" value="${user.name}" class="layui-input" >
+            <input type="text"  name="name" value="${user.name}" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">角色</label>
         <div class="layui-input-block">
-            <input type="text" name="role" value="${user.role}" class="layui-input" >
+            <input type="text"  name="role" value="${user.role}" class="layui-input" readonly >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="sex" value="男" title="男" <c:if test="${user.sex=='男' }">checked="checked"</c:if>>
-            <input type="radio" name="sex" value="女" title="女" <c:if test="${user.sex=='女' }">checked="checked"</c:if>>
+            <input type="radio"  name="sex" value="男" title="男" <c:if test="${user.sex=='男' }">checked="checked"</c:if>>
+            <input type="radio"  name="sex" value="女" title="女" <c:if test="${user.sex=='女' }">checked="checked"</c:if>>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">电话号码</label>
         <div class="layui-input-block">
-            <input type="text" name="phone" value="${user.phone}" class="layui-input" >
+            <input type="text"  name="phone" value="${user.phone}" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">邮箱</label>
         <div class="layui-input-block">
-            <input type="text" name="email" value="${user.email}" class="layui-input" >
+            <input type="text"  name="email" value="${user.email}" class="layui-input" >
         </div>
+    </div>
+    </div>
+    <div class="layui-form-item">
+        <button class="layui-btn" lay-filter="add" lay-submit="">确定</button>
     </div>
 </form>
 
+
 <script>
+    // 关闭弹窗 刷新列表
+    function reload() {
+        // window.parent.location.reload();
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
     //Demo
     layui.use('form', function(){
         var form = layui.form;
         form.render();
         //监听提交
-        // form.on('submit(formDemo)', function(data){
-        //     layer.msg(JSON.stringify(data.field));
-        //     return false;
-        // });
+        form.on('submit(add)', function(data){
+            console.log(data)
+            // layer.msg(JSON.stringify(data.field));
+            // return false;
+        });
     });
 </script>
 

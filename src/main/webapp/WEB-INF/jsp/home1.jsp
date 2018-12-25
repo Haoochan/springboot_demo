@@ -45,6 +45,10 @@
                        class="site-demo-active" data-type="tabAdd">工作类别管理</a>
                 </li>
                 <li class="layui-nav-item">
+                    <a href="javascript:;" data-id="5" data-title="工作管理" data-url="/activity/golist"
+                       class="site-demo-active" data-type="tabAdd">工作管理</a>
+                </li>
+                <li class="layui-nav-item">
                     <a class="" href="javascript:;">工作类别</a>
                     <dl class="layui-nav-child">
                         <dd>
@@ -108,7 +112,7 @@
                     if ($(this).attr("lay-id") == dataid.attr("data-id")) {
                         isData = true;
                     }
-                })
+                });
                 if (isData == false) {
                     //标志为false 新增一个tab项
                     active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"), dataid.attr("data-title"));
