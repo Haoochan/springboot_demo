@@ -21,13 +21,12 @@
     <i class="layui-icon">&#xe608;</i> 添加
 </button>
 
-<table class="layui-table" lay-data="{height: 'full', cellMinWidth: 80, url:'/activityCategory/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
+<table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/activityCategory/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <th lay-data="{title: '序号', width:80, templet: '#indexTpl' t'}">序号</th>
-        <%--ID不显示 照样可以获取--%>
         <%--<th lay-data="{field:'id', width:80, sort: true, fixed: true}">ID</th>--%>
+        <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
         <th lay-data="{field:'name', width:200}">名称</th>
         <th lay-data="{field:'description', width:300}">描述</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
@@ -35,10 +34,6 @@
     </thead>
 </table>
 
-<%--显示序号--%>
-<script type="text/html" id="indexTpl">
-    {{d.LAY_TABLE_INDEX+1}}
-</script>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -96,7 +91,6 @@
         table.on('tool(demo)', function(obj){
             var data = obj.data;
             if(obj.event === 'detail'){
-            //     layer.msg('ID：'+ data.id + ' 的查看操作');
             show(data);
             } else if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
@@ -107,7 +101,6 @@
                         data:{"id":data.id},
                         // dataType: "json",
                         success: function(data){
-
                             if(data=="ok"){
                                 //前端页面删除这一行 有下面提示出来的
                                 obj.del();
@@ -124,42 +117,8 @@
 
                     });
                 });
-//                 var id = $(this).attr("id");
-//                 layer.alert('您确定要删除操作吗?', {
-//                     skin: 'layui-layer-molv' //样式类名 自定义样式
-//                     , closeBtn: 1 // 是否显示关闭按钮
-//                     , anim: 1 //动画类型
-//                     , btn: ['确定', '取消'] //按钮
-//                     , icon: 6 // icon
-//                     , yes: function () {
-// //layer.msg('确定')
-//                         $.ajax({
-//                             type: "POST",
-//                             url: "/activityCategory/delete",
-//                             data: { id: data.id },
-//                             success: function (Data) {
-//                                 console.log(data);
-//                                 if (Data == "ok") {
-//                                     layer.msg("删除成功", {icon: 6});
-//                                     location.reload();
-//                                 }
-//                                 else {
-//                                     layer.msg('删除失败')
-//                                 }
-//                             },
-//                             error: function () {
-//                                 alert("出现错误");
-//                                 return false;
-//                             }
-//                         }) //ajax结束
-//                     }
-//                     , btn2: function () {
-//                         layer.msg('取消')
-//                     }
-//                 });
             } else if(obj.event === 'edit'){
                 //这里一般是发送修改的Ajax请求
-                // EidtUv(data,index,obj);
                 edit(data);
             }
         });

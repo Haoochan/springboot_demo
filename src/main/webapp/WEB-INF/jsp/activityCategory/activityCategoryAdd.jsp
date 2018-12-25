@@ -14,6 +14,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+    <script src="../../../static/jquery-1.10.2.js"></script>
+    <script src="../../../static/layui/layui.all.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -22,6 +24,7 @@
 </head>
 <body>
     <form class="layui-form" action="/activityCategory/add">
+    <%--<form class="layui-form">--%>
 
         <div class="layui-form-item">
             <label for="name" class="layui-form-label">
@@ -39,6 +42,7 @@
         </div>
         <div class="layui-form-item">
             <button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>
+                <%--<button class="layui-btn" lay-filter="add" lay-submit="" >确定</button>--%>
         </div>
     </form>
 
@@ -49,6 +53,27 @@
         var index = parent.layer.getFrameIndex(window.name);
         parent.layer.close(index);
     }
+
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        // form.on('submit(add)', function(data){
+        //     console.log(JSON.stringify(data.field));
+        //     var Data = JSON.stringify(data.field);
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "/activityCategory/add",
+        //         data: Data,
+        //         dataType: "json",
+        //         contentType:"application/json",
+        //         success: function(){
+        //                 //还没有实现关闭。。。。
+        //         }
+        //     });
+        //     // return false;
+        // });
+    });
 </script>
 </body>
 

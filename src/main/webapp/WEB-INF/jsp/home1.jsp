@@ -23,7 +23,14 @@
         <div class="layui-logo">XXXX业务管理平台</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                欢迎光临，商户001
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    ${user.username}
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a onclick="goUserInfo()">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
             </li>
             <li class="layui-nav-item"><a href="">安全退出</a></li>
         </ul>
@@ -136,6 +143,17 @@
             $("iframe").css("height",h+"px");
         }
     });
+    
+    <!--跳转方法-->
+    function goUserInfo() {
+        layer.open({
+            type: 2,
+            title: '基本资料',
+            skin: 'layui-layer-rim', //加上边框
+            area: ['500px', '500px'], //宽高
+            content: '/user/userInfo'  //调到新增页面
+        });
+    }
 </script>
 </body>
 </html>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("activityCategory")
@@ -26,16 +27,16 @@ public class ActivityCategoryController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public ActivityCategoryResponseData activityCategoryList(@RequestParam("page")int page,@RequestParam("limit") int limit){
-        int before = limit*(page-1);
-        int after = page*limit;
+    public ActivityCategoryResponseData activityCategoryList(@RequestParam("page")int page,@RequestParam("limit") int pageSize){
+//        pageSize 前端设置10
+        int before = pageSize*(page-1);
         int totalCount = this.activityCategoryService.getTotalCount();
         ActivityCategoryResponseData activityCategoryResponseData = new ActivityCategoryResponseData();
         activityCategoryResponseData.setCode("0");
         activityCategoryResponseData.setMsg("");
         activityCategoryResponseData.setCount(totalCount);
 
-        List<ActivityCategory> list = this.activityCategoryService.getAllActivityCategory(before,after);
+        List<ActivityCategory> list = this.activityCategoryService.getAllActivityCategory(before,pageSize);
         activityCategoryResponseData.setData(list);
 
 
@@ -50,13 +51,23 @@ public class ActivityCategoryController {
 
     @RequestMapping("/add")
     public String add(HttpServletRequest request){
-
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         ActivityCategory activityCategory = new ActivityCategory(name,description);
         this.activityCategoryService.add(activityCategory);
         return goList();
     }
+//    @ResponseBody
+//    @RequestMapping(value = "/add",method =RequestMethod.POST)
+//    public String add(@RequestBody Map<String, String> map){
+//        System.out.println("进来了");
+//        System.out.println(map.toString());
+//        String name = map.get("name");
+//        String description = map.get("description");
+//        ActivityCategory activityCategory = new ActivityCategory(name,description);
+//        this.activityCategoryService.add(activityCategory);
+//        return "ok";
+//    }
 
     @ResponseBody
     @RequestMapping("/delete")

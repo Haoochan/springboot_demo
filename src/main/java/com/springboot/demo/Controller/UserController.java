@@ -66,14 +66,14 @@ public class UserController {
     public String userInfo(HttpServletRequest request,Model model){
         User user = (User) request.getSession().getAttribute("loginUser");
         model.addAttribute("user",user);
-        return "/WEB-INF/jsp/userInfo.jsp";
+        return "/WEB-INF/jsp/user/userInfo.jsp";
     }
 
     @RequestMapping("/goUserInfoUpdate")
     public String goUserInfoUpdate(HttpServletRequest request,Model model){
         User user = (User) request.getSession().getAttribute("loginUser");
         model.addAttribute("user",user);
-        return "/WEB-INF/jsp/userInfoUpdate.jsp";
+        return "/WEB-INF/jsp/user/userInfoUpdate.jsp";
     }
 
     @RequestMapping("/userInfoUpdate")
@@ -89,7 +89,7 @@ public class UserController {
             User user = new User(id,username,password,role,name,sex,phone,email);
             this.userService.userInfoUpdate(user);
             model.addAttribute("user",user);
-            return "/WEB-INF/jsp/userInfo.jsp";
+            return "/WEB-INF/jsp/user/userInfo.jsp";
         }
 
 
