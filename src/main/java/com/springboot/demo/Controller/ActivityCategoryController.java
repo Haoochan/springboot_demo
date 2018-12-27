@@ -57,6 +57,8 @@ public class ActivityCategoryController {
         this.activityCategoryService.add(activityCategory);
         return goList();
     }
+
+    //接收前端AJAX
 //    @ResponseBody
 //    @RequestMapping(value = "/add",method =RequestMethod.POST)
 //    public String add(@RequestBody Map<String, String> map){

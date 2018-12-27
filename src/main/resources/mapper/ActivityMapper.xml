@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.springboot.demo.Entity.Activity">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="topic" jdbcType="VARCHAR" property="topic" />
-    <result column="img" jdbcType="VARCHAR" property="img" />
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="createby_id" jdbcType="INTEGER" property="createbyId" />
     <result column="time" jdbcType="DATE" property="time" />
@@ -16,7 +15,7 @@
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, topic, img, category_id, createby_id, time, semester, schoolyear, create_time
+    id, topic, category_id, createby_id, time, semester, schoolyear, create_time
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -34,11 +33,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.springboot.demo.Entity.Activity">
-    insert into activity (id, topic, img, 
+    insert into activity (id, topic,
       category_id, createby_id, time, 
       semester, schoolyear, create_time, 
       content)
-    values (#{id,jdbcType=INTEGER}, #{topic,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{topic,jdbcType=VARCHAR},
       #{categoryId,jdbcType=INTEGER}, #{createbyId,jdbcType=INTEGER}, #{time,jdbcType=DATE}, 
       #{semester,jdbcType=INTEGER}, #{schoolyear,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{content,jdbcType=LONGVARCHAR})
@@ -51,9 +50,6 @@
       </if>
       <if test="topic != null">
         topic,
-      </if>
-      <if test="img != null">
-        img,
       </if>
       <if test="categoryId != null">
         category_id,
@@ -84,9 +80,6 @@
       <if test="topic != null">
         #{topic,jdbcType=VARCHAR},
       </if>
-      <if test="img != null">
-        #{img,jdbcType=VARCHAR},
-      </if>
       <if test="categoryId != null">
         #{categoryId,jdbcType=INTEGER},
       </if>
@@ -116,9 +109,6 @@
       <if test="topic != null">
         topic = #{topic,jdbcType=VARCHAR},
       </if>
-      <if test="img != null">
-        img = #{img,jdbcType=VARCHAR},
-      </if>
       <if test="categoryId != null">
         category_id = #{categoryId,jdbcType=INTEGER},
       </if>
@@ -146,7 +136,6 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.springboot.demo.Entity.Activity">
     update activity
     set topic = #{topic,jdbcType=VARCHAR},
-      img = #{img,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       createby_id = #{createbyId,jdbcType=INTEGER},
       time = #{time,jdbcType=DATE},
@@ -159,7 +148,6 @@
   <update id="updateByPrimaryKey" parameterType="com.springboot.demo.Entity.Activity">
     update activity
     set topic = #{topic,jdbcType=VARCHAR},
-      img = #{img,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       createby_id = #{createbyId,jdbcType=INTEGER},
       time = #{time,jdbcType=DATE},
@@ -184,5 +172,24 @@
          LEFT JOIN `user` as u on u.id = a.createby_id
     limit #{before},#{after}
   </select>
+
+    <select id="getActivityById"  resultMap="ResultMapWithBLOBs">
+        SELECT
+            a.id as id,
+            a.topic as topic,
+            a.content as content,
+            ac.`name` as category,
+            u.`name` as creator,
+            u.role as creatorRole,
+            a.time as time,
+            a.semester as semester,
+            a.schoolyear as schoolyear,
+            a.create_time
+        FROM
+            activity a
+            left JOIN activity_category ac on a.category_id=ac.id
+            left JOIN `user` u on a.createby_id=u.id
+        where a.id = #{id,jdbcType=INTEGER}
+    </select>
 
 </mapper>

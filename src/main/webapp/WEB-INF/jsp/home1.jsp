@@ -36,6 +36,7 @@
         </ul>
     </div>
 
+    <%--左侧菜单栏--%>
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
             <!-- 左侧垂直导航区域-->
@@ -47,6 +48,10 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;" data-id="5" data-title="工作管理" data-url="/activity/golist"
                        class="site-demo-active" data-type="tabAdd">工作管理</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" data-id="6" data-title="图片上传" data-url="/activity/golist"
+                       class="site-demo-active" data-type="tabAdd">图片上传</a>
                 </li>
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">工作类别</a>
@@ -79,7 +84,7 @@
         </div>
     </div>
 
-    <!--tab标签-->
+    <!--右部tab标签-->
     <div class="layui-tab" lay-filter="demo" lay-allowclose="true" style="margin-left: 200px;">
         <ul class="layui-tab-title"></ul>
         <div class="layui-tab-content"></div>
@@ -143,7 +148,8 @@
             }
         };
         function FrameWH() {
-            var h = $(window).height();
+            // -150 否则会被遮挡
+            var h = $(window).height()-150;
             $("iframe").css("height",h+"px");
         }
     });

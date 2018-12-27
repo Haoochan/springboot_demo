@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2018-12-24 19:21:39
+Date: 2018-12-27 19:07:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,7 +23,6 @@ CREATE TABLE `activity` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `topic` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
-  `img` varchar(255) DEFAULT NULL,
   `category_id` int(11) NOT NULL,
   `createby_id` int(11) NOT NULL,
   `time` date NOT NULL,
@@ -40,8 +39,8 @@ CREATE TABLE `activity` (
 -- ----------------------------
 -- Records of activity
 -- ----------------------------
-INSERT INTO `activity` VALUES ('1', '参加会议', '参加班主任工作会议', null, '1', '2', '2018-12-24', '1', '2018-2019', '2018-12-24 14:35:32');
-INSERT INTO `activity` VALUES ('2', '参加助班会议', '参加助班工作会议', null, '1', '1', '2018-12-24', '1', '2018-2019', '2018-12-24 14:38:00');
+INSERT INTO `activity` VALUES ('1', '参加会议', '参加班主任工作会议', '1', '2', '2018-12-24', '1', '2018-2019', '2018-12-24 14:35:32');
+INSERT INTO `activity` VALUES ('2', '参加助班会议', '参加助班工作会议', '1', '1', '2018-12-24', '1', '2018-2019', '2018-12-24 14:38:00');
 
 -- ----------------------------
 -- Table structure for `activity_category`
@@ -69,6 +68,26 @@ INSERT INTO `activity_category` VALUES ('19', '测试', '');
 INSERT INTO `activity_category` VALUES ('20', '测试', '');
 INSERT INTO `activity_category` VALUES ('21', '测试', '');
 INSERT INTO `activity_category` VALUES ('22', '测试', '');
+
+-- ----------------------------
+-- Table structure for `activity_image`
+-- ----------------------------
+DROP TABLE IF EXISTS `activity_image`;
+CREATE TABLE `activity_image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `old_file_name` varchar(255) NOT NULL,
+  `new_file_name` varchar(255) NOT NULL,
+  `path` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `activity_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `activity_id` (`activity_id`),
+  CONSTRAINT `activity_id` FOREIGN KEY (`activity_id`) REFERENCES `activity` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of activity_image
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `user`

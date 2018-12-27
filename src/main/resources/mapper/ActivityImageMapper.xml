@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.demo.Dao.ActivityImageMapper">
+  <resultMap id="BaseResultMap" type="com.springboot.demo.Entity.ActivityImage">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="old_file_name" jdbcType="VARCHAR" property="oldFileName" />
+    <result column="new_file_name" jdbcType="VARCHAR" property="newFileName" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="date" jdbcType="DATE" property="date" />
+    <result column="activity_id" jdbcType="INTEGER" property="activityId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, old_file_name, new_file_name, path, date, activity_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from activity_image
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from activity_image
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.springboot.demo.Entity.ActivityImage">
+    insert into activity_image (id, old_file_name, new_file_name, 
+      path, date, activity_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{oldFileName,jdbcType=VARCHAR}, #{newFileName,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, #{activityId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.springboot.demo.Entity.ActivityImage">
+    insert into activity_image
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="oldFileName != null">
+        old_file_name,
+      </if>
+      <if test="newFileName != null">
+        new_file_name,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="date != null">
+        date,
+      </if>
+      <if test="activityId != null">
+        activity_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="oldFileName != null">
+        #{oldFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="newFileName != null">
+        #{newFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="activityId != null">
+        #{activityId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.springboot.demo.Entity.ActivityImage">
+    update activity_image
+    <set>
+      <if test="oldFileName != null">
+        old_file_name = #{oldFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="newFileName != null">
+        new_file_name = #{newFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="activityId != null">
+        activity_id = #{activityId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.springboot.demo.Entity.ActivityImage">
+    update activity_image
+    set old_file_name = #{oldFileName,jdbcType=VARCHAR},
+      new_file_name = #{newFileName,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE},
+      activity_id = #{activityId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

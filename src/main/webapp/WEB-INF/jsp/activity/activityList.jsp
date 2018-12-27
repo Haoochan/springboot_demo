@@ -78,8 +78,8 @@
             title : "查看用户",
             type : 2,
             closeBtn: 2,         //是否显示关闭按钮
-            area: ['1000px', '560px'],
-            content : "/activityCategory/goShow?id="+data.id//弹出层页面
+            area: ['90%', '90%'],
+            content : "/activity/goShow?id="+data.id//弹出层页面
         })
     }
 

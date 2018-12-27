@@ -23,7 +23,7 @@
     <![endif]-->
 </head>
 <body>
-    <form class="layui-form" action="/activityCategory/add">
+    <form class="layui-form layui-form-pane" action="/activityCategory/add">
     <%--<form class="layui-form">--%>
 
         <div class="layui-form-item">
