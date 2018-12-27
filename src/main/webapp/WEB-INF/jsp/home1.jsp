@@ -131,7 +131,7 @@
                     title: name,
                     content: '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '" style="width:100%;height:99%;"></iframe>',
                     id: id //规定好的id
-                })
+                });
                 FrameWH();  //计算ifram层的大小
             },
             tabChange: function (id) {

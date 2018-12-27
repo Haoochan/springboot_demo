@@ -21,6 +21,7 @@
     <i class="layui-icon">&#xe608;</i> 添加
 </button>
 
+
 <table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/activity/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
@@ -56,7 +57,7 @@
             type: 2,
             title: '添加类别',
             skin: 'layui-layer-rim', //加上边框
-            area: ['500px', '500px'], //宽高
+            area: ['90%', '90%'], //宽高
             content: '/activityCategory/goAdd'  //调到新增页面
         });
     }
@@ -85,6 +86,7 @@
 
 </script>
 <script>
+    //渲染表单
     layui.use('table', function(){
         var table = layui.table;
         //监听表格复选框选择
