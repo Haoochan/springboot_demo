@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -49,6 +50,17 @@
         <label for="categoryId" class="layui-form-label">工作类别ID</label>
         <div class="layui-input-inline">
             <input type="text" id="categoryId" name="categoryId"  value="${activity.categoryId}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label for="selectID" class="layui-form-label">工作类别下拉框</label>
+        <div class="layui-input-block ">
+            <%--<select name="xm" id="xm" lay-verify="required" lay-filter="xmFilter">--%>
+                <%--<option value=""></option>--%>
+            <%--</select>--%>
+                <select id="selectID">
+                    <option value="${activity.categoryId}" ></option>
+                </select>
         </div>
     </div>
     <div class="layui-form-item">
@@ -109,6 +121,24 @@
     layui.use('form', function() {
         var form = layui.form;
         form.render();
+
+        //检查项目添加到下拉框中
+        $.ajax({
+            url: '/activityCategory/getActivityCategory',
+            dataType: 'json',
+            type: 'get',
+            success: function (category) {
+                console.log(category);
+                $.each(category, function (index, item) {
+                    $('#selectID').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+
+                });
+                form.render("select");
+                //重新渲染 固定写法
+            }
+        });
+
+        // form.render();
     });
 </script>
 

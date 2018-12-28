@@ -20,5 +20,7 @@ public interface ActivityCategoryMapper {
 
     List<ActivityCategory> getAllActivityCategory(@Param("before") int before, @Param("after") int after);
 
+    List<ActivityCategory> getActivityCategory();
+
     int getTotalCount();
 }

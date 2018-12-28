@@ -76,6 +76,12 @@
     limit #{before},#{after}
   </select>
 
+  <select id="getActivityCategory"   resultMap="BaseResultMap">
+    select
+      *
+    from activity_category
+  </select>
+
   <select id="getTotalCount"  resultType="java.lang.Integer">
     select
     count(name)

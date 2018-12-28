@@ -38,8 +38,6 @@ public class ActivityCategoryController {
 
         List<ActivityCategory> list = this.activityCategoryService.getAllActivityCategory(before,pageSize);
         activityCategoryResponseData.setData(list);
-
-
         System.out.println(activityCategoryResponseData);
         return activityCategoryResponseData;
     }
@@ -104,6 +102,15 @@ public class ActivityCategoryController {
         model.addAttribute("activityCategory",activityCategory);
 
         return "/WEB-INF/jsp/activityCategory/activityCategoryShow.jsp";
+    }
+
+    //获取所有分类 给到活动添加那边的下拉框取值
+    @ResponseBody
+    @RequestMapping(value = "/getActivityCategory",method =RequestMethod.GET)
+    public Object getActivityCategory(){
+        List<ActivityCategory> list = this.activityCategoryService.getActivityCategory();
+        System.out.println(list.toString());
+        return list;
     }
 
 }

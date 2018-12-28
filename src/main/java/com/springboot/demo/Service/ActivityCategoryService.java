@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface ActivityCategoryService {
 
+    //显示列表
     List<ActivityCategory> getAllActivityCategory(int before,int after);
+    //显示到下拉框
+    List<ActivityCategory> getActivityCategory();
 
     ActivityCategory getActivityCategoryById(int id);
 

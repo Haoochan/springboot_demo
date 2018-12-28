@@ -21,6 +21,11 @@ public class ActivityCategoryServiceImpl implements ActivityCategoryService {
     }
 
     @Override
+    public List<ActivityCategory> getActivityCategory() {
+        return this.activityCategoryMapper.getActivityCategory();
+    }
+
+    @Override
     public ActivityCategory getActivityCategoryById(int id) {
 
         return this.activityCategoryMapper.selectByPrimaryKey(id);
