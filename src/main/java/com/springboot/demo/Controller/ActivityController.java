@@ -4,6 +4,7 @@ package com.springboot.demo.Controller;
 import com.springboot.demo.Entity.Activity;
 import com.springboot.demo.Entity.ActivityImage;
 import com.springboot.demo.Entity.LayuiResponseDataUtil;
+import com.springboot.demo.Entity.User;
 import com.springboot.demo.Service.ActivityService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,31 @@ public class ActivityController {
         model.addAttribute("activity",activity);
         return "/activity/goShow?id="+activity.getId();
     }
+
+    @RequestMapping("/goAdd")
+    public String goAdd(){
+        return "/WEB-INF/jsp/activity/activityAdd.jsp";
+    }
+
+    @RequestMapping("/add")
+    public String add(HttpServletRequest request){
+        User user = (User) request.getSession().getAttribute("loginUser");
+        int createbyId = user.getId();
+        String topic = request.getParameter("topic");
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        String content = request.getParameter("content");
+        int semester = Integer.parseInt(request.getParameter("semester"));
+        String schoolyear = request.getParameter("schoolyear");
+        String time = request.getParameter("time");
+        SimpleDateFormat  sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createTime = sdf.format(new Date());
+        Activity activity = new Activity(topic,content,categoryId,createbyId,time,semester,schoolyear,createTime);
+        this.activityService.add(activity);
+        return goList();
+
+    }
+
+
 
     //测试上传
     @RequestMapping("/goUpload")

@@ -15,4 +15,6 @@ public interface ActivityService {
     void saveImage(ActivityImage activityImage);
 
     void update(Activity activity);
+
+    void add(Activity activity);
 }

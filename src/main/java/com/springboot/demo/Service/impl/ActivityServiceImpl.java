@@ -43,4 +43,9 @@ public class ActivityServiceImpl implements ActivityService {
     public void update(Activity activity) {
         this.activityMapper.updateByPrimaryKey(activity);
     }
+
+    @Override
+    public void add(Activity activity) {
+        this.activityMapper.insert(activity);
+    }
 }

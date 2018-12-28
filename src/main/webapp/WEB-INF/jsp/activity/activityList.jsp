@@ -17,6 +17,14 @@
 <body>
 <h3>工作记录列表</h3>
 
+<div class="demoTable">
+    搜索：
+    <div class="layui-inline">
+        <input class="layui-input" name="keyword" id="demoReload" autocomplete="off">
+    </div>
+    <button class="layui-btn" data-type="reload">搜索</button>
+</div>
+
 <button class="layui-btn" onclick="add();">
     <i class="layui-icon">&#xe608;</i> 添加
 </button>
@@ -58,7 +66,7 @@
             title: '添加类别',
             skin: 'layui-layer-rim', //加上边框
             area: ['90%', '90%'], //宽高
-            content: '/activityCategory/goAdd'  //调到新增页面
+            content: '/activity/goAdd'  //调到新增页面
         });
     }
     function  edit(data) {
@@ -68,7 +76,10 @@
             type : 2,
             closeBtn: 2,         //是否显示关闭按钮
             area: ['90%', '90%'],
-            content : "/activity/goEdit?id="+data.id//弹出层页面
+            content : "/activity/goEdit?id="+data.id,//弹出层页面
+            end: function () {
+                location.reload();
+            }
         })
     }
 
@@ -93,6 +104,19 @@
     //渲染表单
     layui.use('table', function(){
         var table = layui.table;
+
+        // var $ = layui.$, active = {
+        //     reload: function () {
+        //         var demoReload = $('#demoReload');
+        //
+        //         table.reload('testReload', {
+        //             where: {
+        //                 keyword: demoReload.val()
+        //             }
+        //         });
+        //     }
+        // };
+
         //监听表格复选框选择
         table.on('checkbox(demo)', function(obj){
             console.log(obj)

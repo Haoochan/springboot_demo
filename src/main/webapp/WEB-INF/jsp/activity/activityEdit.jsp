@@ -25,7 +25,7 @@
 </head>
 <body>
 <form class="layui-form layui-form-pane" action="/activity/edit">
-    <div class="layui-form-item" >
+    <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">id</label>
         <div class="layui-input-inline">
             <input type="text" name="id" id="id" value="${activity.id}" readonly="readonly" autocomplete="off" class="layui-input">
@@ -47,29 +47,13 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label for="categoryId" class="layui-form-label">工作类别ID</label>
-        <div class="layui-input-inline">
-            <input type="text" id="categoryId" name="categoryId"  value="${activity.categoryId}" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label for="selectID" class="layui-form-label">工作类别下拉框</label>
+        <label for="categoryId" class="layui-form-label">工作类别</label>
         <div class="layui-input-block ">
-            <%--<select name="xm" id="xm" lay-verify="required" lay-filter="xmFilter">--%>
-                <%--<option value=""></option>--%>
-            <%--</select>--%>
-                <select id="selectID">
-                    <option value="${activity.categoryId}" ></option>
+                <select  id="categoryId" name="categoryId">
                 </select>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label for="category" class="layui-form-label">工作类别</label>
-        <div class="layui-input-inline">
-            <input type="text" id="category" name="category"  value="${activity.category}" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="display: none">
         <label for="createbyId" class="layui-form-label">创建者ID</label>
         <div class="layui-input-inline">
             <input type="text" id="createbyId" name="createbyId"  value="${activity.createbyId}" autocomplete="off" class="layui-input">
@@ -78,13 +62,13 @@
     <div class="layui-form-item">
         <label for="creator" class="layui-form-label">创建者</label>
         <div class="layui-input-inline">
-            <input type="text" id="creator" name="creator" lay-verify="required" value="${activity.creator}" autocomplete="off" class="layui-input">
+            <input type="text" id="creator" name="creator" readonly="readonly" value="${activity.creator}" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label for="creatorRole" class="layui-form-label">创建者角色</label>
         <div class="layui-input-inline">
-            <input type="text" id="creatorRole" name="creatorRole" lay-verify="required" value="${activity.creatorRole}" autocomplete="off" class="layui-input">
+            <input type="text" id="creatorRole" name="creatorRole" readonly="readonly" value="${activity.creatorRole}" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -96,19 +80,27 @@
     <div class="layui-form-item">
         <label for="semester" class="layui-form-label">学期</label>
         <div class="layui-input-inline">
-            <input type="text" id="semester" name="semester" lay-verify="required" value="${activity.semester}" autocomplete="off" class="layui-input">
+            <%--<input type="text" id="semester" name="semester" lay-verify="required" value="${activity.semester}" autocomplete="off" class="layui-input">--%>
+                <select  id="semester" name="semester">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
         </div>
     </div>
     <div class="layui-form-item">
         <label for="schoolyear" class="layui-form-label">学年</label>
         <div class="layui-input-inline">
-            <input type="text" id="schoolyear" name="schoolyear" lay-verify="required" value="${activity.schoolyear}" autocomplete="off" class="layui-input">
+            <%--<input type="text" id="schoolyear" name="schoolyear" lay-verify="required" value="${activity.schoolyear}" autocomplete="off" class="layui-input">--%>
+                <select  id="schoolyear" name="schoolyear">
+                    <option value="2018-2019">2018-2019</option>
+                    <option value="2017-2018">2017-2018</option>
+                </select>
         </div>
     </div>
     <div class="layui-form-item">
         <label for="createTime" class="layui-form-label">创建时间</label>
         <div class="layui-input-inline">
-            <input type="text" id="createTime" name="createTime" lay-verify="required" value="${activity.createTime}" autocomplete="off" class="layui-input">
+            <input type="text" id="createTime" name="createTime" readonly="readonly" value="${activity.createTime}" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -118,9 +110,15 @@
 
 
 <script>
-    layui.use('form', function() {
+    layui.use(['form','laydate'], function() {
         var form = layui.form;
+        var laydate = layui.laydate;
         form.render();
+
+        //日期插件
+        laydate.render({
+            elem: '#time' //指定元素
+        });
 
         //检查项目添加到下拉框中
         $.ajax({
@@ -130,15 +128,33 @@
             success: function (category) {
                 console.log(category);
                 $.each(category, function (index, item) {
-                    $('#selectID').append(new Option(item.name, item.id));// 下拉菜单里添加元素
-
+                    if (item.id==${activity.categoryId}){
+                        console.log("相等");
+                        $('#categoryId').append(new Option(item.name, item.id,false,true));
+                    }else {
+                        console.log("不相等");
+                        $('#categoryId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    }
                 });
                 form.render("select");
                 //重新渲染 固定写法
             }
         });
-
-        // form.render();
+        //默认选中学期
+        var semester = $("#semester").find("option"); //获取select下拉框的所有值
+        for (var j = 1; j < semester.length; j++) {
+            if ($(semester[j]).val() == ${activity.semester}) {
+                $(semester[j]).attr("selected", "selected");
+            }
+        }
+            //默认选中学年
+        var schoolyear = $("#schoolyear").find("option"); //获取select下拉框的所有值
+        for (var j = 1; j < schoolyear.length; j++) {
+            if ($(schoolyear[j]).val() == ${activity.schoolyear}) {
+                $(schoolyear[j]).attr("selected", "selected");
+            }
+        }
+        form.render("select");
     });
 </script>
 

@@ -24,7 +24,7 @@
 </head>
 <body>
 <form class="layui-form layui-form-pane" action="">
-    <div class="layui-form-item" >
+    <div class="layui-form-item" style="display:none" >
         <label class="layui-form-label">id</label>
         <div class="layui-input-inline">
             <input type="text" name="id" id="id" value="${activity.id}" readonly="readonly" autocomplete="off" class="layui-input">
@@ -45,7 +45,7 @@
             <textarea id="content" name="content" class="layui-textarea" readonly="readonly">${activity.content}</textarea>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="display:none">
         <label for="categoryId" class="layui-form-label">工作类别ID</label>
         <div class="layui-input-inline">
             <input type="text" id="categoryId" name="categoryId" readonly="readonly" value="${activity.categoryId}" autocomplete="off" class="layui-input">
@@ -57,7 +57,7 @@
             <input type="text" id="category" name="category" readonly="readonly" value="${activity.category}" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" style="display: none">
         <label for="createbyId" class="layui-form-label">创建者ID</label>
         <div class="layui-input-inline">
             <input type="text" id="createbyId" name="createbyId" readonly="readonly" value="${activity.createbyId}" autocomplete="off" class="layui-input">

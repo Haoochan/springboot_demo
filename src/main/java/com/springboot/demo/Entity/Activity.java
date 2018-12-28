@@ -47,6 +47,17 @@ public class Activity {
         this.content = content;
     }
 
+    public Activity(String topic, String content,Integer categoryId, Integer createbyId, String time, Integer semester, String schoolyear, String createTime) {
+        this.topic = topic;
+        this.categoryId = categoryId;
+        this.createbyId = createbyId;
+        this.time = time;
+        this.semester = semester;
+        this.schoolyear = schoolyear;
+        this.createTime = createTime;
+        this.content = content;
+    }
+
     //java.sql.date 接数据库查询的构造函数
 //    public Activity(Integer id, String topic, String category ,String creator, String creatorRole,Date time,String schoolyear, Integer semester ) {
 //        this.id = id;
