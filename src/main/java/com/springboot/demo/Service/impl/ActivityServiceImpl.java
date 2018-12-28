@@ -38,4 +38,9 @@ public class ActivityServiceImpl implements ActivityService {
     public void saveImage(ActivityImage activityImage) {
         this.activityImageMapper.insert(activityImage);
     }
+
+    @Override
+    public void update(Activity activity) {
+        this.activityMapper.updateByPrimaryKey(activity);
+    }
 }

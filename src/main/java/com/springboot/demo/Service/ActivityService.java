@@ -13,4 +13,6 @@ public interface ActivityService {
     Activity getActivityById(int id);
 
     void saveImage(ActivityImage activityImage);
+
+    void update(Activity activity);
 }

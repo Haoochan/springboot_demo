@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -58,10 +60,40 @@ public class ActivityController {
     @RequestMapping("/goShow")
     public String goShow(@RequestParam("id") int id, Model model){
         Activity activity = this.activityService.getActivityById(id);
-        System.out.println(activity.getCreateTime());
         model.addAttribute("activity",activity);
 
         return "/WEB-INF/jsp/activity/activityShow.jsp";
+    }
+
+    @RequestMapping("/goEdit")
+    public String goEdit(@RequestParam("id") int id,Model model){
+        Activity activity = this.activityService.getActivityById(id);
+        model.addAttribute("activity",activity);
+        return "/WEB-INF/jsp/activity/activityEdit.jsp";
+    }
+
+
+    @RequestMapping("/edit")
+    public String edit(HttpServletRequest request, Model model) throws ParseException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println(id);
+        String topic = request.getParameter("topic");
+        String content = request.getParameter("content");
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        int createbyId = Integer.parseInt(request.getParameter("createbyId"));
+        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat  sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date time = format1.parse(request.getParameter("time"));
+//        Date createTime = format2.parse(sdf.format(new Date()));
+        String time = request.getParameter("time");
+        String createTime = sdf.format(new Date());
+        int semester = Integer.parseInt(request.getParameter("semester"));
+        String schoolyear = request.getParameter("schoolyear");
+        Activity activity = new Activity(id,topic,content,categoryId,createbyId,time,semester,schoolyear,createTime);
+        this.activityService.update(activity);
+        model.addAttribute("activity",activity);
+        return "/activity/goShow?id="+activity.getId();
     }
 
     //测试上传

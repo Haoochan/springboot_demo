@@ -79,7 +79,11 @@
             type : 2,
             closeBtn: 2,         //是否显示关闭按钮
             area: ['90%', '90%'],
-            content : "/activity/goShow?id="+data.id//弹出层页面
+            content : "/activity/goShow?id="+data.id,//弹出层页面
+            //点击关闭按钮 页面刷新
+            end: function () {
+                location.reload();
+            }
         })
     }
 

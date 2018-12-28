@@ -23,7 +23,7 @@
     <![endif]-->
 </head>
 <body>
-<form class="layui-form layui-form-pane" action="">
+<form class="layui-form layui-form-pane" action="/activity/edit">
     <div class="layui-form-item" >
         <label class="layui-form-label">id</label>
         <div class="layui-input-inline">
@@ -46,9 +46,21 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label for="categoryId" class="layui-form-label">工作类别ID</label>
+        <div class="layui-input-inline">
+            <input type="text" id="categoryId" name="categoryId"  value="${activity.categoryId}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label for="category" class="layui-form-label">工作类别</label>
         <div class="layui-input-inline">
-            <input type="text" id="category" name="category" lay-verify="required" value="${activity.category}" autocomplete="off" class="layui-input">
+            <input type="text" id="category" name="category"  value="${activity.category}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label for="createbyId" class="layui-form-label">创建者ID</label>
+        <div class="layui-input-inline">
+            <input type="text" id="createbyId" name="createbyId"  value="${activity.createbyId}" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -86,6 +98,9 @@
         <div class="layui-input-inline">
             <input type="text" id="createTime" name="createTime" lay-verify="required" value="${activity.createTime}" autocomplete="off" class="layui-input">
         </div>
+    </div>
+    <div class="layui-form-item">
+        <button class="layui-btn" lay-filter="add" lay-submit="">确定</button>
     </div>
 </form>
 
