@@ -17,13 +17,54 @@
 <body>
 <h3>工作记录列表</h3>
 
-<div class="demoTable">
-    搜索：
+<%--搜索列表--%>
+<form class="layui-form layui-form-pane" >
+    <%--<label for="keyword" class="layui-form-label">关键词</label>--%>
     <div class="layui-inline">
-        <input class="layui-input" name="keyword" id="demoReload" autocomplete="off">
+        <input class="layui-input" name="keyword" id="keyword" placeholder="请输入关键词" autocomplete="off">
     </div>
-    <button class="layui-btn" data-type="reload">搜索</button>
-</div>
+    <%--<label for="categoryId" class="layui-form-label">工作类别</label>--%>
+    <div class="layui-input-inline ">
+        <select  id="categoryId" name="categoryId">
+            <option >请选择工作类别</option>
+        </select>
+    </div>
+        <%--<label for="createbyId" class="layui-form-label">创建者</label>--%>
+        <div class="layui-input-inline ">
+            <select  id="createbyId" name="createbyId">
+                <option >请选择创建者</option>
+            </select>
+        </div>
+        <%--<label for="creatorRole" class="layui-form-label">创建者角色</label>--%>
+        <div class="layui-input-inline ">
+            <select  id="creatorRole" name="creatorRole">
+                <option >请选择创建者角色</option>
+                <option value="助班">助班</option>
+                <option value="班主任">班主任</option>
+                <option value="学院管理员">学院管理员</option>
+                <option value="班主任">班主任</option>
+            </select>
+        </div>
+        <%--<label for="semester" class="layui-form-label">学期</label>--%>
+        <div class="layui-input-inline">
+            <select  id="semester" name="semester">
+                <option >请选择学期</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+            </select>
+        </div>
+        <%--<label for="schoolyear" class="layui-form-label">学年</label>--%>
+        <div class="layui-input-inline">
+            <select  id="schoolyear" name="schoolyear">
+                <option >请选择学年</option>
+                <option value="2018-2019">2018-2019</option>
+                <option value="2017-2018">2017-2018</option>
+            </select>
+        </div>
+    <div class="layui-form-item">
+    <button class="layui-btn" id="search">搜索</button>
+    </div>
+</form>
 
 <button class="layui-btn" onclick="add();">
     <i class="layui-icon">&#xe608;</i> 添加
@@ -102,20 +143,67 @@
 </script>
 <script>
     //渲染表单
-    layui.use('table', function(){
+    layui.use(['table','form'], function(){
         var table = layui.table;
+        var form = layui.form;
+        table.render();
 
-        // var $ = layui.$, active = {
-        //     reload: function () {
-        //         var demoReload = $('#demoReload');
-        //
-        //         table.reload('testReload', {
-        //             where: {
-        //                 keyword: demoReload.val()
-        //             }
-        //         });
-        //     }
-        // };
+
+
+        //条件搜索
+        $("#search").click(function () {
+                var keyword = $('#keyword');
+                var categoryId = $('#categoryId');
+                var createbyId = $('#createbyId');
+                var creatorRole = $('#creatorRole');
+                var semester = $('#semester');
+                var schoolyear = $('#schoolyear');
+
+                //idTest 是表单lay-data 里面的id
+                table.reload('idTest', {
+                    url:'/activity/list',
+                    where: {
+                        keyword: keyword.val(),
+                        categoryId: categoryId.val(),
+                        createbyId: createbyId.val(),
+                        creatorRole:creatorRole.val(),
+                        semester:semester.val(),
+                        schoolyear:schoolyear.val()
+                    }
+                });
+        });
+
+        //工作类别添加到下拉框中
+        $.ajax({
+            url: '/activityCategory/getActivityCategory',
+            dataType: 'json',
+            type: 'get',
+            success: function (category) {
+                console.log(category);
+                $.each(category, function (index, item) {
+                    $('#categoryId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                });
+                form.render("select");
+                //重新渲染 固定写法
+            }
+        });
+
+        //创建者添加到下拉框中
+        $.ajax({
+            url: '/user/getUser',
+            dataType: 'json',
+            type: 'get',
+            success: function (creator) {
+                console.log(creator);
+                $.each(creator, function (index, item) {
+                    $('#createbyId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    // $('#creatorRole').append(new Option(item.role, item.id));// 下拉菜单里添加元素
+                });
+                form.render("select");
+                //重新渲染 固定写法
+            }
+        });
+
 
         //监听表格复选框选择
         table.on('checkbox(demo)', function(obj){

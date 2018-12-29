@@ -42,16 +42,27 @@ public class ActivityController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public LayuiResponseDataUtil activityCategoryList(@RequestParam("page")int page, @RequestParam("limit") int pageSize){
+    public LayuiResponseDataUtil activityCategoryList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
+                                                      @RequestParam(value = "keyword",required = false) String keyword,
+                                                      @RequestParam(value = "categoryId",required = false) Integer  categoryId,
+                                                      @RequestParam(value = "createbyId",required = false) Integer  createbyId,
+                                                      @RequestParam(value = "creatorRole",required = false) String creatorRole,
+                                                      @RequestParam(value = "semester",required = false) Integer  semester,
+                                                      @RequestParam(value = "schoolyear",required = false) String schoolyear){
+//        System.out.println(keyword);
+//        System.out.println(categoryId);
+//        System.out.println(createbyId);
+//        System.out.println(creatorRole);
+//        System.out.println(semester);
+//        System.out.println(schoolyear);
 //        pageSize 前端设置10
         int before = pageSize*(page-1);
+//        int totalCount = this.activityService.getTotalCount();
         int totalCount = this.activityService.getTotalCount();
-        System.out.println(totalCount);
         LayuiResponseDataUtil activityResponseData = new LayuiResponseDataUtil();
         activityResponseData.setCode("0");
         activityResponseData.setMsg("");
         activityResponseData.setCount(totalCount);
-
         List<Activity> list = this.activityService.getAllActivity(before,pageSize);
         activityResponseData.setData(list);
         System.out.println(activityResponseData);

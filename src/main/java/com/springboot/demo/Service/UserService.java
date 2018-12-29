@@ -3,6 +3,8 @@ package com.springboot.demo.Service;
 
 import com.springboot.demo.Entity.User;
 
+import java.util.List;
+
 public interface UserService {
     public User getUserById(int userId);
 
@@ -11,4 +13,6 @@ public interface UserService {
     int register(User user);
 
     int userInfoUpdate(User user);
+
+    List<User> getUser();
 }

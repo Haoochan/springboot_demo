@@ -17,6 +17,12 @@ public class User {
 
     private String email;
 
+    //给搜索下拉框提供构造方法
+    public User(Integer id, String role, String name) {
+        this.id = id;
+        this.role = role;
+        this.name = name;
+    }
 
     public User(Integer id, String username, String password, String role) {
         this.id = id;

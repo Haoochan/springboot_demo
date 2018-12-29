@@ -7,6 +7,8 @@ import com.springboot.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -31,5 +33,10 @@ public class UserServiceImpl implements UserService {
     public int userInfoUpdate(User user) {
         System.out.println("执行servece层userInfoUpdate");
         return this.userMapper.updateByPrimaryKey(user);
+    }
+
+    @Override
+    public List<User> getUser() {
+        return this.userMapper.getUser();
     }
 }

@@ -7,9 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 //@RestController
 @Controller
@@ -77,20 +80,29 @@ public class UserController {
     }
 
     @RequestMapping("/userInfoUpdate")
-        public String userInfoUpdate(HttpServletRequest request,Model model){
-            int id = Integer.parseInt(request.getParameter("id"));
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            String role = request.getParameter("role");
-            String name = request.getParameter("name");
-            String sex = request.getParameter("sex");
-            int phone = Integer.parseInt(request.getParameter("phone"));
-            String email = request.getParameter("email");
-            User user = new User(id,username,password,role,name,sex,phone,email);
-            this.userService.userInfoUpdate(user);
-            model.addAttribute("user",user);
-            return "/WEB-INF/jsp/user/userInfo.jsp";
-        }
+    public String userInfoUpdate(HttpServletRequest request,Model model){
+        int id = Integer.parseInt(request.getParameter("id"));
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
+        String name = request.getParameter("name");
+        String sex = request.getParameter("sex");
+        int phone = Integer.parseInt(request.getParameter("phone"));
+        String email = request.getParameter("email");
+        User user = new User(id,username,password,role,name,sex,phone,email);
+        this.userService.userInfoUpdate(user);
+        model.addAttribute("user",user);
+        return "/WEB-INF/jsp/user/userInfo.jsp";
+    }
+
+    //获取所有分类 给到活动添加那边的下拉框取值
+    @ResponseBody
+    @RequestMapping(value = "/getUser",method = RequestMethod.GET)
+    public Object getActivityCategory(){
+        List<User> list = this.userService.getUser();
+        System.out.println(list.toString());
+        return list;
+    }
 
 
 

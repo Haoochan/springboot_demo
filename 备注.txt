@@ -1,3 +1,7 @@
+别人完整demo：
+    http://www.cnblogs.com/best/p/9150271.html 有上传与富文本编辑器
+
+
 当前需要：
 工作管理按条件搜索：
     输入框匹配：

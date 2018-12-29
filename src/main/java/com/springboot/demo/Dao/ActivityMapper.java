@@ -24,7 +24,7 @@ public interface ActivityMapper {
     @Select("SELECT count(1) FROM activity")
     int getTotalCount();
 
-    List<Activity> getAllActivity(@Param("before") int before, @Param("after") int after);
+    List<Activity> getAllActivity(@Param("before" ) int before, @Param("after") int after);
 
     Activity getActivityById(int id);
 }
