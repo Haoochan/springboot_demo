@@ -59,8 +59,9 @@
         </div>
     </div>
 </form>
-<%--<input type="button" value="修改信息" onclick="window.location.href=('/user/goUserInfoUpdate')"/>--%>
-<button class="layui-btn" onclick="window.location.href=('/user/goUserInfoUpdate')">
+
+<%--<button class="layui-btn" onclick="window.location.href=('/user/goUserInfoUpdate')">--%>
+<button class="layui-btn" onclick="window.location.href=('/user/goEdit?id='+${user.id})">
     <i class="layui-icon">&#xe608;</i> 修改信息
 </button>
 <script>

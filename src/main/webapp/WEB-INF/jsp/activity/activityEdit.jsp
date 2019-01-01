@@ -77,7 +77,7 @@
             <input type="text" id="time" name="time" lay-verify="required" value="${activity.time}" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" >
         <label for="semester" class="layui-form-label">学期</label>
         <div class="layui-input-inline">
             <%--<input type="text" id="semester" name="semester" lay-verify="required" value="${activity.semester}" autocomplete="off" class="layui-input">--%>
@@ -87,7 +87,7 @@
                 </select>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" >
         <label for="schoolyear" class="layui-form-label">学年</label>
         <div class="layui-input-inline">
             <%--<input type="text" id="schoolyear" name="schoolyear" lay-verify="required" value="${activity.schoolyear}" autocomplete="off" class="layui-input">--%>
@@ -107,6 +107,7 @@
         <button class="layui-btn" lay-filter="add" lay-submit="">确定</button>
     </div>
 </form>
+${activity.schoolyear}
 
 
 <script>
@@ -136,25 +137,26 @@
                         $('#categoryId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                     }
                 });
-                form.render("select");
+                form.render('select');
                 //重新渲染 固定写法
             }
         });
         //默认选中学期
         var semester = $("#semester").find("option"); //获取select下拉框的所有值
-        for (var j = 1; j < semester.length; j++) {
+        for (var j = 0; j < semester.length; j++) {
             if ($(semester[j]).val() == ${activity.semester}) {
                 $(semester[j]).attr("selected", "selected");
             }
         }
             //默认选中学年
         var schoolyear = $("#schoolyear").find("option"); //获取select下拉框的所有值
-        for (var j = 1; j < schoolyear.length; j++) {
-            if ($(schoolyear[j]).val() == ${activity.schoolyear}) {
+        for (var j = 0; j < schoolyear.length; j++) {
+            if ($(schoolyear[j]).val() == '${activity.schoolyear}') {
                 $(schoolyear[j]).attr("selected", "selected");
             }
         }
-        form.render("select");
+        form.render('select');
+
     });
 </script>
 

@@ -157,7 +157,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getAllActivity"  resultMap="ResultMapWithBLOBs">
+  <select id="getAllActivity"  resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
     select
         a.id as id,
         a.topic as topic,
@@ -174,7 +174,26 @@
     from activity as a
          LEFT JOIN activity_category as ac on ac.id=a.category_id
          LEFT JOIN `user` as u on u.id = a.createby_id
-    limit #{before},#{after}
+    where 1=1
+    <if test="keyword!=null and keyword !=''">
+      and a.content LIKE '%${keyword}%'
+    </if>
+    <if test="categoryId !='null' and categoryId !='' ">
+      and a.category_id = #{categoryId}
+    </if>
+    <if test="createbyId !='null' and createbyId !='' ">
+      and a.createby_id = #{createbyId}
+    </if>
+    <if test="creatorRole !=null and creatorRole !='' ">
+      and u.role = #{creatorRole}
+    </if>
+    <if test="semester !='null' and semester !='' ">
+      and a.semester = #{semester}
+    </if>
+    <if test="schoolyear !=null and schoolyear !='' ">
+      and a.schoolyear = #{schoolyear}
+    </if>
+    limit ${before},${after}
   </select>
 
     <select id="getActivityById"  resultMap="ResultMapWithBLOBs">
@@ -197,5 +216,100 @@
             left JOIN `user` u on a.createby_id=u.id
         where a.id = #{id,jdbcType=INTEGER}
     </select>
+
+  <select id="getTotalCount"  resultType="java.lang.Integer" >
+    select
+    count(1)
+    from activity as a
+    LEFT JOIN activity_category as ac on ac.id=a.category_id
+    LEFT JOIN `user` as u on u.id = a.createby_id
+    where 1=1
+    <if test="keyword!=null and keyword !=''">
+    and a.content LIKE '%${keyword}%'
+    </if>
+    <if test="categoryId !='null' and categoryId !='' ">
+      and a.category_id = #{categoryId}
+    </if>
+    <if test="createbyId !='null' and createbyId !='' ">
+      and a.createby_id = #{createbyId}
+    </if>
+    <if test="creatorRole !=null and creatorRole !='' ">
+      and u.role = #{creatorRole}
+    </if>
+    <if test="semester !='null' and semester !='' ">
+      and a.semester = #{semester}
+    </if>
+    <if test="schoolyear !=null and schoolyear !='' ">
+      and a.schoolyear = #{schoolyear}
+    </if>
+  </select>
+
+  <select id="getTotalCountByUserId"  resultType="java.lang.Integer" >
+    select
+    count(1)
+    from activity as a
+    LEFT JOIN activity_category as ac on ac.id=a.category_id
+    LEFT JOIN `user` as u on u.id = a.createby_id
+    where 1=1
+      and a.createby_id=${userId}
+    <if test="keyword!=null and keyword !=''">
+      and a.content LIKE '%${keyword}%'
+    </if>
+    <if test="categoryId !='null' and categoryId !='' ">
+      and a.category_id = #{categoryId}
+    </if>
+    <if test="createbyId !='null' and createbyId !='' ">
+      and a.createby_id = #{createbyId}
+    </if>
+    <if test="creatorRole !=null and creatorRole !='' ">
+      and u.role = #{creatorRole}
+    </if>
+    <if test="semester !='null' and semester !='' ">
+      and a.semester = #{semester}
+    </if>
+    <if test="schoolyear !=null and schoolyear !='' ">
+      and a.schoolyear = #{schoolyear}
+    </if>
+  </select>
+
+  <select id="getAllActivityByUserId"  resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    select
+    a.id as id,
+    a.topic as topic,
+    a.content as content,
+    a.category_id,
+    ac.`name` as category,
+    a.createby_id,
+    u.`name` as creator,
+    u.role as creatorRole,
+    a.time as time,
+    a.semester as semester,
+    a.schoolyear as schoolyear,
+    a.create_time
+    from activity as a
+    LEFT JOIN activity_category as ac on ac.id=a.category_id
+    LEFT JOIN `user` as u on u.id = a.createby_id
+    where 1=1
+      and a.createby_id=${userId}
+    <if test="keyword!=null and keyword !=''">
+      and a.content LIKE '%${keyword}%'
+    </if>
+    <if test="categoryId !='null' and categoryId !='' ">
+      and a.category_id = #{categoryId}
+    </if>
+    <if test="createbyId !='null' and createbyId !='' ">
+      and a.createby_id = #{createbyId}
+    </if>
+    <if test="creatorRole !=null and creatorRole !='' ">
+      and u.role = #{creatorRole}
+    </if>
+    <if test="semester !='null' and semester !='' ">
+      and a.semester = #{semester}
+    </if>
+    <if test="schoolyear !=null and schoolyear !='' ">
+      and a.schoolyear = #{schoolyear}
+    </if>
+    limit ${before},${after}
+  </select>
 
 </mapper>

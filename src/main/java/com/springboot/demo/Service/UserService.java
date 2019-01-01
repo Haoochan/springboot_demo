@@ -4,6 +4,7 @@ package com.springboot.demo.Service;
 import com.springboot.demo.Entity.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
     public User getUserById(int userId);
@@ -15,4 +16,12 @@ public interface UserService {
     int userInfoUpdate(User user);
 
     List<User> getUser();
+
+    int getTotalCount(Map<String, String> map);
+
+    List<User> getAllUser(Map<String, String> map);
+
+    void add(User user);
+
+    void delete(int deleteId);
 }

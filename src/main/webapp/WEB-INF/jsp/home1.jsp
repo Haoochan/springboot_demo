@@ -46,11 +46,37 @@
                        class="site-demo-active" data-type="tabAdd">工作类别管理</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;" data-id="5" data-title="工作管理" data-url="/activity/golist"
-                       class="site-demo-active" data-type="tabAdd">工作管理</a>
+                <a class="" href="javascript:;">工作管理</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;" data-id="5" data-title="工作列表" data-url="/activity/goList"
+                           class="site-demo-active" data-type="tabAdd">工作列表</a>
+                    </dd>
+                </dl>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="javascript:;" data-id="6" data-title="我的工作" data-url="/activity/goMyList"
+                           class="site-demo-active" data-type="tabAdd">我的工作</a>
+                    </dd>
+                </dl>
+            </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">用户管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="7" data-title="用户列表" data-url="/user/goList"
+                               class="site-demo-active" data-type="tabAdd">用户列表</a>
+                        </dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="8" data-title="我的信息" data-url="/user/goUserInfo"
+                               class="site-demo-active" data-type="tabAdd">我的信息</a>
+                        </dd>
+                    </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;" data-id="6" data-title="图片上传" data-url="/activity/golist"
+                    <a href="javascript:;" data-id="" data-title="图片上传" data-url="/activity/golist"
                        class="site-demo-active" data-type="tabAdd">图片上传</a>
                 </li>
                 <li class="layui-nav-item">
@@ -161,7 +187,7 @@
             title: '基本资料',
             skin: 'layui-layer-rim', //加上边框
             area: ['500px', '500px'], //宽高
-            content: '/user/userInfo'  //调到新增页面
+            content: '/user/goUserInfo'  //调到新增页面
         });
     }
 </script>

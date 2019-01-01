@@ -15,27 +15,23 @@
 
 </head>
 <body>
-<h3>工作记录列表</h3>
+<h3>我的工作记录列表</h3>
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
-    <%--<label for="keyword" class="layui-form-label">关键词</label>--%>
     <div class="layui-inline">
         <input class="layui-input" name="keyword" id="keyword" placeholder="请输入关键词" autocomplete="off">
     </div>
-    <%--<label for="categoryId" class="layui-form-label">工作类别</label>--%>
     <div class="layui-input-inline ">
         <select  id="categoryId" name="categoryId">
             <option value="">请选择工作类别</option>
         </select>
     </div>
-        <%--<label for="createbyId" class="layui-form-label">创建者</label>--%>
         <div class="layui-input-inline ">
             <select  id="createbyId" name="createbyId">
                 <option value="">请选择创建者</option>
             </select>
         </div>
-        <%--<label for="creatorRole" class="layui-form-label">创建者角色</label>--%>
         <div class="layui-input-inline ">
             <select  id="creatorRole" name="creatorRole">
                 <option value="">请选择创建者角色</option>
@@ -45,7 +41,6 @@
                 <option value="班主任">班主任</option>
             </select>
         </div>
-        <%--<label for="semester" class="layui-form-label">学期</label>--%>
         <div class="layui-input-inline">
             <select  id="semester" name="semester">
                 <option value="">请选择学期</option>
@@ -53,7 +48,6 @@
                 <option value="2">2</option>
             </select>
         </div>
-        <%--<label for="schoolyear" class="layui-form-label">学年</label>--%>
         <div class="layui-input-inline">
             <select  id="schoolyear" name="schoolyear">
                 <option value="">请选择学年</option>
@@ -71,7 +65,7 @@
 </button>
 
 
-<table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/activity/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
+<table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/activity/myList?userId='+${user.id}, page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ActivityMapper {
     int deleteByPrimaryKey(Integer id);
@@ -21,10 +22,16 @@ public interface ActivityMapper {
 
     int updateByPrimaryKey(Activity record);
 
-    @Select("SELECT count(1) FROM activity")
-    int getTotalCount();
+//    @Select("SELECT count(1) FROM activity")
+//    int getTotalCount();
+    int getTotalCount(Map<String,String> map);
 
-    List<Activity> getAllActivity(@Param("before" ) int before, @Param("after") int after);
+//    List<Activity> getAllActivity(int before,int after,Map<String,String> map);
+    List<Activity> getAllActivity(Map<String,String> map);
 
     Activity getActivityById(int id);
+
+    int getTotalCountByUserId(Map<String, String> map);
+
+    List<Activity> getAllActivityByUserId(Map<String, String> map);
 }

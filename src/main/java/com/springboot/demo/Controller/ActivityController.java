@@ -8,6 +8,7 @@ import com.springboot.demo.Entity.User;
 import com.springboot.demo.Service.ActivityService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -24,9 +25,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/activity")
@@ -35,35 +34,79 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
-    @RequestMapping("/golist")
+    @RequestMapping("/goList")
     public String goList(){
         return "/WEB-INF/jsp/activity/activityList.jsp";
     }
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public LayuiResponseDataUtil activityCategoryList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
+    public LayuiResponseDataUtil activityList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
                                                       @RequestParam(value = "keyword",required = false) String keyword,
-                                                      @RequestParam(value = "categoryId",required = false) Integer  categoryId,
-                                                      @RequestParam(value = "createbyId",required = false) Integer  createbyId,
+                                                      @RequestParam(value = "categoryId",required = false) String  categoryId,
+                                                      @RequestParam(value = "createbyId",required = false) String  createbyId,
                                                       @RequestParam(value = "creatorRole",required = false) String creatorRole,
-                                                      @RequestParam(value = "semester",required = false) Integer  semester,
+                                                      @RequestParam(value = "semester",required = false) String  semester,
                                                       @RequestParam(value = "schoolyear",required = false) String schoolyear){
-//        System.out.println(keyword);
-//        System.out.println(categoryId);
-//        System.out.println(createbyId);
-//        System.out.println(creatorRole);
-//        System.out.println(semester);
-//        System.out.println(schoolyear);
+
 //        pageSize 前端设置10
         int before = pageSize*(page-1);
-//        int totalCount = this.activityService.getTotalCount();
-        int totalCount = this.activityService.getTotalCount();
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("keyword",keyword);
+        map.put("categoryId", String.valueOf(categoryId));
+        map.put("createbyId", String.valueOf(createbyId));
+        map.put("creatorRole",creatorRole);
+        map.put("semester", String.valueOf(semester));
+        map.put("schoolyear",schoolyear);
+        int totalCount = this.activityService.getTotalCount(map);
         LayuiResponseDataUtil activityResponseData = new LayuiResponseDataUtil();
         activityResponseData.setCode("0");
         activityResponseData.setMsg("");
         activityResponseData.setCount(totalCount);
-        List<Activity> list = this.activityService.getAllActivity(before,pageSize);
+        map.put("before", String.valueOf(before));
+        map.put("after", String.valueOf(pageSize));
+        List<Activity> list = this.activityService.getAllActivity(map);
+        activityResponseData.setData(list);
+        System.out.println(activityResponseData);
+        return activityResponseData;
+    }
+
+    @RequestMapping("/goMyList")
+    public String goMyList(HttpServletRequest request,Model model){
+        User user = (User) request.getSession().getAttribute("loginUser");
+        model.addAttribute("user",user);
+        return "/WEB-INF/jsp/activity/activityMyList.jsp";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/myList",method = RequestMethod.GET)
+    public LayuiResponseDataUtil activityMyList(@RequestParam("userId") int userId,
+                                                @RequestParam("page")int page, @RequestParam("limit") int pageSize,
+                                              @RequestParam(value = "keyword",required = false) String keyword,
+                                              @RequestParam(value = "categoryId",required = false) String  categoryId,
+                                              @RequestParam(value = "createbyId",required = false) String  createbyId,
+                                              @RequestParam(value = "creatorRole",required = false) String creatorRole,
+                                              @RequestParam(value = "semester",required = false) String  semester,
+                                              @RequestParam(value = "schoolyear",required = false) String schoolyear){
+
+//        pageSize 前端设置10
+        int before = pageSize*(page-1);
+        Map<String,String> map = new HashMap<String,String>();
+        map.put("keyword",keyword);
+        map.put("categoryId", String.valueOf(categoryId));
+        map.put("createbyId", String.valueOf(createbyId));
+        map.put("creatorRole",creatorRole);
+        map.put("semester", String.valueOf(semester));
+        map.put("schoolyear",schoolyear);
+        map.put("userId", String.valueOf(userId));
+        int totalCount = this.activityService.getTotalCountByUserId(map);
+        LayuiResponseDataUtil activityResponseData = new LayuiResponseDataUtil();
+        activityResponseData.setCode("0");
+        activityResponseData.setMsg("");
+        activityResponseData.setCount(totalCount);
+        map.put("before", String.valueOf(before));
+        map.put("after", String.valueOf(pageSize));
+        List<Activity> list = this.activityService.getAllActivityByUserId(map);
         activityResponseData.setData(list);
         System.out.println(activityResponseData);
         return activityResponseData;
@@ -80,6 +123,7 @@ public class ActivityController {
     @RequestMapping("/goEdit")
     public String goEdit(@RequestParam("id") int id,Model model){
         Activity activity = this.activityService.getActivityById(id);
+        System.out.println(activity.toString());
         model.addAttribute("activity",activity);
         return "/WEB-INF/jsp/activity/activityEdit.jsp";
     }
@@ -129,6 +173,16 @@ public class ActivityController {
         this.activityService.add(activity);
         return goList();
 
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/delete")
+    public String delete(HttpServletRequest request){
+        int deleteId = Integer.parseInt(request.getParameter("id"));
+        System.out.println(deleteId);
+        this.activityService.delete(deleteId);
+        return "ok";
     }
 
 

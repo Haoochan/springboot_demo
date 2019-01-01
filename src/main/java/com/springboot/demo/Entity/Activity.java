@@ -184,6 +184,21 @@ public class Activity {
     }
 
 
-
-
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", topic='" + topic + '\'' +
+                ", categoryId=" + categoryId +
+                ", createbyId=" + createbyId +
+                ", time='" + time + '\'' +
+                ", semester=" + semester +
+                ", schoolyear='" + schoolyear + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", content='" + content + '\'' +
+                ", creator='" + creator + '\'' +
+                ", creatorRole='" + creatorRole + '\'' +
+                ", category='" + category + '\'' +
+                '}';
+    }
 }

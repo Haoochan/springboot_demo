@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -38,5 +39,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUser() {
         return this.userMapper.getUser();
+    }
+
+    @Override
+    public int getTotalCount(Map<String, String> map) {
+        return this.userMapper.getTotalCount(map);
+    }
+
+    @Override
+    public List<User> getAllUser(Map<String, String> map) {
+        return this.userMapper.getAllUser(map);
+    }
+
+    @Override
+    public void add(User user) {
+        this.userMapper.insert(user);
+    }
+
+    @Override
+    public void delete(int deleteId) {
+        this.userMapper.deleteByPrimaryKey(deleteId);
     }
 }

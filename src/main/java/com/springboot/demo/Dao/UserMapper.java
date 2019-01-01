@@ -4,6 +4,7 @@ import com.springboot.demo.Entity.User;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -22,4 +23,8 @@ public interface UserMapper {
 
     @Select("SELECT id,role,name FROM user")
     List<User> getUser();
+
+    int getTotalCount(Map<String, String> map);
+
+    List<User> getAllUser(Map<String, String> map);
 }
