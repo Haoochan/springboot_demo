@@ -139,6 +139,15 @@
     count(1)
     from user
     where 1=1
+    <if test="keyword!=null and keyword !=''">
+      and user.name LIKE '%${keyword}%'
+    </if>
+    <if test="role !=null and role !='' ">
+      and user.role = #{role}
+    </if>
+    <if test="sex !=null and sex !='' ">
+      and user.sex = #{sex}
+    </if>
   </select>
 
   <select id="getAllUser" parameterType="java.util.Map" resultMap="BaseResultMap">
@@ -146,6 +155,15 @@
     <include refid="Base_Column_List" />
     from user
     where 1=1
+    <if test="keyword!=null and keyword !=''">
+      and user.name LIKE '%${keyword}%'
+    </if>
+    <if test="role !=null and role !='' ">
+      and user.role = #{role}
+    </if>
+    <if test="sex !=null and sex !='' ">
+      and user.sex = #{sex}
+    </if>
     limit ${before},${after}
   </select>
 

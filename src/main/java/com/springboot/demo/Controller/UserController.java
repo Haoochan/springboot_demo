@@ -72,6 +72,7 @@ public class UserController {
     @RequestMapping("/goUserInfo")
     public String userInfo(HttpServletRequest request,Model model){
         User user = (User) request.getSession().getAttribute("loginUser");
+        System.out.println(user.toString());
         model.addAttribute("user",user);
         return "/WEB-INF/jsp/user/userInfo.jsp";
     }
@@ -155,10 +156,16 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/list")
-    public LayuiResponseDataUtil userList(@RequestParam("page")int page, @RequestParam("limit") int pageSize){
+    public LayuiResponseDataUtil userList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
+                                          @RequestParam(value = "keyword" ,required = false)String keyword,
+                                          @RequestParam(value = "role" ,required = false)String role,
+                                          @RequestParam(value = "sex" ,required = false)String sex){
         //        pageSize 前端设置10
         int before = pageSize*(page-1);
         Map<String,String> map = new HashMap<String,String>();
+        map.put("keyword",keyword);
+        map.put("role",role);
+        map.put("sex",sex);
         int totalCount = this.userService.getTotalCount(map);
         LayuiResponseDataUtil userResponseData = new LayuiResponseDataUtil();
         userResponseData.setCode("0");

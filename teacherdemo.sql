@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50724
 File Encoding         : 65001
 
-Date: 2018-12-27 19:07:52
+Date: 2019-01-02 18:36:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,7 +51,7 @@ CREATE TABLE `activity_category` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of activity_category
@@ -60,14 +60,7 @@ INSERT INTO `activity_category` VALUES ('1', '工作会议', '参加学院组织
 INSERT INTO `activity_category` VALUES ('2', '工作反馈', '向学院提交班主任工作报告或工作总结');
 INSERT INTO `activity_category` VALUES ('3', '学生活动', '参与学生举办的活动');
 INSERT INTO `activity_category` VALUES ('4', '学生交流', '与学生进行沟通与交流活动');
-INSERT INTO `activity_category` VALUES ('15', '测试5', '测试6');
-INSERT INTO `activity_category` VALUES ('16', '测试', '测试');
-INSERT INTO `activity_category` VALUES ('17', '测试', '测试');
-INSERT INTO `activity_category` VALUES ('18', '测试', '');
-INSERT INTO `activity_category` VALUES ('19', '测试', '');
-INSERT INTO `activity_category` VALUES ('20', '测试', '');
-INSERT INTO `activity_category` VALUES ('21', '测试', '');
-INSERT INTO `activity_category` VALUES ('22', '测试', '');
+INSERT INTO `activity_category` VALUES ('23', '其他', '其他');
 
 -- ----------------------------
 -- Table structure for `activity_image`
@@ -87,6 +80,55 @@ CREATE TABLE `activity_image` (
 
 -- ----------------------------
 -- Records of activity_image
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `class`
+-- ----------------------------
+DROP TABLE IF EXISTS `class`;
+CREATE TABLE `class` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `count` int(11) DEFAULT NULL,
+  `majorId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of class
+-- ----------------------------
+INSERT INTO `class` VALUES ('1', '15信管4班', null, '0');
+INSERT INTO `class` VALUES ('2', '15信管3班', null, '0');
+
+-- ----------------------------
+-- Table structure for `college`
+-- ----------------------------
+DROP TABLE IF EXISTS `college`;
+CREATE TABLE `college` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of college
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `major`
+-- ----------------------------
+DROP TABLE IF EXISTS `major`;
+CREATE TABLE `major` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `collegeId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of major
 -- ----------------------------
 
 -- ----------------------------
@@ -113,3 +155,21 @@ INSERT INTO `user` VALUES ('2', '班主任', '123', '班主任', '班主任', '�
 INSERT INTO `user` VALUES ('3', '学院管理员', '123', '学院管理员', '学院管理员', '男', '123456', '123@qq.com');
 INSERT INTO `user` VALUES ('4', '系统管理员', '123', '系统管理员', '系统管理员', '女', '123456', '123@qq.com');
 INSERT INTO `user` VALUES ('5', '测试', '123', '助班', '测试', '男', '123', '123@qq.com');
+
+-- ----------------------------
+-- Table structure for `user_class_college_map`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_class_college_map`;
+CREATE TABLE `user_class_college_map` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `classId` int(11) DEFAULT NULL,
+  `collegeId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_class_college_map
+-- ----------------------------
+INSERT INTO `user_class_college_map` VALUES ('1', '1', '2', null);
+INSERT INTO `user_class_college_map` VALUES ('2', '1', '1', null);

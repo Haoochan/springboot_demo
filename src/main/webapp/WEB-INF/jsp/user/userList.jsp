@@ -17,6 +17,32 @@
 <body>
 <h3>用户列表</h3>
 
+<%--搜索列表--%>
+<form class="layui-form layui-form-pane" >
+    <div class="layui-inline">
+        <input class="layui-input" name="keyword" id="keyword" placeholder="请输入关键词" autocomplete="off">
+    </div>
+    <div class="layui-input-inline ">
+        <select  id="role" name="role">
+            <option value="">请选择用户角色</option>
+            <option value="助班">助班</option>
+            <option value="班主任">班主任</option>
+            <option value="学院管理员">学院管理员</option>
+            <option value="班主任">班主任</option>
+        </select>
+    </div>
+    <div class="layui-input-inline">
+        <select  id="sex" name="sex">
+            <option value="">请选择性别</option>
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+    </div>
+    <div class="layui-form-item">
+        <input type=button class="layui-btn" value="搜索" id="search"/>
+    </div>
+</form>
+
 <button class="layui-btn" onclick="add();">
     <i class="layui-icon">&#xe608;</i> 添加
 </button>
@@ -84,8 +110,29 @@
 
 </script>
 <script>
-    layui.use('table', function(){
+    layui.use(['table','form'], function(){
         var table = layui.table;
+        var form = layui.form;
+        table.render();
+        form.render();
+
+        //条件搜索
+        $("#search").click(function () {
+            var keyword = $('#keyword');
+            var role = $('#role');
+            var sex = $('#sex');
+
+            //idTest 是表单lay-data 里面的id
+            table.reload('idTest', {
+                where: {
+                    keyword: keyword.val(),
+                    role:role.val(),
+                    sex:sex.val()
+                }
+            });
+        });
+
+
         //监听表格复选框选择
         table.on('checkbox(demo)', function(obj){
             console.log(obj)
