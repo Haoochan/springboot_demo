@@ -55,6 +55,9 @@
         <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
         <th lay-data="{field:'name', width:200}">名字</th>
         <th lay-data="{field:'role', width:200}">角色</th>
+        <th lay-data="{field:'classes', width:200}">班级</th>
+        <th lay-data="{field:'major', width:200}">专业</th>
+        <th lay-data="{field:'college', width:200}">学院</th>
         <th lay-data="{field:'sex', width:200}">性别</th>
         <th lay-data="{field:'phone', width:300}">电话</th>
         <th lay-data="{field:'email', width:300}">邮箱</th>

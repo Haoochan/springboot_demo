@@ -1,6 +1,6 @@
 package com.springboot.demo.Entity;
 
-public class Class {
+public class Classes {
     private Integer id;
 
     private String name;
@@ -8,6 +8,16 @@ public class Class {
     private Integer count;
 
     private Integer majorid;
+
+    @Override
+    public String toString() {
+        return "Classes{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", count=" + count +
+                ", majorid=" + majorid +
+                '}';
+    }
 
     public Integer getId() {
         return id;

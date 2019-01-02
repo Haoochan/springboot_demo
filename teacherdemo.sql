@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50724
+Source Server         : localhost_3306
+Source Server Version : 50710
 Source Host           : localhost:3306
 Source Database       : teacherdemo
 
 Target Server Type    : MYSQL
-Target Server Version : 50724
+Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2019-01-02 18:36:45
+Date: 2019-01-03 00:33:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `activity`
+-- Table structure for activity
 -- ----------------------------
 DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity` (
@@ -43,7 +43,7 @@ INSERT INTO `activity` VALUES ('1', '参加会议', '参加班主任工作会议
 INSERT INTO `activity` VALUES ('2', '参加助班会议', '参加助班工作会议', '1', '1', '2018-12-24', '1', '2018-2019', '2018-12-24 14:38:00');
 
 -- ----------------------------
--- Table structure for `activity_category`
+-- Table structure for activity_category
 -- ----------------------------
 DROP TABLE IF EXISTS `activity_category`;
 CREATE TABLE `activity_category` (
@@ -63,7 +63,7 @@ INSERT INTO `activity_category` VALUES ('4', '学生交流', '与学生进行沟
 INSERT INTO `activity_category` VALUES ('23', '其他', '其他');
 
 -- ----------------------------
--- Table structure for `activity_image`
+-- Table structure for activity_image
 -- ----------------------------
 DROP TABLE IF EXISTS `activity_image`;
 CREATE TABLE `activity_image` (
@@ -83,7 +83,7 @@ CREATE TABLE `activity_image` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `class`
+-- Table structure for class
 -- ----------------------------
 DROP TABLE IF EXISTS `class`;
 CREATE TABLE `class` (
@@ -92,16 +92,18 @@ CREATE TABLE `class` (
   `count` int(11) DEFAULT NULL,
   `majorId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of class
 -- ----------------------------
-INSERT INTO `class` VALUES ('1', '15信管4班', null, '0');
-INSERT INTO `class` VALUES ('2', '15信管3班', null, '0');
+INSERT INTO `class` VALUES ('1', '15信管4班', null, '1');
+INSERT INTO `class` VALUES ('2', '15信管3班', null, '1');
+INSERT INTO `class` VALUES ('3', '15软工1班', null, '2');
+INSERT INTO `class` VALUES ('4', '15车辆1班', null, '3');
 
 -- ----------------------------
--- Table structure for `college`
+-- Table structure for college
 -- ----------------------------
 DROP TABLE IF EXISTS `college`;
 CREATE TABLE `college` (
@@ -109,14 +111,16 @@ CREATE TABLE `college` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of college
 -- ----------------------------
+INSERT INTO `college` VALUES ('1', '数学与信息学院', null);
+INSERT INTO `college` VALUES ('2', '工程学院', null);
 
 -- ----------------------------
--- Table structure for `major`
+-- Table structure for major
 -- ----------------------------
 DROP TABLE IF EXISTS `major`;
 CREATE TABLE `major` (
@@ -125,14 +129,17 @@ CREATE TABLE `major` (
   `description` varchar(255) DEFAULT NULL,
   `collegeId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of major
 -- ----------------------------
+INSERT INTO `major` VALUES ('1', '信息管理与信息系统', null, '1');
+INSERT INTO `major` VALUES ('2', '软件工程', null, '1');
+INSERT INTO `major` VALUES ('3', '车辆工程', null, '2');
 
 -- ----------------------------
--- Table structure for `user`
+-- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -157,7 +164,7 @@ INSERT INTO `user` VALUES ('4', '系统管理员', '123', '系统管理员', '�
 INSERT INTO `user` VALUES ('5', '测试', '123', '助班', '测试', '男', '123', '123@qq.com');
 
 -- ----------------------------
--- Table structure for `user_class_college_map`
+-- Table structure for user_class_college_map
 -- ----------------------------
 DROP TABLE IF EXISTS `user_class_college_map`;
 CREATE TABLE `user_class_college_map` (

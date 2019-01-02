@@ -1,5 +1,7 @@
 package com.springboot.demo.Entity;
 
+import java.util.List;
+
 public class User {
     private Integer id;
 
@@ -17,11 +19,41 @@ public class User {
 
     private String email;
 
+    //对应班级
+//    private List<Classes> classes;
+    private String classes;
+
+    //专业
+    private String major;
+
+    //学院
+    private String college;
+
     //给搜索下拉框提供构造方法
     public User(Integer id, String role, String name) {
         this.id = id;
         this.role = role;
         this.name = name;
+    }
+
+    //空构造方法
+    public User(){
+
+    }
+
+    //带班级-专业-学院 List那里有问题
+    public User(Integer id, String username, String password, String role, String name, String sex, Integer phone, String email, String classes, String major, String college) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.name = name;
+        this.sex = sex;
+        this.phone = phone;
+        this.email = email;
+        this.classes = classes;
+        this.major = major;
+        this.college = college;
     }
 
     public User(Integer id, String username, String password, String role) {
@@ -65,6 +97,13 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", phone=" + phone +
+                ", email='" + email + '\'' +
+                ", classes=" + classes +
+                ", major='" + major + '\'' +
+                ", college='" + college + '\'' +
                 '}';
     }
 
@@ -132,4 +171,27 @@ public class User {
         this.email = email;
     }
 
+    public String getClasses() {
+        return classes;
+    }
+
+    public void setClasses(String classes) {
+        this.classes = classes;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
 }

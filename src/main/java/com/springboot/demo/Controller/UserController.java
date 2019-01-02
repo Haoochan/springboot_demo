@@ -174,6 +174,7 @@ public class UserController {
         map.put("before", String.valueOf(before));
         map.put("after", String.valueOf(pageSize));
         List<User> list = this.userService.getAllUser(map);
+        System.out.println(list.toString());
         userResponseData.setData(list);
         return userResponseData;
     }
@@ -189,9 +190,8 @@ public class UserController {
     //获取所有分类 给到活动添加那边的下拉框取值
     @ResponseBody
     @RequestMapping(value = "/getUser",method = RequestMethod.GET)
-    public Object getActivityCategory(){
+    public Object getUser(){
         List<User> list = this.userService.getUser();
-        System.out.println(list.toString());
         return list;
     }
 
