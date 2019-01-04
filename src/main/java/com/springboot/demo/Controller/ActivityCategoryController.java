@@ -35,10 +35,8 @@ public class ActivityCategoryController {
         activityCategoryResponseData.setCode("0");
         activityCategoryResponseData.setMsg("");
         activityCategoryResponseData.setCount(totalCount);
-
         List<ActivityCategory> list = this.activityCategoryService.getAllActivityCategory(before,pageSize);
         activityCategoryResponseData.setData(list);
-        System.out.println(activityCategoryResponseData);
         return activityCategoryResponseData;
     }
 

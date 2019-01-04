@@ -188,6 +188,15 @@
     <if test="sex !=null and sex !='' ">
       and u.sex = #{sex}
     </if>
+    <if test="college !=null and college !='' ">
+      and m.collegeId = #{college}
+    </if>
+    <if test="major !=null and major !='' ">
+      and c.majorId = #{major}
+    </if>
+    <if test="classes !=null and classes !='' ">
+      and uccm.classId = #{classes}
+    </if>
     GROUP BY u.id
     limit ${before},${after}
   </select>

@@ -38,6 +38,21 @@
             <option value="女">女</option>
         </select>
     </div>
+    <div class="layui-input-inline">
+        <select  id="college" name="college" lay-filter="college">
+            <option value="">请选择学院</option>
+        </select>
+    </div>
+    <div class="layui-input-inline">
+        <select  id="major" name="major" lay-filter="major">
+            <option value="">请选择专业</option>
+        </select>
+    </div>
+    <div class="layui-input-inline">
+        <select  id="classes" name="classes">
+            <option value="">请选择班级</option>
+        </select>
+    </div>
     <div class="layui-form-item">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
@@ -51,7 +66,6 @@
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <%--<th lay-data="{field:'id', width:80, sort: true, fixed: true}">ID</th>--%>
         <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
         <th lay-data="{field:'name', width:200}">名字</th>
         <th lay-data="{field:'role', width:200}">角色</th>
@@ -66,7 +80,7 @@
     </thead>
 </table>
 
-
+<%--工具栏--%>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -88,6 +102,7 @@
             content: '/user/goAdd'  //调到新增页面
         });
     }
+    //编辑方法
     function  edit(data) {
         console.log(data);
         var index = layui.layer.open({
@@ -98,7 +113,7 @@
             content : "/user/goEdit?id="+data.id//弹出层页面
         })
     }
-
+    //查看方法
     function show(data) {
         console.log(data);
         var index = layui.layer.open({
@@ -119,18 +134,89 @@
         table.render();
         form.render();
 
+        //学院添加到下拉框中
+        $.ajax({
+            url: '/college/getCollege',
+            dataType: 'json',
+            type: 'get',
+            success: function (college) {
+                console.log(college);
+                $.each(college, function (index, item) {
+                    $('#college').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                });
+                form.render("select");
+                //重新渲染 固定写法
+            }
+        });
+
+        //监听学院下拉框 把专业添加到下拉框中
+        form.on('select(college)', function(data){
+            $('#major').html("");//清空下拉框
+            $('#major').append(new Option("请选择专业", ''));//添加提示
+            form.render('select');
+            var value = data.value;
+            console.log(value);
+            if (value!='') {
+                $.ajax({
+                    url: '/major/getMajor?id=' + value,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (major) {
+                        console.log(major);
+                        $.each(major, function (index, item) {
+                            $('#major').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                        });
+                        form.render("select");
+                        //重新渲染 固定写法
+                    }
+                });
+            }
+
+        });
+
+        //监听专业下拉框 把班级添加到下拉框中
+        form.on('select(major)', function(data){
+            $('#classes').html("");//清空下拉框
+            $('#classes').append(new Option("请选择班级",''));//添加提示
+            form.render('select');
+            var value = data.value;
+            console.log(value);
+            if (value!='') {
+                $.ajax({
+                    url: '/classes/getClasses?id=' + value,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (classes) {
+                        console.log(classes);
+                        $.each(classes, function (index, item) {
+                            $('#classes').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                        });
+                        form.render("select");
+                        //重新渲染 固定写法
+                    }
+                });
+            }
+        });
+
+
+
         //条件搜索
         $("#search").click(function () {
             var keyword = $('#keyword');
             var role = $('#role');
             var sex = $('#sex');
-
+            var college = $('#college');
+            var major = $('#major');
+            var classes = $('#classes');
             //idTest 是表单lay-data 里面的id
             table.reload('idTest', {
                 where: {
                     keyword: keyword.val(),
                     role:role.val(),
-                    sex:sex.val()
+                    sex:sex.val(),
+                    college:college.val(),
+                    major:major.val(),
+                    classes:classes.val()
                 }
             });
         });

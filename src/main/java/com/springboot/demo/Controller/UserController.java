@@ -25,15 +25,6 @@ public class UserController {
     @Resource
     private UserService userService;
 
-//    @ResponseBody
-    @RequestMapping("/showUser")
-    public String toIndex(Model model) {
-        int userId = 1;
-        User user = this.userService.getUserById(userId);
-        model.addAttribute("user", user);
-        return "/showUser.jsp";
-    }
-
     @RequestMapping("/login")
     public String login(HttpServletRequest request, Model model) {
         String username = request.getParameter("username");
@@ -159,13 +150,20 @@ public class UserController {
     public LayuiResponseDataUtil userList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
                                           @RequestParam(value = "keyword" ,required = false)String keyword,
                                           @RequestParam(value = "role" ,required = false)String role,
-                                          @RequestParam(value = "sex" ,required = false)String sex){
+                                          @RequestParam(value = "sex" ,required = false)String sex,
+                                          @RequestParam(value = "college" ,required = false)String college,
+                                          @RequestParam(value = "major" ,required = false)String major,
+                                          @RequestParam(value = "classes" ,required = false)String classes){
         //        pageSize 前端设置10
         int before = pageSize*(page-1);
         Map<String,String> map = new HashMap<String,String>();
         map.put("keyword",keyword);
         map.put("role",role);
         map.put("sex",sex);
+        map.put("college",college);
+        map.put("major",major);
+        map.put("classes",classes);
+        System.out.println(map.toString());
         int totalCount = this.userService.getTotalCount(map);
         LayuiResponseDataUtil userResponseData = new LayuiResponseDataUtil();
         userResponseData.setCode("0");

@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Controller
-@RequestMapping("/Major")
+@RequestMapping("/major")
 public class MajorController {
 
     @Resource

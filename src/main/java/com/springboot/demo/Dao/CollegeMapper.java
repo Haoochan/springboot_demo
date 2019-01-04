@@ -22,4 +22,10 @@ public interface CollegeMapper {
     //提供下拉框
     @Select("select id,name from college")
     List<College> getCollege();
+
+    @Select("select count(1) from college")
+    int getTotalCount();
+
+    @Select("select * from college limit #{before},#{pageSize}")
+    List<College> getAllCollege(int before, int pageSize);
 }

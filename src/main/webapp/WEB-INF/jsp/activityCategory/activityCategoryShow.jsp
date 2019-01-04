@@ -24,7 +24,7 @@
 </head>
 <body>
 <form class="layui-form layui-form-pane" action="" id="form1" name="form1"  method="post">
-    <div class="layui-form-item" >
+    <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">id</label>
         <div class="layui-input-inline">
             <input type="text" name="id" id="id" value="${activityCategory.id}" readonly="readonly" autocomplete="off" class="layui-input">
@@ -36,13 +36,13 @@
             <span class="we-red">*</span>类别名称
         </label>
         <div class="layui-input-inline">
-            <input type="text" id="name" name="name" lay-verify="required" value="${activityCategory.name}" autocomplete="off" class="layui-input">
+            <input type="text" id="name" name="name" readonly="readonly" value="${activityCategory.name}" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label for="description" class="layui-form-label">描述</label>
         <div class="layui-input-inline">
-            <input type="text" id="description" name="description" lay-verify="required" value="${activityCategory.description}" autocomplete="off" class="layui-input">
+            <input type="text" id="description" name="description" readonly="readonly" value="${activityCategory.description}" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">

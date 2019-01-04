@@ -23,26 +23,26 @@
     <![endif]-->
 </head>
 <body>
-<form class="layui-form layui-form-pane" action="/activityCategory/edit" id="form1" name="form1"  method="post">
+<form class="layui-form layui-form-pane" action="" id="form1" name="form1"  method="post">
     <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">id</label>
         <div class="layui-input-inline">
-            <input type="text" name="id" id="id" value="${activityCategory.id}" readonly="readonly" autocomplete="off" class="layui-input">
+            <input type="text" name="id" id="id" value="${college.id}" readonly="readonly" autocomplete="off" class="layui-input">
         </div>
     </div>
 
     <div class="layui-form-item">
         <label for="name" class="layui-form-label">
-            <span class="we-red">*</span>类别名称
+            <span class="we-red">*</span>学院名称
         </label>
         <div class="layui-input-inline">
-            <input type="text" id="name" name="name" lay-verify="required" value="${activityCategory.name}" autocomplete="off" class="layui-input">
+            <input type="text" id="name" name="name" readonly="readonly" value="${college.name}" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label for="description" class="layui-form-label">描述</label>
         <div class="layui-input-inline">
-            <input type="text" id="description" name="description" lay-verify="required" value="${activityCategory.description}" autocomplete="off" class="layui-input">
+            <input type="text" id="description" name="description" readonly="readonly" value="${college.description}" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -54,7 +54,7 @@
 <script>
     // 关闭弹窗 刷新列表
     function reload() {
-        window.parent.location.reload();
+        // window.parent.location.reload();
         var index = parent.layer.getFrameIndex(window.name);
         parent.layer.close(index);
     }
@@ -63,16 +63,6 @@
         var index = parent.layer.getFrameIndex(window.name);
         parent.layer.close(index);
     }
-
-    layui.use('form', function(){
-        var form = layui.form;
-
-        //监听提交
-        // form.on('submit(formDemo)', function(data){
-        //     layer.msg(JSON.stringify(data.field));
-        //     return false;
-        // });
-    });
 </script>
 </body>
 

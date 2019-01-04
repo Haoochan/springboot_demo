@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2019-01-03 00:33:36
+Date: 2019-01-04 01:13:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -51,7 +51,7 @@ CREATE TABLE `activity_category` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of activity_category
@@ -111,13 +111,30 @@ CREATE TABLE `college` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of college
 -- ----------------------------
-INSERT INTO `college` VALUES ('1', '数学与信息学院', null);
-INSERT INTO `college` VALUES ('2', '工程学院', null);
+INSERT INTO `college` VALUES ('1', '数学与信息学院（软件学院）', '数学与信息学院（软件学院）');
+INSERT INTO `college` VALUES ('2', '工程学院', '工程学院');
+INSERT INTO `college` VALUES ('6', '农学院', '农学院');
+INSERT INTO `college` VALUES ('8', '经济管理学院', '经济管理学院');
+INSERT INTO `college` VALUES ('9', '兽医学院', '兽医学院');
+INSERT INTO `college` VALUES ('10', '园艺学院', '园艺学院');
+INSERT INTO `college` VALUES ('11', '林学与风景园林学院', '林学与风景园林学院');
+INSERT INTO `college` VALUES ('12', '资源环境学院', '资源环境学院');
+INSERT INTO `college` VALUES ('13', '生命科学学院', '生命科学学院');
+INSERT INTO `college` VALUES ('14', '动物科学学院', '动物科学学院');
+INSERT INTO `college` VALUES ('15', '海洋学院', '海洋学院');
+INSERT INTO `college` VALUES ('16', '食品学院', '食品学院');
+INSERT INTO `college` VALUES ('17', '人文与法学学院', '人文与法学学院');
+INSERT INTO `college` VALUES ('18', '水利与土木工程学院', '水利与土木工程学院');
+INSERT INTO `college` VALUES ('19', '材料与能源学院', '材料与能源学院');
+INSERT INTO `college` VALUES ('20', '电子工程学院', '电子工程学院');
+INSERT INTO `college` VALUES ('21', '公共管理学院', '公共管理学院');
+INSERT INTO `college` VALUES ('22', '艺术学院', '艺术学院');
+INSERT INTO `college` VALUES ('23', '外国语学院', '外国语学院');
 
 -- ----------------------------
 -- Table structure for major

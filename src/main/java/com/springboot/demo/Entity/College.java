@@ -7,6 +7,35 @@ public class College {
 
     private String description;
 
+    public College(String name){
+        this.name = name;
+    }
+
+    public College(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public College(Integer id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public College(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "College{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

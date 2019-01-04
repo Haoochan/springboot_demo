@@ -42,20 +42,20 @@
             <!-- 左侧垂直导航区域-->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item">
-                    <a href="javascript:;" data-id="4" data-title="工作类别管理" data-url="/activityCategory/golist"
+                    <a href="javascript:;" data-id="1" data-title="工作类别管理" data-url="/activityCategory/golist"
                        class="site-demo-active" data-type="tabAdd">工作类别管理</a>
                 </li>
                 <li class="layui-nav-item">
                 <a class="" href="javascript:;">工作管理</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="javascript:;" data-id="5" data-title="工作列表" data-url="/activity/goList"
+                        <a href="javascript:;" data-id="2" data-title="工作列表" data-url="/activity/goList"
                            class="site-demo-active" data-type="tabAdd">工作列表</a>
                     </dd>
                 </dl>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="javascript:;" data-id="6" data-title="我的工作" data-url="/activity/goMyList"
+                        <a href="javascript:;" data-id="3" data-title="我的工作" data-url="/activity/goMyList"
                            class="site-demo-active" data-type="tabAdd">我的工作</a>
                     </dd>
                 </dl>
@@ -64,47 +64,41 @@
                     <a class="" href="javascript:;">用户管理</a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" data-id="7" data-title="用户列表" data-url="/user/goList"
+                            <a href="javascript:;" data-id="4" data-title="用户列表" data-url="/user/goList"
                                class="site-demo-active" data-type="tabAdd">用户列表</a>
                         </dd>
                     </dl>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" data-id="8" data-title="我的信息" data-url="/user/goUserInfo"
+                            <a href="javascript:;" data-id="5" data-title="我的信息" data-url="/user/goUserInfo"
                                class="site-demo-active" data-type="tabAdd">我的信息</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">单位管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="6" data-title="班级管理" data-url="/user/goList"
+                               class="site-demo-active" data-type="tabAdd">班级管理</a>
+                        </dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="7" data-title="专业管理" data-url="/user/goUserInfo"
+                               class="site-demo-active" data-type="tabAdd">专业管理</a>
+                        </dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="8" data-title="学院管理" data-url="/college/goList"
+                               class="site-demo-active" data-type="tabAdd">学院管理</a>
                         </dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;" data-id="" data-title="图片上传" data-url="/activity/golist"
                        class="site-demo-active" data-type="tabAdd">图片上传</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;">工作类别</a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a href="javascript:;" data-id="1" data-title="管理员列表" data-url="index.php?&a=adminList"
-                               class="site-demo-active" data-type="tabAdd">管理员列表</a></dd>
-                        <dd><a href="javascript:;" data-id="2" data-title="管理员日志" data-url="index.php?&a=adminLogList"
-                               class="site-demo-active" data-type="tabAdd">管理员日志</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">交易管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="" data-id="3" data-title="存款列表"
-                               　data-url="index.php?&a=adminList" class="site-demo-active" data-type="tabAdd">存款列表</a>
-                        </dd>
-                        <dd><a href="javascript:;">代付列表</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">系统管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">支付API设置</a></dd>
-                        <dd><a href="javascript:;">公告设置</a></dd>
-                        <dd><a href="javascript:;">控制台</a></dd>
-                    </dl>
                 </li>
             </ul>
         </div>
