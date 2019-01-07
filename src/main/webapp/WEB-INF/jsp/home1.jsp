@@ -79,13 +79,13 @@
                     <a class="" href="javascript:;">单位管理</a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" data-id="6" data-title="班级管理" data-url="/user/goList"
+                            <a href="javascript:;" data-id="6" data-title="班级管理" data-url="/classes/goList"
                                class="site-demo-active" data-type="tabAdd">班级管理</a>
                         </dd>
                     </dl>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" data-id="7" data-title="专业管理" data-url="/user/goUserInfo"
+                            <a href="javascript:;" data-id="7" data-title="专业管理" data-url="/major/goList"
                                class="site-demo-active" data-type="tabAdd">专业管理</a>
                         </dd>
                     </dl>

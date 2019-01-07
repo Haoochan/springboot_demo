@@ -7,6 +7,8 @@ public class College {
 
     private String description;
 
+    private String userName;
+
     public College(String name){
         this.name = name;
     }
@@ -58,5 +60,13 @@ public class College {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -4,6 +4,7 @@ import com.springboot.demo.Entity.Major;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MajorMapper {
     int deleteByPrimaryKey(Integer id);
@@ -21,4 +22,10 @@ public interface MajorMapper {
     //根据collegeId获取Major名
     @Select("select id,name from major where collegeId=#{id}")
     List<Major> getMajor(int id);
+
+
+    int getTotalCount(Map<String, String> map);
+
+
+    List<Major> getAllMajor(Map<String, String> map);
 }

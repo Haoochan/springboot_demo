@@ -146,16 +146,29 @@
   <select id="getTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
     select
     count(1)
-    from user
+    from user as u
+    LEFT JOIN user_class_college_map as uccm on uccm.userId=u.id
+    LEFT JOIN class as c on uccm.classId = c.id
+    LEFT JOIN major as m on c.majorId = m.id
+    LEFT JOIN college as co on co.id = m.collegeId
     where 1=1
     <if test="keyword!=null and keyword !=''">
-      and user.name LIKE '%${keyword}%'
+      and u.name LIKE '%${keyword}%'
     </if>
     <if test="role !=null and role !='' ">
-      and user.role = #{role}
+      and u.role = #{role}
     </if>
     <if test="sex !=null and sex !='' ">
-      and user.sex = #{sex}
+      and u.sex = #{sex}
+    </if>
+    <if test="college !=null and college !='' ">
+      and m.collegeId = #{college}
+    </if>
+    <if test="major !=null and major !='' ">
+      and c.majorId = #{major}
+    </if>
+    <if test="classes !=null and classes !='' ">
+      and uccm.classId = #{classes}
     </if>
   </select>
 

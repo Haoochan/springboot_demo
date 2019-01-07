@@ -15,27 +15,21 @@
 
 </head>
 <body>
-<h3>用户列表</h3>
+<h3>专业列表</h3>
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
     <div class="layui-inline">
         <input class="layui-input" name="keyword" id="keyword" placeholder="请输入关键词" autocomplete="off">
     </div>
-    <div class="layui-input-inline ">
-        <select  id="role" name="role">
-            <option value="">请选择用户角色</option>
-            <option value="助班">助班</option>
-            <option value="班主任">班主任</option>
-            <option value="学院管理员">学院管理员</option>
-            <option value="班主任">班主任</option>
-        </select>
-    </div>
     <div class="layui-input-inline">
-        <select  id="sex" name="sex">
-            <option value="">请选择性别</option>
-            <option value="男">男</option>
-            <option value="女">女</option>
+        <select  id="grade" name="grade" lay-filter="grade">
+            <option value="">请选择年级</option>
+            <option value="14">14级</option>
+            <option value="15">15级</option>
+            <option value="16">16级</option>
+            <option value="17">17级</option>
+            <option value="18">18级</option>
         </select>
     </div>
     <div class="layui-input-inline">
@@ -48,11 +42,6 @@
             <option value="">请选择专业</option>
         </select>
     </div>
-    <div class="layui-input-inline">
-        <select  id="classes" name="classes">
-            <option value="">请选择班级</option>
-        </select>
-    </div>
     <div class="layui-form-item">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
@@ -62,25 +51,22 @@
     <i class="layui-icon">&#xe608;</i> 添加
 </button>
 
-<table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/user/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
+<table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/classes/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
         <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
-        <th lay-data="{field:'name', width:200}">名字</th>
-        <th lay-data="{field:'role', width:200}">角色</th>
-        <th lay-data="{field:'classes', width:200}">班级</th>
-        <th lay-data="{field:'major', width:200}">专业</th>
-        <th lay-data="{field:'college', width:200}">学院</th>
-        <th lay-data="{field:'sex', width:200}">性别</th>
-        <th lay-data="{field:'phone', width:300}">电话</th>
-        <th lay-data="{field:'email', width:300}">邮箱</th>
+        <th lay-data="{field:'grade', width:200}">年级</th>
+        <th lay-data="{field:'name', width:200}">班级名称</th>
+        <th lay-data="{field:'count', width:200}">班级人数</th>
+        <th lay-data="{field:'majorName', width:300}">专业</th>
+        <th lay-data="{field:'collegeName', width:300}">学院</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
     </tr>
     </thead>
 </table>
 
-<%--工具栏--%>
+
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -96,32 +82,31 @@
 //页面层
         layer.open({
             type: 2,
-            title: '添加类别',
+            title: '添加班级',
             skin: 'layui-layer-rim', //加上边框
             area: ['500px', '500px'], //宽高
-            content: '/user/goAdd'  //调到新增页面
+            content: '/classes/goAdd'  //调到新增页面
         });
     }
-    //编辑方法
     function  edit(data) {
         console.log(data);
         var index = layui.layer.open({
-            title : "编辑用户",
+            title : "编辑班级",
             type : 2,
             closeBtn: 2,         //是否显示关闭按钮
             area: ['500px', '560px'],
-            content : "/user/goEdit?id="+data.id//弹出层页面
+            content : "/classes/goEdit?id="+data.id//弹出层页面
         })
     }
-    //查看方法
+
     function show(data) {
         console.log(data);
         var index = layui.layer.open({
-            title : "查看用户",
+            title : "查看班级",
             type : 2,
             closeBtn: 2,         //是否显示关闭按钮
             area: ['500px', '560px'],
-            content : "/user/goShow?id="+data.id//弹出层页面
+            content : "/classes/goShow?id="+data.id//弹出层页面
         })
     }
 
@@ -131,8 +116,9 @@
     layui.use(['table','form'], function(){
         var table = layui.table;
         var form = layui.form;
-        table.render();
         form.render();
+        table.render();
+
 
         //学院添加到下拉框中
         $.ajax({
@@ -173,53 +159,22 @@
             }
         });
 
-        //监听专业下拉框 把班级添加到下拉框中
-        form.on('select(major)', function(data){
-            $('#classes').html("");//清空下拉框
-            $('#classes').append(new Option("请选择班级",''));//添加提示
-            form.render('select');
-            var value = data.value;
-            console.log(value);
-            if (value!='') {
-                $.ajax({
-                    url: '/classes/getClasses?id=' + value,
-                    dataType: 'json',
-                    type: 'get',
-                    success: function (classes) {
-                        console.log(classes);
-                        $.each(classes, function (index, item) {
-                            $('#classes').append(new Option(item.name, item.id));// 下拉菜单里添加元素
-                        });
-                        form.render("select");
-                        //重新渲染 固定写法
-                    }
-                });
-            }
-        });
-
-
-
         //条件搜索
         $("#search").click(function () {
             var keyword = $('#keyword');
-            var role = $('#role');
-            var sex = $('#sex');
-            var college = $('#college');
+            var grade = $('#grade');
             var major = $('#major');
-            var classes = $('#classes');
+            var college = $('#college');
             //idTest 是表单lay-data 里面的id
             table.reload('idTest', {
                 where: {
                     keyword: keyword.val(),
-                    role:role.val(),
-                    sex:sex.val(),
-                    college:college.val(),
-                    major:major.val(),
-                    classes:classes.val()
+                    grade:grade.val(),
+                    majorId:major.val(),
+                    collegeId:college.val()
                 }
             });
         });
-
 
         //监听表格复选框选择
         table.on('checkbox(demo)', function(obj){
@@ -234,7 +189,7 @@
                 layer.confirm('真的删除行么', function(index){
                     console.log(data);
                     $.ajax({
-                        url: "/user/delete",
+                        url: "/classes/delete",
                         type: "POST",
                         data:{"id":data.id},
                         // dataType: "json",

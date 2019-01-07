@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.springboot.demo.Dao.ClassMapper">
+<mapper namespace="com.springboot.demo.Dao.ClassesMapper">
   <resultMap id="BaseResultMap" type="com.springboot.demo.Entity.Classes">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="count" jdbcType="INTEGER" property="count" />
-    <result column="majorId" jdbcType="INTEGER" property="majorid" />
+    <result column="majorId" jdbcType="INTEGER" property="majorId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, count, majorId
+    id,grade, name, count, majorId
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from class
-    where id = #{id,jdbcType=INTEGER}
+    select
+      c.id as id,
+      c.grade as grade,
+      c.`name`,
+      c.count as count,
+      c.majorId as majorId,
+      m.`name` as majorName,
+      co.id as collegeId,
+      co.`name` as collegeName
+    from class as c
+           left join major as m on m.id = c.majorId
+           left join college as co on co.id = m.collegeId
+    where c.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from class
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.springboot.demo.Entity.Classes">
-    insert into class (id, name, count, 
+    insert into class (id,grade, name, count,
       majorId)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}, 
-      #{majorid,jdbcType=INTEGER})
+    values (#{id,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER},#{name,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER},
+      #{majorId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.springboot.demo.Entity.Classes">
     insert into class
@@ -32,13 +42,16 @@
       <if test="id != null">
         id,
       </if>
+      <if test="grade != null">
+        grade,
+      </if>
       <if test="name != null">
         name,
       </if>
       <if test="count != null">
         count,
       </if>
-      <if test="majorid != null">
+      <if test="majorId != null">
         majorId,
       </if>
     </trim>
@@ -46,37 +59,95 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="count != null">
         #{count,jdbcType=INTEGER},
       </if>
-      <if test="majorid != null">
-        #{majorid,jdbcType=INTEGER},
+      <if test="majorId != null">
+        #{majorId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.springboot.demo.Entity.Classes">
     update class
     <set>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="count != null">
         count = #{count,jdbcType=INTEGER},
       </if>
-      <if test="majorid != null">
-        majorId = #{majorid,jdbcType=INTEGER},
+      <if test="majorId != null">
+        majorId = #{majorId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.springboot.demo.Entity.Classes">
     update class
-    set name = #{name,jdbcType=VARCHAR},
+    set grade = #{grade,jdbcType=INTEGER},
+        name = #{name,jdbcType=VARCHAR},
       count = #{count,jdbcType=INTEGER},
-      majorId = #{majorid,jdbcType=INTEGER}
+      majorId = #{majorId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select
+           count(1)
+    from class as c
+    left join major as m on m.id = c.majorId
+    left join college as co on co.id = m.collegeId
+    WHERE 1=1
+    <if test="keyword!=null and keyword !=''">
+      and c.name LIKE '%${keyword}%'
+    </if>
+    <if test="grade !=null and grade !='' ">
+      and c.grade = #{grade}
+    </if>
+    <if test="majorId !=null and majorId !='' ">
+      and c.majorId = #{majorId}
+    </if>
+    <if test="collegeId !='null' and collegeId !='' ">
+      and m.collegeId = #{collegeId}
+    </if>
+  </select>
+
+  <select id="getAllClasses" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    c.id as id,
+    c.grade as grade,
+    c.`name`,
+    c.count as count,
+    c.majorId as majorId,
+    m.`name` as majorName,
+    co.id as collegeId,
+    co.`name` as collegeName
+    from class as c
+    left join major as m on m.id = c.majorId
+    left join college as co on co.id = m.collegeId
+    WHERE 1=1
+    <if test="keyword!=null and keyword !=''">
+      and m.name LIKE '%${keyword}%'
+    </if>
+    <if test="grade !=null and grade !='' ">
+      and c.grade = #{grade}
+    </if>
+    <if test="majorId !=null and majorId !='' ">
+      and c.majorId = #{majorId}
+    </if>
+    <if test="collegeId !='null' and collegeId !='' ">
+      and m.collegeId = #{collegeId}
+    </if>
+    limit ${before},${pageSize}
+  </select>
+
 </mapper>

@@ -7,7 +7,43 @@ public class Major {
 
     private String description;
 
-    private Integer collegeid;
+    private Integer collegeId;
+
+    private String collegeName;
+
+    public Major(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Major(String name, String description, Integer collegeId) {
+        this.name = name;
+        this.description = description;
+        this.collegeId = collegeId;
+    }
+
+    public Major(Integer id, String name, String description, Integer collegeId) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.collegeId = collegeId;
+    }
+
+    public Major(Integer id, String name, String description, Integer collegeId, String collegeName) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.collegeId = collegeId;
+        this.collegeName = collegeName;
+    }
+
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
 
     public Integer getId() {
         return id;
@@ -33,11 +69,11 @@ public class Major {
         this.description = description == null ? null : description.trim();
     }
 
-    public Integer getCollegeid() {
-        return collegeid;
+    public Integer getcollegeId() {
+        return collegeId;
     }
 
-    public void setCollegeid(Integer collegeid) {
-        this.collegeid = collegeid;
+    public void setcollegeId(Integer collegeId) {
+        this.collegeId = collegeId;
     }
 }

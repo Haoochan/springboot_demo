@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MajorServiceImpl implements MajorService {
@@ -17,5 +18,35 @@ public class MajorServiceImpl implements MajorService {
     @Override
     public List<Major> getMajor(int id) {
         return this.majorMapper.getMajor(id);
+    }
+
+    @Override
+    public int getTotalCount(Map<String, String> map) {
+        return this.majorMapper.getTotalCount(map);
+    }
+
+    @Override
+    public List<Major> getAllMajor(Map<String,String> map) {
+        return this.majorMapper.getAllMajor(map);
+    }
+
+    @Override
+    public void add(Major major) {
+        this.majorMapper.insert(major);
+    }
+
+    @Override
+    public Major getMajorById(int id) {
+        return this.majorMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void delete(int deleteId) {
+        this.majorMapper.deleteByPrimaryKey(deleteId);
+    }
+
+    @Override
+    public void update(Major major) {
+        this.majorMapper.updateByPrimaryKey(major);
     }
 }

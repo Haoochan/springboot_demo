@@ -1,0 +1,7 @@
+学院：id，name，description
+专业：id，name，description，collegeId
+班级：id，name，grade，count，majorId
+
+用户-班级-学院映射表 助班、班主任也要有collegeId，但是学院管理员的classId 为null
+
+工作：地点
