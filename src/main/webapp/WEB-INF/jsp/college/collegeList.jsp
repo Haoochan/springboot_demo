@@ -28,16 +28,21 @@
         <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
         <th lay-data="{field:'name', width:200}">学院名称</th>
         <th lay-data="{field:'description', width:300}">描述</th>
+        <th lay-data="{field:'userName', width:300}">学院管理员</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+        <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo1'}"></th>
     </tr>
     </thead>
 </table>
-
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="barDemo1">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail1">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit1">编辑管理员</a>
 </script>
 
 
@@ -46,17 +51,33 @@
 <script>
     //添加方法
     function add() {
-//页面层
         layer.open({
             type: 2,
-            title: '添加类别',
+            title: '添加学院',
             skin: 'layui-layer-rim', //加上边框
             area: ['500px', '500px'], //宽高
             content: '/college/goAdd'  //调到新增页面
         });
     }
     function  edit(data) {
-        console.log(data);
+        var index = layui.layer.open({
+            title : "编辑学院",
+            type : 2,
+            closeBtn: 2,         //是否显示关闭按钮
+            area: ['500px', '560px'],
+            content : "/college/goEdit?id="+data.id//弹出层页面
+        })
+    }
+    function show(data) {
+        var index = layui.layer.open({
+            title : "查看学院",
+            type : 2,
+            closeBtn: 2,         //是否显示关闭按钮
+            area: ['500px', '560px'],
+            content : "/college/goShow?id="+data.id//弹出层页面
+        })
+    }
+    function  edit1(data) {
         var index = layui.layer.open({
             title : "编辑用户",
             type : 2,
@@ -65,18 +86,6 @@
             content : "/college/goEdit?id="+data.id//弹出层页面
         })
     }
-
-    function show(data) {
-        console.log(data);
-        var index = layui.layer.open({
-            title : "查看用户",
-            type : 2,
-            closeBtn: 2,         //是否显示关闭按钮
-            area: ['500px', '560px'],
-            content : "/college/goShow?id="+data.id//弹出层页面
-        })
-    }
-
 
 </script>
 <script>
@@ -93,7 +102,6 @@
                 show(data);
             } else if(obj.event === 'del'){
                 layer.confirm('真的删除行么', function(index){
-                    console.log(data);
                     $.ajax({
                         url: "/college/delete",
                         type: "POST",
@@ -119,7 +127,11 @@
             } else if(obj.event === 'edit'){
                 //这里一般是发送修改的Ajax请求
                 edit(data);
+            } else if(obj.event === 'edit1'){
+                //这里一般是发送修改的Ajax请求
+                edit1(data);
             }
+
         });
 
         $('.demoTable .layui-btn').on('click', function(){

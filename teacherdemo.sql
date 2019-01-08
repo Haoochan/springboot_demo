@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2019-01-08 00:30:10
+Date: 2019-01-09 00:56:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,8 @@ CREATE TABLE `activity` (
   `content` longtext NOT NULL,
   `category_id` int(11) NOT NULL,
   `createby_id` int(11) NOT NULL,
-  `time` date NOT NULL,
+  `time` datetime NOT NULL,
+  `location` varchar(255) NOT NULL,
   `semester` int(11) NOT NULL,
   `schoolyear` varchar(255) NOT NULL,
   `create_time` datetime NOT NULL,
@@ -39,8 +40,8 @@ CREATE TABLE `activity` (
 -- ----------------------------
 -- Records of activity
 -- ----------------------------
-INSERT INTO `activity` VALUES ('1', '参加会议', '参加班主任工作会议', '1', '2', '2018-12-24', '1', '2018-2019', '2018-12-24 14:35:32');
-INSERT INTO `activity` VALUES ('2', '参加助班会议', '参加助班工作会议', '1', '1', '2018-12-24', '1', '2018-2019', '2018-12-24 14:38:00');
+INSERT INTO `activity` VALUES ('1', '参加会议', '参加班主任工作会议', '1', '2', '2018-12-24 02:00:00', '教三311', '1', '2018-2019', '2019-01-08 21:47:57');
+INSERT INTO `activity` VALUES ('2', '参加助班会议', '参加助班工作会议', '1', '1', '2018-12-24 00:00:00', '教三105', '1', '2018-2019', '2018-12-24 14:38:00');
 
 -- ----------------------------
 -- Table structure for activity_category
@@ -51,7 +52,7 @@ CREATE TABLE `activity_category` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of activity_category

@@ -48,6 +48,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label for="location" class="layui-form-label">地点</label>
+        <div class="layui-input-inline">
+            <input type="text" id="location" name="location" lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label for="semester" class="layui-form-label">学期</label>
         <div class="layui-input-inline">
             <select  id="semester" name="semester" lay-verify="required">
@@ -95,7 +101,8 @@
 
         //日期插件
         laydate.render({
-            elem: '#time' //指定元素
+            elem: '#time', //指定元素
+            type: 'datetime'
         });
 
         //检查项目添加到下拉框中

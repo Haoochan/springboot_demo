@@ -75,6 +75,7 @@
         <th lay-data="{field:'creator', width:150}">用户</th>
         <th lay-data="{field:'creatorRole', width:100}">角色</th>
         <th lay-data="{field:'time', width:150}">时间</th>
+        <th lay-data="{field:'location', width:150}">地点</th>
         <th lay-data="{field:'schoolyear', width:150}">学年</th>
         <th lay-data="{field:'semester', width:80}">学期</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>

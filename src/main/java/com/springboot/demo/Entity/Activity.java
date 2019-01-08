@@ -11,12 +11,13 @@ public class Activity {
 
     private String topic;
 
-
     private Integer categoryId;
 
     private Integer createbyId;
 
     private String time;
+
+    private String location;
 
     private Integer semester;
 
@@ -35,7 +36,7 @@ public class Activity {
     public Activity(){
     }
 
-    public Activity(Integer id, String topic, String content,Integer categoryId, Integer createbyId, String time, Integer semester, String schoolyear, String createTime) {
+    public Activity(Integer id, String topic, String content,Integer categoryId, Integer createbyId, String time,String location, Integer semester, String schoolyear, String createTime) {
         this.id = id;
         this.topic = topic;
         this.categoryId = categoryId;
@@ -45,9 +46,10 @@ public class Activity {
         this.schoolyear = schoolyear;
         this.createTime = createTime;
         this.content = content;
+        this.location =location;
     }
 
-    public Activity(String topic, String content,Integer categoryId, Integer createbyId, String time, Integer semester, String schoolyear, String createTime) {
+    public Activity(String topic, String content,Integer categoryId, Integer createbyId, String time, String location,Integer semester, String schoolyear, String createTime) {
         this.topic = topic;
         this.categoryId = categoryId;
         this.createbyId = createbyId;
@@ -56,7 +58,25 @@ public class Activity {
         this.schoolyear = schoolyear;
         this.createTime = createTime;
         this.content = content;
+        this.location =location;
     }
+
+    public Activity(Integer id, String topic, Integer categoryId, Integer createbyId, String time, String location, Integer semester, String schoolyear, String createTime, String content, String creator, String creatorRole, String category) {
+        this.id = id;
+        this.topic = topic;
+        this.categoryId = categoryId;
+        this.createbyId = createbyId;
+        this.time = time;
+        this.location = location;
+        this.semester = semester;
+        this.schoolyear = schoolyear;
+        this.createTime = createTime;
+        this.content = content;
+        this.creator = creator;
+        this.creatorRole = creatorRole;
+        this.category = category;
+    }
+
 
     //java.sql.date 接数据库查询的构造函数
 //    public Activity(Integer id, String topic, String category ,String creator, String creatorRole,Date time,String schoolyear, Integer semester ) {
@@ -183,6 +203,13 @@ public class Activity {
         this.content = content == null ? null : content.trim();
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     @Override
     public String toString() {

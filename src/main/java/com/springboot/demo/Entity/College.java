@@ -9,6 +9,10 @@ public class College {
 
     private String userName;
 
+    private String userId;
+
+
+
     public College(String name){
         this.name = name;
     }
@@ -27,6 +31,14 @@ public class College {
     public College(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public College(Integer id, String name, String description, String userId, String userName) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.userName = userName;
+        this.userId = userId;
     }
 
     @Override
@@ -68,5 +80,13 @@ public class College {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

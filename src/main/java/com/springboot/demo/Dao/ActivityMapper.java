@@ -22,11 +22,8 @@ public interface ActivityMapper {
 
     int updateByPrimaryKey(Activity record);
 
-//    @Select("SELECT count(1) FROM activity")
-//    int getTotalCount();
     int getTotalCount(Map<String,String> map);
 
-//    List<Activity> getAllActivity(int before,int after,Map<String,String> map);
     List<Activity> getAllActivity(Map<String,String> map);
 
     Activity getActivityById(int id);

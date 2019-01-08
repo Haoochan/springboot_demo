@@ -6,7 +6,8 @@
     <result column="topic" jdbcType="VARCHAR" property="topic" />
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
     <result column="createby_id" jdbcType="INTEGER" property="createbyId" />
-    <result column="time" jdbcType="DATE" property="time" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
     <result column="semester" jdbcType="INTEGER" property="semester" />
     <result column="schoolyear" jdbcType="VARCHAR" property="schoolyear" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -15,7 +16,7 @@
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, topic, category_id, createby_id, time, semester, schoolyear, create_time
+    id, topic, category_id, createby_id, time,location, semester, schoolyear, create_time
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -34,11 +35,11 @@
   </delete>
   <insert id="insert" parameterType="com.springboot.demo.Entity.Activity">
     insert into activity (id, topic,
-      category_id, createby_id, time, 
+      category_id, createby_id, time, location,
       semester, schoolyear, create_time, 
       content)
     values (#{id,jdbcType=INTEGER}, #{topic,jdbcType=VARCHAR},
-      #{categoryId,jdbcType=INTEGER}, #{createbyId,jdbcType=INTEGER}, #{time,jdbcType=DATE}, 
+      #{categoryId,jdbcType=INTEGER}, #{createbyId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{location,jdbcType=VARCHAR},
       #{semester,jdbcType=INTEGER}, #{schoolyear,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
@@ -59,6 +60,9 @@
       </if>
       <if test="time != null">
         time,
+      </if>
+      <if test="location != null">
+        location,
       </if>
       <if test="semester != null">
         semester,
@@ -87,7 +91,10 @@
         #{createbyId,jdbcType=INTEGER},
       </if>
       <if test="time != null">
-        #{time,jdbcType=DATE},
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
       </if>
       <if test="semester != null">
         #{semester,jdbcType=INTEGER},
@@ -116,7 +123,10 @@
         createby_id = #{createbyId,jdbcType=INTEGER},
       </if>
       <if test="time != null">
-        time = #{time,jdbcType=DATE},
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
       </if>
       <if test="semester != null">
         semester = #{semester,jdbcType=INTEGER},
@@ -138,7 +148,8 @@
     set topic = #{topic,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       createby_id = #{createbyId,jdbcType=INTEGER},
-      time = #{time,jdbcType=DATE},
+      time = #{time,jdbcType=TIMESTAMP},
+      location = #{location,jdbcType=VARCHAR},
       semester = #{semester,jdbcType=INTEGER},
       schoolyear = #{schoolyear,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -150,7 +161,8 @@
     set topic = #{topic,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=INTEGER},
       createby_id = #{createbyId,jdbcType=INTEGER},
-      time = #{time,jdbcType=DATE},
+      time = #{time,jdbcType=TIMESTAMP},
+      location = #{location,jdbcType=VARCHAR},
       semester = #{semester,jdbcType=INTEGER},
       schoolyear = #{schoolyear,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
@@ -167,7 +179,8 @@
         a.createby_id,
         u.`name` as creator,
         u.role as creatorRole,
-        a.time as time,
+        DATE_FORMAT(a.time,'%Y-%m-%d %H:%i')  as time,
+        a.location as location,
         a.semester as semester,
         a.schoolyear as schoolyear,
         a.create_time
@@ -206,7 +219,8 @@
             a.createby_id,
             u.`name` as creator,
             u.role as creatorRole,
-            a.time as time,
+            DATE_FORMAT(a.time,'%Y-%m-%d %H:%i')  as time,
+            a.location as location,
             a.semester as semester,
             a.schoolyear as schoolyear,
             a.create_time
@@ -282,7 +296,8 @@
     a.createby_id,
     u.`name` as creator,
     u.role as creatorRole,
-    a.time as time,
+    DATE_FORMAT(a.time,'%Y-%m-%d %H:%i')  as time,
+    a.location as location,
     a.semester as semester,
     a.schoolyear as schoolyear,
     a.create_time

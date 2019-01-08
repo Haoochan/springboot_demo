@@ -143,10 +143,11 @@ public class ActivityController {
 //        Date time = format1.parse(request.getParameter("time"));
 //        Date createTime = format2.parse(sdf.format(new Date()));
         String time = request.getParameter("time");
+        String location = request.getParameter("location");
         String createTime = sdf.format(new Date());
         int semester = Integer.parseInt(request.getParameter("semester"));
         String schoolyear = request.getParameter("schoolyear");
-        Activity activity = new Activity(id,topic,content,categoryId,createbyId,time,semester,schoolyear,createTime);
+        Activity activity = new Activity(id,topic,content,categoryId,createbyId,time,location,semester,schoolyear,createTime);
         this.activityService.update(activity);
         model.addAttribute("activity",activity);
         return "/activity/goShow?id="+activity.getId();
@@ -167,9 +168,10 @@ public class ActivityController {
         int semester = Integer.parseInt(request.getParameter("semester"));
         String schoolyear = request.getParameter("schoolyear");
         String time = request.getParameter("time");
+        String location = request.getParameter("location");
         SimpleDateFormat  sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String createTime = sdf.format(new Date());
-        Activity activity = new Activity(topic,content,categoryId,createbyId,time,semester,schoolyear,createTime);
+        Activity activity = new Activity(topic,content,categoryId,createbyId,time,location,semester,schoolyear,createTime);
         this.activityService.add(activity);
         return goList();
 

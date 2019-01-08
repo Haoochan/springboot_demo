@@ -82,6 +82,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label for="location" class="layui-form-label">地点</label>
+        <div class="layui-input-inline">
+            <input type="text" id="location" name="location" readonly="readonly" value="${activity.location}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label for="semester" class="layui-form-label">学期</label>
         <div class="layui-input-inline">
             <input type="text" id="semester" name="semester" readonly="readonly" value="${activity.semester}" autocomplete="off" class="layui-input">
