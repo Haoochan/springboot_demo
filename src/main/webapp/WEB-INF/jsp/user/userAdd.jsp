@@ -46,13 +46,37 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">角色</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <select  id="role" name="role" lay-verify="required">
                 <option >请选择角色</option>
                 <option value="助班">助班</option>
                 <option value="班主任">班主任</option>
                 <option value="学院管理员">学院管理员</option>
                 <option value="系统管理员">系统管理员</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label for="college" class="layui-form-label">学院</label>
+        <div class="layui-input-inline">
+            <select  id="college" name="college" lay-filter="college" lay-verify="required">
+                <option value="0">请选择学院</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label for="major" class="layui-form-label">专业</label>
+        <div class="layui-input-inline">
+            <select  id="major" name="major" lay-filter="major">
+                <option value="0">请选择专业</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label for="classes" class="layui-form-label">班级</label>
+        <div class="layui-input-inline">
+            <select  id="classes" name="classes" lay-filter="classes">
+                <option value="0">请选择班级</option>
             </select>
         </div>
     </div>
@@ -92,7 +116,69 @@
     layui.use('form', function(){
         var form = layui.form;
         form.render();
-        // form.render("select");
+
+        //学院添加到下拉框中
+        $.ajax({
+            url: '/college/getCollege',
+            dataType: 'json',
+            type: 'get',
+            success: function (college) {
+                console.log(college);
+                $.each(college, function (index, item) {
+                    $('#college').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                });
+                form.render("select");
+                //重新渲染 固定写法
+            }
+        });
+
+        //监听学院下拉框 把专业添加到下拉框中
+        form.on('select(college)', function(data){
+            $('#major').html("");//清空下拉框
+            $('#major').append(new Option("请选择专业", 0));//添加提示
+            form.render('select');
+            var value = data.value;
+            console.log(value);
+            if (value!='') {
+                $.ajax({
+                    url: '/major/getMajor?id=' + value,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (major) {
+                        console.log(major);
+                        $.each(major, function (index, item) {
+                            $('#major').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                        });
+                        form.render("select");
+                        //重新渲染 固定写法
+                    }
+                });
+            }
+        });
+
+        //监听专业下拉框 把班级添加到下拉框中
+        form.on('select(major)', function(data){
+            $('#classes').html("");//清空下拉框
+            $('#classes').append(new Option("请选择专业", 0));//添加提示
+            form.render('select');
+            var value = data.value;
+            console.log(value);
+            if (value!='') {
+                $.ajax({
+                    url: '/classes/getClasses?id=' + value,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (classes) {
+                        console.log(classes);
+                        $.each(classes, function (index, item) {
+                            $('#classes').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                        });
+                        form.render("select");
+                        //重新渲染 固定写法
+                    }
+                });
+            }
+        });
 
         //监听提交
         // form.on('submit(add)', function(data){

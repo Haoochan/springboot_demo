@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2019-01-09 00:56:30
+Date: 2019-01-10 01:25:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -173,7 +173,7 @@ CREATE TABLE `user` (
   `phone` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
@@ -184,6 +184,8 @@ INSERT INTO `user` VALUES ('3', '学院管理员', '123', '学院管理员', '�
 INSERT INTO `user` VALUES ('4', '系统管理员', '123', '系统管理员', '系统管理员', '女', '123456', '123@qq.com');
 INSERT INTO `user` VALUES ('5', '数信学院管理员', '123', '学院管理员', '数信学院管理员', '男', '123', '123@qq.com');
 INSERT INTO `user` VALUES ('6', '数信学院管理员2', '123', '学院管理员', '数信学院管理员2', '男', '123', '123@qq.com');
+INSERT INTO `user` VALUES ('9', '工程学院管理员', '123', '学院管理员', '工程学院管理员', '男', '123', '123@qq.com');
+INSERT INTO `user` VALUES ('11', '经管学院管理员', '123', '学院管理员', '经管学院管理员', '男', '123', '123@qq.com');
 
 -- ----------------------------
 -- Table structure for user_class_college_map
@@ -192,15 +194,17 @@ DROP TABLE IF EXISTS `user_class_college_map`;
 CREATE TABLE `user_class_college_map` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
-  `classId` int(11) DEFAULT NULL,
+  `classesId` int(11) DEFAULT NULL,
   `collegeId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_class_college_map
 -- ----------------------------
-INSERT INTO `user_class_college_map` VALUES ('1', '1', '2', null);
-INSERT INTO `user_class_college_map` VALUES ('2', '1', '1', null);
+INSERT INTO `user_class_college_map` VALUES ('1', '1', '2', '1');
+INSERT INTO `user_class_college_map` VALUES ('2', '1', '1', '1');
 INSERT INTO `user_class_college_map` VALUES ('3', '5', null, '1');
 INSERT INTO `user_class_college_map` VALUES ('4', '6', null, '1');
+INSERT INTO `user_class_college_map` VALUES ('5', '9', null, '2');
+INSERT INTO `user_class_college_map` VALUES ('6', '11', null, '8');

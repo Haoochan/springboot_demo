@@ -36,7 +36,7 @@ public interface CollegeMapper {
             "from college as co\n" +
             "LEFT JOIN user_class_college_map as uccm on uccm.collegeId = co.id\n" +
             "LEFT JOIN `user` as u on u.id = uccm.userId\n" +
-            "where uccm.classId is NULL\n" +
+            "where uccm.classesId is NULL\n" +
             "GROUP BY co.id\n" +
             "limit #{before},#{pageSize}")
     List<College> getAllCollege(int before, int pageSize);

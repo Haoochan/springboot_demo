@@ -44,6 +44,24 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label for="college" class="layui-form-label">学院</label>
+        <div class="layui-input-inline">
+            <input type="text" id="college" name="college"  value="${user.college}" readonly="readonly" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label for="major" class="layui-form-label">专业</label>
+        <div class="layui-input-inline">
+            <input type="text" id="major" name="major"  value="${user.major}" readonly="readonly" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label for="classes" class="layui-form-label">班级</label>
+        <div class="layui-input-inline">
+            <input type="text" id="classes" name="classes"  value="${user.classes}" readonly="readonly" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label for="sex" class="layui-form-label">性别</label>
         <div class="layui-input-inline">
             <input type="text" id="sex" name="sex"  value="${user.sex}" readonly="readonly" autocomplete="off" class="layui-input">

@@ -10,22 +10,29 @@
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="phone" jdbcType="INTEGER" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
-
-    <!--<collection property="classes" javaType="java.util.List" ofType="com.springboot.demo.Entity.Classeses">-->
-      <!--&lt;!&ndash;<id column="classId" property="id"/>&ndash;&gt;-->
-      <!--<result column="classes" property="name"/>-->
-    <!--</collection>-->
-
-
   </resultMap>
   <sql id="Base_Column_List">
     id, username, password, role, name,sex, phone, email
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from user
-    where id = #{id,jdbcType=INTEGER}
+    select
+      u.id,
+      u.username,
+      u.password,
+      u.name,
+      u.role,
+      u.sex,
+      u.phone,
+      u.email,
+      GROUP_CONCAT(c.name) as classes,
+      m.name as major,
+      co.name as college
+    from user as u
+           LEFT JOIN user_class_college_map as uccm on uccm.userId=u.id
+           LEFT JOIN class as c on uccm.classesId = c.id
+           LEFT JOIN major as m on c.majorId = m.id
+           LEFT JOIN college as co on co.id = m.collegeId
+    where u.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
@@ -148,7 +155,7 @@
     count(1)
     from user as u
     LEFT JOIN user_class_college_map as uccm on uccm.userId=u.id
-    LEFT JOIN class as c on uccm.classId = c.id
+    LEFT JOIN class as c on uccm.classesId = c.id
     LEFT JOIN major as m on c.majorId = m.id
     LEFT JOIN college as co on co.id = m.collegeId
     where 1=1
@@ -168,7 +175,7 @@
       and c.majorId = #{major}
     </if>
     <if test="classes !=null and classes !='' ">
-      and uccm.classId = #{classes}
+      and uccm.classesId = #{classes}
     </if>
   </select>
 
@@ -188,9 +195,9 @@
           co.name as college
     from user as u
     LEFT JOIN user_class_college_map as uccm on uccm.userId=u.id
-    LEFT JOIN class as c on uccm.classId = c.id
+    LEFT JOIN class as c on uccm.classesId = c.id
     LEFT JOIN major as m on c.majorId = m.id
-    LEFT JOIN college as co on co.id = m.collegeId
+    LEFT JOIN college as co on uccm.collegeId = co.id
     where 1=1
     <if test="keyword!=null and keyword !=''">
       and u.name LIKE '%${keyword}%'
@@ -208,7 +215,7 @@
       and c.majorId = #{major}
     </if>
     <if test="classes !=null and classes !='' ">
-      and uccm.classId = #{classes}
+      and uccm.classesId = #{classes}
     </if>
     GROUP BY u.id
     limit ${before},${after}

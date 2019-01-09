@@ -3,6 +3,8 @@ package com.springboot.demo.Controller;
 
 import com.springboot.demo.Entity.LayuiResponseDataUtil;
 import com.springboot.demo.Entity.User;
+import com.springboot.demo.Entity.UserClassCollegeMap;
+import com.springboot.demo.Service.UserClassCollegeMapService;
 import com.springboot.demo.Service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,9 @@ import java.util.Map;
 public class UserController {
     @Resource
     private UserService userService;
+
+    @Resource
+    private UserClassCollegeMapService userClassCollegeMapService;
 
     @RequestMapping("/login")
     public String login(HttpServletRequest request, Model model) {
@@ -114,6 +119,26 @@ public class UserController {
         String email = request.getParameter("email");
         User user = new User(username,password,role,name,sex,phone,email);
         this.userService.add(user);
+
+        //添加user_class_college_map关系
+        int collegeId = Integer.parseInt(request.getParameter("college"));
+
+        int classesId = Integer.parseInt(request.getParameter("classes"));
+        //系统管理员没有这两个 学院管理员有collegeId 助班、班主任有classesId
+        if(collegeId!=0){
+            //利用登录的方法查用户 获取该id
+            int userId = userService.login(username,password,role).getId();
+            if(classesId!=0){//助班 班主任
+                UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,collegeId,classesId);
+                userClassCollegeMapService.add(userClassCollegeMap);
+            }else {//学院管理员
+                UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,collegeId);
+                userClassCollegeMapService.add(userClassCollegeMap);
+            }
+
+        }
+
+
         return goList();
     }
 
