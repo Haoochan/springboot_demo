@@ -54,11 +54,46 @@
     <div class="layui-form-item">
         <label class="layui-form-label">角色</label>
         <div class="layui-input-inline">
-            <select  id="role" name="role" lay-verify="required">
+            <select  id="role" name="role" lay-verify="required" lay-filter="role">
                 <option value="助班">助班</option>
                 <option value="班主任">班主任</option>
                 <option value="学院管理员">学院管理员</option>
                 <option value="系统管理员">系统管理员</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" id="collegeDiv">
+        <label for="college" class="layui-form-label">学院</label>
+        <div class="layui-input-inline">
+            <select  id="college" name="college" lay-filter="college">
+                <option value="0">请选择学院</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" id="majorDiv">
+        <label for="major" class="layui-form-label">专业</label>
+        <div class="layui-input-inline">
+            <select  id="major" name="major" lay-filter="major">
+                <option value="0">请选择专业</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item" id="classesDiv" >
+        <label for="classes" class="layui-form-label">班级</label>
+        <div class="layui-input-inline">
+            <select  id="classes" name="classes" lay-filter="classes">
+                <option value="0">请选择班级</option>
+            </select>
+        </div>
+    </div>
+    <button class="layui-btn"  lay-filter="addClasses">
+        <i class="layui-icon">&#xe608;</i> 添加班级
+    </button>
+    <div class="layui-form-item" id="classesDiv2" hidden="hidden">
+        <label for="classes2" class="layui-form-label">班级</label>
+        <div class="layui-input-inline">
+            <select  id="classes2" name="classes2" lay-filter="classes2">
+                <option value="0">请选择班级</option>
             </select>
         </div>
     </div>
@@ -95,19 +130,139 @@
         parent.layer.close(index);
     }
 
+
+
     layui.use('form', function(){
         var form = layui.form;
         form.render();
-        // form.render("select");
 
         //默认选中角色
         var role = $("#role").find("option"); //获取select下拉框的所有值
         for (var j = 1; j < role.length; j++) {
             if ($(role[j]).val() == '${user.role}') {
                 $(role[j]).attr("selected", "selected");
+                form.render('select');
             }
         }
-        form.render();
+
+        //学院添加到下拉框中 并默认选中
+        $.ajax({
+            url: '/college/getCollege',
+            dataType: 'json',
+            type: 'get',
+            success: function (college) {
+                console.log(college);
+                $.each(college, function (index, item) {
+                    if (item.id==${user.collegeId}){
+                        $('#college').append(new Option(item.name, item.id,false,true));
+                    }else {
+                        $('#college').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    }
+                });
+                form.render("select");
+                //重新渲染 固定写法
+            }
+        });
+
+        //添加本学院专业到下拉框并且默认选中该班级专业
+        $.ajax({
+            url: '/major/getMajor?id=' + ${user.collegeId},
+            dataType: 'json',
+            type: 'get',
+            success: function (major) {
+                console.log(major);
+                $.each(major, function (index, item) {
+                    if (item.id==${user.majorId}){
+                        $('#major').append(new Option(item.name, item.id,false,true));
+                    }else {
+                        $('#major').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    }
+                });
+                form.render("select");
+                //重新渲染 固定写法
+            }
+        });
+
+        //监听学院下拉框选择变动 把专业添加到下拉框中
+        form.on('select(college)', function(data){
+            $('#major').html("");//清空下拉框
+            $('#major').append(new Option("请选择专业", ''));//添加提示
+            form.render('select');
+            var value = data.value;
+            console.log(value);
+            if (value!='') {
+                $.ajax({
+                    url: '/major/getMajor?id=' + value,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (major) {
+                        console.log(major);
+                        $.each(major, function (index, item) {
+                            if (item.id==${user.majorId}){
+                                $('#major').append(new Option(item.name, item.id,false,true));
+                            }else {
+                                $('#major').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                            }
+                        });
+                        form.render("select");
+                        //重新渲染 固定写法
+                    }
+                });
+            }
+        });
+
+        //监听角色下拉框 根据角色去隐藏可选项
+        form.on('select(role)', function(data){
+            var value = data.value;
+            if (value=="系统管理员") {
+                //根据 div里面的id 去隐藏
+                $('#collegeDiv').hide();
+                $('#majorDiv').hide();
+                $('#classesDiv').hide();
+            }else if(value=="学院管理员"){
+                $('#collegeDiv').show();
+                $('#majorDiv').hide();
+                $('#classesDiv').hide();
+            }else{
+                $('#collegeDiv').show();
+                $('#majorDiv').show();
+                $('#classesDiv').show()
+            }
+            form.render('select');
+        });
+
+        //根据角色默认值隐藏展示下拉框
+        {
+            var roleShow = $('#role').val();
+            if (roleShow == "系统管理员") {
+                //根据 div里面的id 去隐藏
+                $('#collegeDiv').hide();
+                $('#majorDiv').hide();
+                $('#classesDiv').hide();
+            } else if (roleShow == "学院管理员") {
+                $('#collegeDiv').show();
+                $('#majorDiv').hide();
+                $('#classesDiv').hide();
+            } else {
+                $('#collegeDiv').show();
+                $('#majorDiv').show();
+                $('#classesDiv').show()
+            }
+            form.render('select');
+        }
+
+        //增加班级按钮，点击后增加多一个班级
+        form.on('submit(addClasses)',function (data) {
+            $('#addClasses').show();
+            form.render();
+            console.log(data.elem); //被执行事件的元素DOM对象，一般为button对象
+            console.log(data.form); //被执行提交的form对象，一般在存在form标签时才会返回
+            console.log(data.field);//当前容器的全部表单字段，名值对形式：{name: value}
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+
+        })
+
+
 
         //监听提交
         // form.on('submit(add)', function(data){

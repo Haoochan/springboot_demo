@@ -26,12 +26,14 @@
       u.email,
       GROUP_CONCAT(c.name) as classes,
       m.name as major,
-      co.name as college
+      m.id as majorId,
+      co.name as college,
+      co.id as collegeId
     from user as u
            LEFT JOIN user_class_college_map as uccm on uccm.userId=u.id
            LEFT JOIN class as c on uccm.classesId = c.id
            LEFT JOIN major as m on c.majorId = m.id
-           LEFT JOIN college as co on co.id = m.collegeId
+           LEFT JOIN college as co on uccm.collegeId = co.id
     where u.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -192,7 +194,9 @@
           u.email,
           GROUP_CONCAT(c.name) as classes,
           m.name as major,
-          co.name as college
+          m.id as majorId,
+          co.name as college,
+          co.id as collegeId
     from user as u
     LEFT JOIN user_class_college_map as uccm on uccm.userId=u.id
     LEFT JOIN class as c on uccm.classesId = c.id

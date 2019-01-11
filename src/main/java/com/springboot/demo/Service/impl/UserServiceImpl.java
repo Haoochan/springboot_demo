@@ -17,7 +17,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(int userId) {
-        return this.userMapper.selectByPrimaryKey(userId);
+        User user = this.userMapper.selectByPrimaryKey(userId);
+        if (user.getCollegeId()==null){
+            user.setCollegeId(0);
+        }
+        if (user.getMajorId()==null){
+            user.setMajorId(0);
+        }
+        return user;
     }
 
     @Override
@@ -32,7 +39,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int userInfoUpdate(User user) {
-        System.out.println("执行servece层userInfoUpdate");
         return this.userMapper.updateByPrimaryKey(user);
     }
 

@@ -102,13 +102,12 @@
         }
         form.render('select');
 
-        //学院添加到下拉框中
+        //学院添加到下拉框中 并默认选中
         $.ajax({
             url: '/college/getCollege',
             dataType: 'json',
             type: 'get',
             success: function (college) {
-                console.log(college);
                 $.each(college, function (index, item) {
                     if (item.id==${classes.collegeId}){
                         $('#college').append(new Option(item.name, item.id,false,true));

@@ -23,11 +23,14 @@ public class User {
 //    private List<Classes> classes;
     private String classes;
 
+
     //专业
     private String major;
+    private Integer majorId;
 
     //学院
     private String college;
+    private Integer collegeId;
 
     //给搜索下拉框提供构造方法
     public User(Integer id, String role, String name) {
@@ -42,7 +45,7 @@ public class User {
     }
 
     //带班级-专业-学院 List那里有问题
-    public User(Integer id, String username, String password, String role, String name, String sex, Integer phone, String email, String classes, String major, String college) {
+    public User(Integer id, String username, String password, String role, String name, String sex, Integer phone, String email, String classes,String major,Integer majorId, String college,Integer collegeId) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -53,7 +56,9 @@ public class User {
         this.email = email;
         this.classes = classes;
         this.major = major;
+        this.majorId=majorId;
         this.college = college;
+        this.collegeId = collegeId;
     }
 
     public User(Integer id, String username, String password, String role) {
@@ -193,5 +198,21 @@ public class User {
 
     public void setCollege(String college) {
         this.college = college;
+    }
+
+    public Integer getMajorId() {
+        return majorId;
+    }
+
+    public void setMajorId(Integer majorId) {
+        this.majorId = majorId;
+    }
+
+    public Integer getCollegeId() {
+        return collegeId;
+    }
+
+    public void setCollegeId(Integer collegeId) {
+        this.collegeId = collegeId;
     }
 }

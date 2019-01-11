@@ -47,7 +47,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">角色</label>
         <div class="layui-input-inline">
-            <select  id="role" name="role" lay-verify="required">
+            <select  id="role" name="role" lay-verify="required" lay-filter="role">
                 <option >请选择角色</option>
                 <option value="助班">助班</option>
                 <option value="班主任">班主任</option>
@@ -56,15 +56,15 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="collegeDiv">
         <label for="college" class="layui-form-label">学院</label>
         <div class="layui-input-inline">
-            <select  id="college" name="college" lay-filter="college" lay-verify="required">
+            <select  id="college" name="college" lay-filter="college">
                 <option value="0">请选择学院</option>
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="majorDiv">
         <label for="major" class="layui-form-label">专业</label>
         <div class="layui-input-inline">
             <select  id="major" name="major" lay-filter="major">
@@ -72,7 +72,7 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="classesDiv" >
         <label for="classes" class="layui-form-label">班级</label>
         <div class="layui-input-inline">
             <select  id="classes" name="classes" lay-filter="classes">
@@ -177,6 +177,22 @@
                         //重新渲染 固定写法
                     }
                 });
+            }
+        });
+
+        //监听角色下拉框 根据角色去隐藏可选项
+        form.on('select(role)', function(data){
+            var value = data.value;
+            if (value=="系统管理员") {
+                //根据 div里面的id 去隐藏
+                $('#collegeDiv').css('display','none');
+                $('#majorDiv').css('display','none');
+                $('#classesDiv').css('display','none');
+                form.render('select');
+            }else if(value=="学院管理员"){
+                $('#majorDiv').css('display','none');
+                $('#classesDiv').css('display','none');
+                form.render('select');
             }
         });
 
