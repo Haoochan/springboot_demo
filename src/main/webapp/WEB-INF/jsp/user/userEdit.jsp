@@ -85,10 +85,10 @@
                 <option value="0">请选择班级</option>
             </select>
         </div>
+        <button class="layui-btn" type="button" id="addClasses" lay-filter="addClasses">
+            <i class="layui-icon">&#xe608;</i> 添加第二班级
+        </button>
     </div>
-    <button class="layui-btn"  lay-filter="addClasses">
-        <i class="layui-icon">&#xe608;</i> 添加班级
-    </button>
     <div class="layui-form-item" id="classesDiv2" hidden="hidden">
         <label for="classes2" class="layui-form-label">班级</label>
         <div class="layui-input-inline">
@@ -96,6 +96,9 @@
                 <option value="0">请选择班级</option>
             </select>
         </div>
+        <button class="layui-btn" type="button" id="deleteClasses" lay-filter="deleteClasses">
+            <i class="layui-icon">&#x1006;</i> 减少第二班级
+        </button>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
@@ -164,7 +167,7 @@
             }
         });
 
-        //添加本学院专业到下拉框并且默认选中该班级专业
+        //添加本学院专业到下拉框并且默认选中该专业
         $.ajax({
             url: '/major/getMajor?id=' + ${user.collegeId},
             dataType: 'json',
@@ -252,15 +255,60 @@
         }
 
         //增加班级按钮，点击后增加多一个班级
-        form.on('submit(addClasses)',function (data) {
-            $('#addClasses').show();
+        $(document).on('click','#addClasses',function () {
+            $('#classesDiv2').show();
             form.render();
-            console.log(data.elem); //被执行事件的元素DOM对象，一般为button对象
-            console.log(data.form); //被执行提交的form对象，一般在存在form标签时才会返回
-            console.log(data.field);//当前容器的全部表单字段，名值对形式：{name: value}
-            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
 
-        })
+        //减少班级按钮，点击后减少班级
+        $(document).on('click','#deleteClasses',function () {
+            $('#classesDiv2').hide();
+            $('#classes2').val(0);
+            form.render();
+        });
+
+        //如果该班主任有两个班级，显示两个下拉框
+        var classesIdStr = '${user.classesId}';
+        if (classesIdStr.match(',')!=null)
+        {
+            $('#classesDiv2').show();
+            form.render();
+        }
+
+        //添加本专业班级到下拉框并默认选中该班级
+        $.ajax({
+            url: '/classes/getClasses?id=' + ${user.majorId},
+            dataType: 'json',
+            type: 'get',
+            success: function (classes) {
+                var arrClassesId=classesIdStr.split(',');//对班级id字符串切割保存为一个数组
+                $.each(classes, function (index, item) {
+                    //如果对应有两个班级
+                    if (arrClassesId.length==2){
+                        if (item.id==arrClassesId[0]){
+                            $('#classes').append(new Option(item.name, item.id,false,true));
+                            $('#classes2').append(new Option(item.name, item.id));
+                        }else if(item.id==arrClassesId[1]) {
+                            $('#classes2').append(new Option(item.name, item.id,false,true));
+                            $('#classes').append(new Option(item.name, item.id));
+                        }else {
+                            $('#classes').append(new Option(item.name, item.id));
+                            $('#classes2').append(new Option(item.name, item.id));
+                        }
+                    }else {//只有一个班级
+                        if(item.id==classesIdStr){
+                            $('#classes').append(new Option(item.name, item.id,false,true));
+                        }else {
+                            $('#classes').append(new Option(item.name, item.id));
+                        }
+                    }
+
+                });
+                form.render("select");
+            }
+        });
+
+
 
 
 

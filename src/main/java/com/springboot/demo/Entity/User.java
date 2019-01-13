@@ -22,6 +22,7 @@ public class User {
     //对应班级
 //    private List<Classes> classes;
     private String classes;
+    private String classesId;
 
 
     //专业
@@ -93,6 +94,23 @@ public class User {
         this.sex = sex;
         this.phone = phone;
         this.email = email;
+    }
+
+    public User(Integer id, String username, String password, String role, String name, String sex, Integer phone, String email, String classes, String classesId, String major, Integer majorId, String college, Integer collegeId) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.name = name;
+        this.sex = sex;
+        this.phone = phone;
+        this.email = email;
+        this.classes = classes;
+        this.classesId = classesId;
+        this.major = major;
+        this.majorId = majorId;
+        this.college = college;
+        this.collegeId = collegeId;
     }
 
     @Override
@@ -214,5 +232,13 @@ public class User {
 
     public void setCollegeId(Integer collegeId) {
         this.collegeId = collegeId;
+    }
+
+    public String getClassesId() {
+        return classesId;
+    }
+
+    public void setClassesId(String classesId) {
+        this.classesId = classesId;
     }
 }

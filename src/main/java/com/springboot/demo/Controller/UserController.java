@@ -119,26 +119,21 @@ public class UserController {
         String email = request.getParameter("email");
         User user = new User(username,password,role,name,sex,phone,email);
         this.userService.add(user);
-
         //添加user_class_college_map关系
         int collegeId = Integer.parseInt(request.getParameter("college"));
-
         int classesId = Integer.parseInt(request.getParameter("classes"));
         //系统管理员没有这两个 学院管理员有collegeId 助班、班主任有classesId
         if(collegeId!=0){
             //利用登录的方法查用户 获取该id
             int userId = userService.login(username,password,role).getId();
             if(classesId!=0){//助班 班主任
-                UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,collegeId,classesId);
+                UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,classesId,collegeId);
                 userClassCollegeMapService.add(userClassCollegeMap);
             }else {//学院管理员
                 UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,collegeId);
                 userClassCollegeMapService.add(userClassCollegeMap);
             }
-
         }
-
-
         return goList();
     }
 
@@ -162,6 +157,12 @@ public class UserController {
         User user = new User(id,username,password,role,name,sex,phone,email);
         this.userService.userInfoUpdate(user);
         model.addAttribute("user",user);
+        //修改学院专业班级
+        if (!role.equals("系统管理员")){
+            int collegeId = Integer.parseInt(request.getParameter("college"));
+            int classesId = Integer.parseInt(request.getParameter("classes"));
+            int classesId2 = Integer.parseInt(request.getParameter("classes2"));
+        }
         return "/user/goShow?id="+user.getId();
     }
 
