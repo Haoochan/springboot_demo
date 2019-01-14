@@ -23,7 +23,7 @@
     <![endif]-->
 </head>
 <body>
-<form class="layui-form layui-form-pane" action="/activityCategory/edit" id="form1" name="form1"  method="post">
+<form class="layui-form layui-form-pane" id="form1" name="form1"  method="post">
     <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">id</label>
         <div class="layui-input-inline">
@@ -46,7 +46,8 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>
+        <%--<button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>--%>
+            <button class="layui-btn" lay-filter="add" lay-submit="">确定</button>
     </div>
 </form>
 
@@ -58,20 +59,27 @@
         var index = parent.layer.getFrameIndex(window.name);
         parent.layer.close(index);
     }
-    function close() {
-        // window.parent.location.reload();
-        var index = parent.layer.getFrameIndex(window.name);
-        parent.layer.close(index);
-    }
 
     layui.use('form', function(){
         var form = layui.form;
 
-        //监听提交
-        // form.on('submit(formDemo)', function(data){
-        //     layer.msg(JSON.stringify(data.field));
-        //     return false;
-        // });
+        // 监听提交
+        form.on('submit(add)', function(data){
+            var Data = JSON.stringify(data.field);
+            $.ajax({
+                type: "POST",
+                url: "/activityCategory/edit",
+                data: Data,
+                // dataType: "json",
+                contentType:"application/json",
+                success: function(data){
+                    if (data=="ok"){
+                        window.parent.location.reload();
+                    }
+                }
+            });
+            return false;
+        });
     });
 </script>
 </body>

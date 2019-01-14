@@ -247,7 +247,6 @@
                                 //关闭弹框
                                 layer.close(index);
                                 layer.msg("删除成功", {icon: 6});
-
                             }else{
                                 layer.msg("删除失败", {icon: 5});
                             }

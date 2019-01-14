@@ -146,7 +146,7 @@ public class UserController {
 
     @RequestMapping("/edit")
     public String edit(HttpServletRequest request,Model model){
-        int id = Integer.parseInt(request.getParameter("id"));
+        int userId = Integer.parseInt(request.getParameter("id"));
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
@@ -154,7 +154,7 @@ public class UserController {
         String sex = request.getParameter("sex");
         int phone = Integer.parseInt(request.getParameter("phone"));
         String email = request.getParameter("email");
-        User user = new User(id,username,password,role,name,sex,phone,email);
+        User user = new User(userId,username,password,role,name,sex,phone,email);
         this.userService.userInfoUpdate(user);
         model.addAttribute("user",user);
         //修改学院专业班级
@@ -162,6 +162,28 @@ public class UserController {
             int collegeId = Integer.parseInt(request.getParameter("college"));
             int classesId = Integer.parseInt(request.getParameter("classes"));
             int classesId2 = Integer.parseInt(request.getParameter("classes2"));
+            if(role.equals("学院管理员")){
+                UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,collegeId);
+                userClassCollegeMapService.editFirstClass(userClassCollegeMap);
+            }else {
+                int classCount=userClassCollegeMapService.getCountByUserId(userId);
+                if (classesId2!=0){//多班级
+                    UserClassCollegeMap userClassCollegeMap1 = new UserClassCollegeMap(userId,classesId,collegeId);
+                    UserClassCollegeMap userClassCollegeMap2 = new UserClassCollegeMap(userId,classesId2,collegeId);
+                    userClassCollegeMapService.editFirstClass(userClassCollegeMap1);
+                    if (classCount==2) {//原本就有第二个班级
+                        userClassCollegeMapService.editSecondClass(userClassCollegeMap2);
+                    }else {//原来没有第二个班级
+                        userClassCollegeMapService.add(userClassCollegeMap2);
+                    }
+                }else {//一个班级
+                    UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,classesId,collegeId);
+                    userClassCollegeMapService.editFirstClass(userClassCollegeMap);
+                    if (classCount==2){//原来有第二个班级 删除第二个
+                        userClassCollegeMapService.deleteSecondClass(userId);
+                    }
+                }
+            }
         }
         return "/user/goShow?id="+user.getId();
     }

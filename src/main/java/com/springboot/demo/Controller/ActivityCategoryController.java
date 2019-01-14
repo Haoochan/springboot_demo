@@ -45,27 +45,25 @@ public class ActivityCategoryController {
         return "/WEB-INF/jsp/activityCategory/activityCategoryAdd.jsp";
     }
 
-    @RequestMapping("/add")
-    public String add(HttpServletRequest request){
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        ActivityCategory activityCategory = new ActivityCategory(name,description);
-        this.activityCategoryService.add(activityCategory);
-        return goList();
-    }
-
-    //接收前端AJAX
-//    @ResponseBody
-//    @RequestMapping(value = "/add",method =RequestMethod.POST)
-//    public String add(@RequestBody Map<String, String> map){
-//        System.out.println("进来了");
-//        System.out.println(map.toString());
-//        String name = map.get("name");
-//        String description = map.get("description");
+//    @RequestMapping("/add")
+//    public String add(HttpServletRequest request){
+//        String name = request.getParameter("name");
+//        String description = request.getParameter("description");
 //        ActivityCategory activityCategory = new ActivityCategory(name,description);
 //        this.activityCategoryService.add(activityCategory);
-//        return "ok";
+//        return goList();
 //    }
+
+    //接收前端AJAX
+    @ResponseBody
+    @RequestMapping(value = "/add",method =RequestMethod.POST)
+    public String add(@RequestBody Map<String, String> map){
+        String name = map.get("name");
+        String description = map.get("description");
+        ActivityCategory activityCategory = new ActivityCategory(name,description);
+        this.activityCategoryService.add(activityCategory);
+        return "ok";
+    }
 
     @ResponseBody
     @RequestMapping("/delete")
@@ -83,15 +81,25 @@ public class ActivityCategoryController {
         return "/WEB-INF/jsp/activityCategory/activityCategoryEdit.jsp";
     }
 
+//    @ResponseBody
+////    @RequestMapping("/edit")
+////    public void edit(HttpServletRequest request){
+////        int id = Integer.parseInt(request.getParameter("id"));
+////        String name = request.getParameter("name");
+////        String description = request.getParameter("description");
+////        ActivityCategory activityCategory = new ActivityCategory(id,name,description);
+////        this.activityCategoryService.update(activityCategory);
+////    }
+
     @ResponseBody
-    @RequestMapping("/edit")
-    public void edit(HttpServletRequest request){
-        int id = Integer.parseInt(request.getParameter("id"));
-        System.out.println(id);
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
+    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    public String edit(@RequestBody Map<String, String> map){
+        int id = Integer.parseInt(map.get("id"));
+        String name = map.get("name");
+        String description = map.get("description");
         ActivityCategory activityCategory = new ActivityCategory(id,name,description);
         this.activityCategoryService.update(activityCategory);
+        return "ok";
     }
 
     @RequestMapping("/goShow")

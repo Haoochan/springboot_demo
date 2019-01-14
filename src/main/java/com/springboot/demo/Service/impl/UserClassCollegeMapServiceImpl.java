@@ -16,4 +16,25 @@ public class UserClassCollegeMapServiceImpl implements UserClassCollegeMapServic
     public void add(UserClassCollegeMap userClassCollegeMap) {
         userClassCollegeMapMapper.insert(userClassCollegeMap);
     }
+
+    @Override
+    public void editFirstClass(UserClassCollegeMap userClassCollegeMap) {
+        userClassCollegeMapMapper.updateFirstClass(userClassCollegeMap);
+    }
+
+    @Override
+    public void editSecondClass(UserClassCollegeMap userClassCollegeMap2) {
+        userClassCollegeMapMapper.updateSecondClass(userClassCollegeMap2);
+    }
+
+    @Override
+    public int getCountByUserId(int userId) {
+        return userClassCollegeMapMapper.getCountByUserId(userId);
+    }
+
+    @Override
+    public void deleteSecondClass(int userId) {
+        int id = userClassCollegeMapMapper.getSecondClassId(userId);
+         userClassCollegeMapMapper.deleteSecondClass(id);
+    }
 }

@@ -23,8 +23,8 @@
     <![endif]-->
 </head>
 <body>
-    <form class="layui-form layui-form-pane" action="/activityCategory/add">
-    <%--<form class="layui-form">--%>
+    <%--<form class="layui-form layui-form-pane" action="/activityCategory/add">--%>
+    <form class="layui-form layui-form-pane">
 
         <div class="layui-form-item">
             <label for="name" class="layui-form-label">
@@ -41,8 +41,8 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>
-                <%--<button class="layui-btn" lay-filter="add" lay-submit="" >确定</button>--%>
+            <%--<button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>--%>
+                <button class="layui-btn" lay-filter="add" lay-submit="" >确定</button>
         </div>
     </form>
 
@@ -57,22 +57,23 @@
     layui.use('form', function(){
         var form = layui.form;
 
-        //监听提交
-        // form.on('submit(add)', function(data){
-        //     console.log(JSON.stringify(data.field));
-        //     var Data = JSON.stringify(data.field);
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/activityCategory/add",
-        //         data: Data,
-        //         dataType: "json",
-        //         contentType:"application/json",
-        //         success: function(){
-        //                 //还没有实现关闭。。。。
-        //         }
-        //     });
-        //     // return false;
-        // });
+        // 监听提交
+        form.on('submit(add)', function(data){
+            var Data = JSON.stringify(data.field);
+            $.ajax({
+                type: "POST",
+                url: "/activityCategory/add",
+                data: Data,
+                // dataType: "json",
+                contentType:"application/json",
+                success: function(data){
+                    if (data=="ok"){
+                        window.parent.location.reload();
+                    }
+                }
+            });
+            return false;
+        });
     });
 </script>
 </body>

@@ -64,7 +64,7 @@
         userId = #{userId,jdbcType=INTEGER},
       </if>
       <if test="classesId != null">
-        classId = #{classesId,jdbcType=INTEGER},
+        classesId = #{classesId,jdbcType=INTEGER},
       </if>
       <if test="collegeId != null">
         collegeId = #{collegeId,jdbcType=INTEGER},
@@ -78,5 +78,34 @@
       classesId = #{classesId,jdbcType=INTEGER},
       collegeId = #{collegeId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateFirstClass" parameterType="com.springboot.demo.Entity.UserClassCollegeMap">
+  update user_class_college_map
+  <set>
+    <if test="classesId != null">
+      classesId = #{classesId,jdbcType=INTEGER},
+    </if>
+    <if test="collegeId != null">
+      collegeId = #{collegeId,jdbcType=INTEGER},
+    </if>
+  </set>
+  where userId = #{userId,jdbcType=INTEGER}
+  limit 1
+</update>
+
+  <update id="updateSecondClass" parameterType="com.springboot.demo.Entity.UserClassCollegeMap">
+    update user_class_college_map
+    <set>
+      <if test="classesId != null">
+        classesId = #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="collegeId != null">
+        collegeId = #{collegeId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where userId = #{userId,jdbcType=INTEGER}
+    ORDER BY id desc
+    limit 1
   </update>
 </mapper>

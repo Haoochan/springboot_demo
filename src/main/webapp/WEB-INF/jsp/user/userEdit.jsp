@@ -134,7 +134,6 @@
     }
 
 
-
     layui.use('form', function(){
         var form = layui.form;
         form.render();
@@ -206,6 +205,33 @@
                             }else {
                                 $('#major').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                             }
+                        });
+                        form.render("select");
+                        //重新渲染 固定写法
+                    }
+                });
+            }
+        });
+
+        //监听专业下拉框 把班级添加到下拉框中
+        form.on('select(major)', function(data){
+            $('#classes').html("");//清空下拉框
+            $('#classes2').html("");//清空下拉框
+            $('#classes').append(new Option("请选择班级",'0'));//添加提示
+            $('#classes2').append(new Option("请选择班级",'0'));//添加提示
+            form.render('select');
+            var value = data.value;
+            console.log(value);
+            if (value!='') {
+                $.ajax({
+                    url: '/classes/getClasses?id=' + value,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (classes) {
+                        console.log(classes);
+                        $.each(classes, function (index, item) {
+                            $('#classes').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                            $('#classes2').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                         });
                         form.render("select");
                         //重新渲染 固定写法
@@ -298,8 +324,10 @@
                     }else {//只有一个班级
                         if(item.id==classesIdStr){
                             $('#classes').append(new Option(item.name, item.id,false,true));
+                            $('#classes2').append(new Option(item.name, item.id));
                         }else {
                             $('#classes').append(new Option(item.name, item.id));
+                            $('#classes2').append(new Option(item.name, item.id));
                         }
                     }
 
