@@ -7,12 +7,13 @@ import com.springboot.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @Override
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String username, String password, String role) {
-        return this.userMapper.selectByUsernameAndPassword(username, password, role);
+        return userMapper.selectByUsernameAndPassword(username, password, role);
     }
 
     @Override

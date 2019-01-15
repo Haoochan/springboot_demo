@@ -79,6 +79,20 @@
                 <option value="0">请选择班级</option>
             </select>
         </div>
+        <button class="layui-btn" type="button" id="addClasses" lay-filter="addClasses">
+            <i class="layui-icon">&#xe608;</i> 添加第二班级
+        </button>
+    </div>
+    <div class="layui-form-item" id="classesDiv2" hidden="hidden">
+        <label for="classes2" class="layui-form-label">班级</label>
+        <div class="layui-input-inline">
+            <select  id="classes2" name="classes2" lay-filter="classes2">
+                <option value="0">请选择班级</option>
+            </select>
+        </div>
+        <button class="layui-btn" type="button" id="deleteClasses" lay-filter="deleteClasses">
+            <i class="layui-icon">&#x1006;</i> 减少第二班级
+        </button>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
@@ -159,7 +173,9 @@
         //监听专业下拉框 把班级添加到下拉框中
         form.on('select(major)', function(data){
             $('#classes').html("");//清空下拉框
+            $('#classes2').html("");//清空下拉框
             $('#classes').append(new Option("请选择专业", 0));//添加提示
+            $('#classes2').append(new Option("请选择专业", 0));//添加提示
             form.render('select');
             var value = data.value;
             console.log(value);
@@ -172,6 +188,7 @@
                         console.log(classes);
                         $.each(classes, function (index, item) {
                             $('#classes').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                            $('#classes2').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                         });
                         form.render("select");
                         //重新渲染 固定写法
@@ -185,15 +202,34 @@
             var value = data.value;
             if (value=="系统管理员") {
                 //根据 div里面的id 去隐藏
-                $('#collegeDiv').css('display','none');
-                $('#majorDiv').css('display','none');
-                $('#classesDiv').css('display','none');
-                form.render('select');
+                $('#collegeDiv').hide();
+                $('#majorDiv').hide();
+                $('#classesDiv').hide();
+                $('#classesDiv2').hide();
             }else if(value=="学院管理员"){
-                $('#majorDiv').css('display','none');
-                $('#classesDiv').css('display','none');
-                form.render('select');
+                $('#collegeDiv').show();
+                $('#majorDiv').hide();
+                $('#classesDiv').hide();
+                $('#classesDiv2').hide();
+            }else{
+                $('#collegeDiv').show();
+                $('#majorDiv').show();
+                $('#classesDiv').show()
             }
+            form.render('select');
+        });
+
+        //增加班级按钮，点击后增加多一个班级
+        $(document).on('click','#addClasses',function () {
+            $('#classesDiv2').show();
+            form.render();
+        });
+
+        //减少班级按钮，点击后减少班级
+        $(document).on('click','#deleteClasses',function () {
+            $('#classesDiv2').hide();
+            $('#classes2').val(0);
+            form.render();
         });
 
         //监听提交

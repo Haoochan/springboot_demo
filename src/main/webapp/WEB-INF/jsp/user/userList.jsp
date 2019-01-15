@@ -99,7 +99,7 @@
             title: '添加类别',
             skin: 'layui-layer-rim', //加上边框
             area: ['500px', '500px'], //宽高
-            content: '/user/goAdd'  //调到新增页面
+            content: '/user/goAdd' //调到新增页面
         });
     }
     //编辑方法
@@ -110,7 +110,10 @@
             type : 2,
             closeBtn: 2,         //是否显示关闭按钮
             area: ['500px', '560px'],
-            content : "/user/goEdit?id="+data.id//弹出层页面
+            content : "/user/goEdit?id="+data.id,//弹出层页面
+            end: function () {
+                location.reload();
+            }
         })
     }
     //查看方法
@@ -122,6 +125,10 @@
             closeBtn: 2,         //是否显示关闭按钮
             area: ['500px', '560px'],
             content : "/user/goShow?id="+data.id//弹出层页面
+            //点击关闭按钮 页面刷新
+            // end: function () {
+            //     location.reload();
+            // }
         })
     }
 

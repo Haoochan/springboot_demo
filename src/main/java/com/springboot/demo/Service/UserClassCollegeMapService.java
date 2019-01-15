@@ -12,4 +12,6 @@ public interface UserClassCollegeMapService {
     int getCountByUserId(int userId);
 
     void deleteSecondClass(int userId);
+
+    void deleteAllByUserId(int userId);
 }

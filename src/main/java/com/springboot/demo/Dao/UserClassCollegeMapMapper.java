@@ -29,4 +29,7 @@ public interface UserClassCollegeMapMapper {
 
     @Select("select max(id) from user_class_college_map where userId=#{userId} ")
     int getSecondClassId(int userId);
+
+    @Delete("delete from user_class_college_map where userId=#{userId}")
+    void deleteByUserId(int userId);
 }

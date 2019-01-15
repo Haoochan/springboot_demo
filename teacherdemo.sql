@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2019-01-10 01:25:57
+Date: 2019-01-16 01:30:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,7 +52,7 @@ CREATE TABLE `activity_category` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of activity_category
@@ -173,19 +173,17 @@ CREATE TABLE `user` (
   `phone` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', '助班', '123', '助班', '助班', '男', '1234556', '123@qq.com');
 INSERT INTO `user` VALUES ('2', '班主任', '123', '班主任', '班主任', '女', '123456', '123@qq.');
-INSERT INTO `user` VALUES ('3', '学院管理员', '123', '学院管理员', '学院管理员', '男', '123456', '123@qq.com');
 INSERT INTO `user` VALUES ('4', '系统管理员', '123', '系统管理员', '系统管理员', '女', '123456', '123@qq.com');
 INSERT INTO `user` VALUES ('5', '数信学院管理员', '123', '学院管理员', '数信学院管理员', '男', '123', '123@qq.com');
 INSERT INTO `user` VALUES ('6', '数信学院管理员2', '123', '学院管理员', '数信学院管理员2', '男', '123', '123@qq.com');
 INSERT INTO `user` VALUES ('9', '工程学院管理员', '123', '学院管理员', '工程学院管理员', '男', '123', '123@qq.com');
-INSERT INTO `user` VALUES ('11', '经管学院管理员', '123', '学院管理员', '经管学院管理员', '男', '123', '123@qq.com');
 
 -- ----------------------------
 -- Table structure for user_class_college_map
@@ -197,14 +195,20 @@ CREATE TABLE `user_class_college_map` (
   `classesId` int(11) DEFAULT NULL,
   `collegeId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_class_college_map
 -- ----------------------------
-INSERT INTO `user_class_college_map` VALUES ('1', '1', '2', '1');
-INSERT INTO `user_class_college_map` VALUES ('2', '1', '1', '1');
+INSERT INTO `user_class_college_map` VALUES ('1', '1', '1', '1');
 INSERT INTO `user_class_college_map` VALUES ('3', '5', null, '1');
 INSERT INTO `user_class_college_map` VALUES ('4', '6', null, '1');
 INSERT INTO `user_class_college_map` VALUES ('5', '9', null, '2');
 INSERT INTO `user_class_college_map` VALUES ('6', '11', null, '8');
+INSERT INTO `user_class_college_map` VALUES ('7', '12', '1', '5');
+INSERT INTO `user_class_college_map` VALUES ('8', '13', '1', '5');
+INSERT INTO `user_class_college_map` VALUES ('9', '14', '1', '5');
+INSERT INTO `user_class_college_map` VALUES ('10', '15', '3', '1');
+INSERT INTO `user_class_college_map` VALUES ('12', '16', '1', '1');
+INSERT INTO `user_class_college_map` VALUES ('17', '1', '2', '1');
+INSERT INTO `user_class_college_map` VALUES ('18', '2', '2', '1');

@@ -79,13 +79,24 @@
             <input type="text" id="email" name="email"  value="${user.email}" readonly="readonly" autocomplete="off" class="layui-input">
         </div>
     </div>
+    <div class="layui-form-item">
+        <button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>
+    </div>
 </form>
 
-<button class="layui-btn layui-btn-normal" onclick="window.location.href=('/user/goEdit?id='+${user.id})">修改</button>
+<%--<button class="layui-btn layui-btn-normal" onclick="window.location.href=('/user/goEdit?id='+${user.id})">修改</button>--%>
 
 
 
 <script>
+    // 关闭弹窗
+    function reload() {
+        // window.parent.location.reload();
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
+
     layui.use('form', function() {
         var form = layui.form;
         form.render();

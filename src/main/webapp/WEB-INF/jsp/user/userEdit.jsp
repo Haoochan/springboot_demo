@@ -24,7 +24,7 @@
     <![endif]-->
 </head>
 <body>
-<form class="layui-form layui-form-pane" action="/user/edit">
+<form class="layui-form layui-form-pane">
     <div class="layui-form-item" style="display: none">
         <label for="id" class="layui-form-label">ID</label>
         <div class="layui-input-inline">
@@ -268,10 +268,12 @@
                 $('#collegeDiv').hide();
                 $('#majorDiv').hide();
                 $('#classesDiv').hide();
+                $('#classesDiv2').hide();
             } else if (roleShow == "学院管理员") {
                 $('#collegeDiv').show();
                 $('#majorDiv').hide();
                 $('#classesDiv').hide();
+                $('#classesDiv2').hide();
             } else {
                 $('#collegeDiv').show();
                 $('#majorDiv').show();
@@ -336,26 +338,24 @@
             }
         });
 
-
-
-
-
         //监听提交
-        // form.on('submit(add)', function(data){
-        //     console.log(JSON.stringify(data.field));
-        //     var Data = JSON.stringify(data.field);
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "/activityCategory/add",
-        //         data: Data,
-        //         dataType: "json",
-        //         contentType:"application/json",
-        //         success: function(){
-        //                 //还没有实现关闭。。。。
-        //         }
-        //     });
-        //     // return false;
-        // });
+        form.on('submit(add)', function(data){
+            console.log(JSON.stringify(data.field));
+            var Data = JSON.stringify(data.field);
+            $.ajax({
+                type: "POST",
+                url: "/user/edit",
+                data: Data,
+                // dataType: "json",
+                contentType:"application/json",
+                success: function(data){
+                    if (data=="ok"){
+                        window.location.reload();
+                    }
+                }
+            });
+            // return false;
+        });
     });
 </script>
 </body>

@@ -46,6 +46,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label for="userName" class="layui-form-label">学院管理员</label>
+        <div class="layui-input-inline">
+            <input type="text" id="userName" name="userName" readonly="readonly" value="${college.userName}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>
     </div>
 </form>

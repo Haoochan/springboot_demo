@@ -37,4 +37,9 @@ public class UserClassCollegeMapServiceImpl implements UserClassCollegeMapServic
         int id = userClassCollegeMapMapper.getSecondClassId(userId);
          userClassCollegeMapMapper.deleteSecondClass(id);
     }
+
+    @Override
+    public void deleteAllByUserId(int userId) {
+        userClassCollegeMapMapper.deleteByUserId(userId);
+    }
 }
