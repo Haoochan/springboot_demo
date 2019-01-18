@@ -20,50 +20,50 @@
 <form class="layui-form layui-form-pane" action="/user/userInfoUpdate" method="post">
     <div class="layui-form-item" style="display: none">
         <label class="layui-form-label">ID</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="text"  name="id" value="${user.id}" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">登录用户名</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="text"  name="username" value="${user.username}" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">密码</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="text"  name="password" value="${user.password}" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">姓名</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="text"  name="name" value="${user.name}" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">角色</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="text"  name="role" value="${user.role}" class="layui-input" readonly >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="radio"  name="sex" value="男" title="男" <c:if test="${user.sex=='男' }">checked="checked"</c:if>>
             <input type="radio"  name="sex" value="女" title="女" <c:if test="${user.sex=='女' }">checked="checked"</c:if>>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">电话号码</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="text"  name="phone" value="${user.phone}" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">邮箱</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="text"  name="email" value="${user.email}" class="layui-input" >
         </div>
     </div>

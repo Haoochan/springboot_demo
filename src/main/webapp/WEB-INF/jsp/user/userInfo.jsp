@@ -37,22 +37,22 @@
     <div class="layui-form-item">
         <label class="layui-form-label">角色</label>
         <div class="layui-input-inline">
-            <input type="text" name="role" value="${user.role}" class="layui-input" readonly>
+            <input type="text" id="role" name="role" value="${user.role}" class="layui-input" readonly>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="collegeDiv">
         <label class="layui-form-label">学院</label>
         <div class="layui-input-inline">
             <input type="text" name="college" value="${user.college}" class="layui-input" readonly>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="majorDiv">
         <label class="layui-form-label">专业</label>
         <div class="layui-input-inline">
             <input type="text" name="major" value="${user.major}" class="layui-input" readonly>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="classesDiv">
         <label class="layui-form-label">班级</label>
         <div class="layui-input-inline">
             <input type="text" name="classes" value="${user.classes}" class="layui-input" readonly>
@@ -86,6 +86,25 @@
     //Demo
     layui.use('form', function(){
         var form = layui.form;
+
+        //根据角色默认值隐藏展示下拉框
+        {
+            var roleShow = $('#role').val();
+            if (roleShow == "系统管理员") {
+                $('#collegeDiv').hide();
+                $('#majorDiv').hide();
+                $('#classesDiv').hide();
+            } else if (roleShow == "学院管理员") {
+                $('#collegeDiv').show();
+                $('#majorDiv').hide();
+                $('#classesDiv').hide();
+            } else {
+                $('#collegeDiv').show();
+                $('#majorDiv').show();
+                $('#classesDiv').show()
+            }
+            form.render();
+        }
 
         //监听提交
         // form.on('submit(formDemo)', function(data){

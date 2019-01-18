@@ -132,6 +132,11 @@
     layui.use(['element', 'layer', 'jquery'], function () {
         var element = layui.element;
         // var layer = layui.layer;
+        //点击tab 刷新页面
+        element.on('tab(demo)', function(data){
+            var src=$(".layui-tab-item.layui-show").find("iframe").attr("src");
+            $(".layui-tab-item.layui-show").find("iframe").attr("src",src);
+        });
         var $ = layui.$;
         // 配置tab实践在下面无法获取到菜单元素
         $('.site-demo-active').on('click', function () {

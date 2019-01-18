@@ -62,15 +62,14 @@ public class UserController {
 
     @RequestMapping("/goUserInfo")
     public String userInfo(HttpServletRequest request,Model model){
-        User user = (User) request.getSession().getAttribute("loginUser");
-        System.out.println(user.toString());
+        User user = userService.getUserById(((User) request.getSession().getAttribute("loginUser")).getId());
         model.addAttribute("user",user);
         return "/WEB-INF/jsp/user/userInfo.jsp";
     }
 
     @RequestMapping("/goUserInfoUpdate")
     public String goUserInfoUpdate(HttpServletRequest request,Model model){
-        User user = (User) request.getSession().getAttribute("loginUser");
+        User user = userService.getUserById(((User) request.getSession().getAttribute("loginUser")).getId());
         model.addAttribute("user",user);
         return "/WEB-INF/jsp/user/userInfoUpdate.jsp";
     }
@@ -87,7 +86,9 @@ public class UserController {
         String email = request.getParameter("email");
         User user = new User(id,username,password,role,name,sex,phone,email);
         this.userService.userInfoUpdate(user);
-        model.addAttribute("user",user);
+//        查出学院专业班级回显
+        User user1 = userService.getUserById(id);
+        model.addAttribute("user",user1);
         return "/WEB-INF/jsp/user/userInfo.jsp";
     }
 

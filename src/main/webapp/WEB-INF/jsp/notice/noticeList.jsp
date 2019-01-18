@@ -78,8 +78,7 @@
         <th lay-data="{field:'time', width:150}">时间</th>
         <th lay-data="{field:'user', width:150}">用户</th>
         <th lay-data="{field:'college', width:150}">学院</th>
-        <%--<th lay-data="{field:'schoolyear', width:150}">学年</th>--%>
-        <%--<th lay-data="{field:'semester', width:80}">学期</th>--%>
+        <th lay-data="{field:'major', width:150}">专业</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
     </tr>
     </thead>
@@ -98,10 +97,9 @@
 <script>
     //添加方法
     function add() {
-//页面层
         layer.open({
             type: 2,
-            title: '添加类别',
+            title: '添加公告',
             skin: 'layui-layer-rim', //加上边框
             area: ['90%', '90%'], //宽高
             content: '/notice/goAdd'  //调到新增页面
@@ -174,7 +172,6 @@
             dataType: 'json',
             type: 'get',
             success: function (category) {
-                console.log(category);
                 $.each(category, function (index, item) {
                     $('#categoryId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                 });
@@ -189,7 +186,6 @@
             dataType: 'json',
             type: 'get',
             success: function (creator) {
-                console.log(creator);
                 $.each(creator, function (index, item) {
                     $('#createbyId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                     // $('#creatorRole').append(new Option(item.role, item.id));// 下拉菜单里添加元素

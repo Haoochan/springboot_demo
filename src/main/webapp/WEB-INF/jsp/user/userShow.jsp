@@ -43,19 +43,19 @@
             <input type="text" id="role" name="role"  value="${user.role}" readonly="readonly" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="collegeDiv">
         <label for="college" class="layui-form-label">学院</label>
         <div class="layui-input-inline">
             <input type="text" id="college" name="college"  value="${user.college}" readonly="readonly" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="majorDiv">
         <label for="major" class="layui-form-label">专业</label>
         <div class="layui-input-inline">
             <input type="text" id="major" name="major"  value="${user.major}" readonly="readonly" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="classesDiv">
         <label for="classes" class="layui-form-label">班级</label>
         <div class="layui-input-inline">
             <input type="text" id="classes" name="classes"  value="${user.classes}" readonly="readonly" autocomplete="off" class="layui-input">
@@ -100,6 +100,25 @@
     layui.use('form', function() {
         var form = layui.form;
         form.render();
+
+        //根据角色默认值隐藏展示下拉框
+        {
+            var roleShow = $('#role').val();
+            if (roleShow == "系统管理员") {
+                $('#collegeDiv').hide();
+                $('#majorDiv').hide();
+                $('#classesDiv').hide();
+            } else if (roleShow == "学院管理员") {
+                $('#collegeDiv').show();
+                $('#majorDiv').hide();
+                $('#classesDiv').hide();
+            } else {
+                $('#collegeDiv').show();
+                $('#majorDiv').show();
+                $('#classesDiv').show()
+            }
+            form.render('select');
+        }
     });
 
 
