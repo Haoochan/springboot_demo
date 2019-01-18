@@ -45,14 +45,6 @@ public class ActivityCategoryController {
         return "/WEB-INF/jsp/activityCategory/activityCategoryAdd.jsp";
     }
 
-//    @RequestMapping("/add")
-//    public String add(HttpServletRequest request){
-//        String name = request.getParameter("name");
-//        String description = request.getParameter("description");
-//        ActivityCategory activityCategory = new ActivityCategory(name,description);
-//        this.activityCategoryService.add(activityCategory);
-//        return goList();
-//    }
 
     //接收前端AJAX
     @ResponseBody

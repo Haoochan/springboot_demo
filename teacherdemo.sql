@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2019-01-16 01:30:46
+Date: 2019-01-18 01:15:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,7 +52,7 @@ CREATE TABLE `activity_category` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of activity_category
@@ -160,6 +160,43 @@ INSERT INTO `major` VALUES ('3', '车辆工程', null, '2');
 INSERT INTO `major` VALUES ('4', '工业工程', '工业工程', '1');
 
 -- ----------------------------
+-- Table structure for notice
+-- ----------------------------
+DROP TABLE IF EXISTS `notice`;
+CREATE TABLE `notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `categoryId` int(11) NOT NULL,
+  `content` longtext NOT NULL,
+  `time` datetime NOT NULL,
+  `userId` int(11) NOT NULL,
+  `collegeId` int(11) DEFAULT NULL,
+  `majorId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of notice
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for notice_category
+-- ----------------------------
+DROP TABLE IF EXISTS `notice_category`;
+CREATE TABLE `notice_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of notice_category
+-- ----------------------------
+INSERT INTO `notice_category` VALUES ('1', '通知', '通知');
+INSERT INTO `notice_category` VALUES ('3', '类别2', '类别2');
+
+-- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -173,7 +210,7 @@ CREATE TABLE `user` (
   `phone` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user

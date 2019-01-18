@@ -42,8 +42,19 @@
             <!-- 左侧垂直导航区域-->
             <ul class="layui-nav layui-nav-tree" lay-filter="test">
                 <li class="layui-nav-item">
-                    <a href="javascript:;" data-id="1" data-title="工作类别管理" data-url="/activityCategory/golist"
-                       class="site-demo-active" data-type="tabAdd">工作类别管理</a>
+                    <a class="" href="javascript:;">类别管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="1" data-title="工作类别管理" data-url="/activityCategory/golist"
+                               class="site-demo-active" data-type="tabAdd">工作类别管理</a>
+                        </dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="9" data-title="公告类别管理" data-url="/noticeCategory/golist"
+                               class="site-demo-active" data-type="tabAdd">公告类别管理</a>
+                        </dd>
+                    </dl>
                 </li>
                 <li class="layui-nav-item">
                 <a class="" href="javascript:;">工作管理</a>

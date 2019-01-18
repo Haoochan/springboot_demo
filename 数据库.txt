@@ -4,4 +4,8 @@
 
 用户-班级-学院映射表 助班、班主任也要有collegeId，但是学院管理员的classId 为null
 
+公告：id,title,categoryId,content,time,userId,collegeId,majorId(先不弄专业 )
+
+公告类别:id,name,description
+
 工作：地点
