@@ -7,7 +7,7 @@ public class Notice {
 
     private String title;
 
-    private Date time;
+    private String time;
 
     private Integer categoryId;
 
@@ -27,7 +27,7 @@ public class Notice {
 
     private String major;
 
-    public Notice(String title, String content,Date time, Integer userId, Integer collegeId) {
+    public Notice(String title, String content,String time, Integer userId, Integer collegeId) {
         this.title = title;
         this.time = time;
         this.userId = userId;
@@ -35,16 +35,17 @@ public class Notice {
         this.content = content;
     }
 
-    public Notice(String title, String content,Date time, Integer userId, Integer collegeId,Integer majorId) {
+    public Notice(String title, Integer categoryId,String content,String time, Integer userId, Integer collegeId,Integer majorId) {
         this.title = title;
         this.time = time;
         this.userId = userId;
         this.collegeId = collegeId;
         this.content = content;
         this.majorId = majorId;
+        this.categoryId=categoryId;
     }
 
-    public Notice(Integer id,String content, String title, Date time,Integer categoryId,String category, Integer userId,String user, Integer collegeId,String college, Integer majorId,String major) {
+    public Notice(Integer id,String content, String title, String time,Integer categoryId,String category, Integer userId,String user, Integer collegeId,String college, Integer majorId,String major) {
         this.id = id;
         this.title = title;
         this.time = time;
@@ -77,11 +78,11 @@ public class Notice {
         this.title = title == null ? null : title.trim();
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
