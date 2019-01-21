@@ -11,4 +11,6 @@ public interface NoticeService {
     List<Notice> getAllNotice(Map<String, String> map);
 
     void add(Notice notice);
+
+    Notice getNoticeById(int id);
 }

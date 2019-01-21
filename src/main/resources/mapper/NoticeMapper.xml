@@ -20,12 +20,25 @@
     content
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from notice
-    where id = #{id,jdbcType=INTEGER}
+    select
+      n.id as id,
+      n.title as title,
+      n.content as content,
+      n.time as time,
+      n.categoryId as categoryId,
+      nc.`name` as category,
+      n.userId as userId,
+      u.`name` as user,
+      n.collegeId as collegeId,
+      c.`name` as college,
+      n.majorId as majorId,
+      m.`name` as major
+    from notice as n
+           LEFT JOIN notice_category as nc on nc.id=n.categoryId
+           LEFT JOIN `user` as u on u.id = n.userId
+           LEFT JOIN college as c on c.id = n.collegeId
+           LEFT JOIN major as m on m.id = n.majorId
+    where n.id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from notice
@@ -142,4 +155,70 @@
       majorId = #{majorId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getTotalCount"  resultType="java.lang.Integer" >
+    select
+    count(1)
+    from notice as n
+    LEFT JOIN notice_category as nc on nc.id=n.categoryId
+    LEFT JOIN `user` as u on u.id = n.userId
+    LEFT JOIN college as c on c.id = n.collegeId
+    LEFT JOIN major as m on m.id = n.majorId
+    where 1=1
+    <if test="keyword!=null and keyword !=''">
+      and n.content LIKE '%${keyword}%'
+    </if>
+    <if test="categoryId !='null' and categoryId !='' ">
+      and n.categoryId = #{categoryId}
+    </if>
+    <if test="userId !='null' and userId !='' ">
+      and n.userId = #{userId}
+    </if>
+    <if test="collegeId !=null and collegeId !='' ">
+      and n.collegeId = #{collegeId}
+    </if>
+    <if test="major !='null' and major !='' ">
+      and n.majorId = #{majorId}
+    </if>
+  </select>
+
+  <select id="getAllNotice"  resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    select
+    n.id as id,
+    n.title as title,
+    n.content as content,
+    n.time as time,
+    n.categoryId as categoryId,
+    nc.`name` as category,
+    n.userId as userId,
+    u.`name` as user,
+    n.collegeId as collegeId,
+    c.`name` as college,
+    n.majorId as majorId,
+    m.`name` as major
+    from notice as n
+    LEFT JOIN notice_category as nc on nc.id=n.categoryId
+    LEFT JOIN `user` as u on u.id = n.userId
+    LEFT JOIN college as c on c.id = n.collegeId
+    LEFT JOIN major as m on m.id = n.majorId
+    where 1=1
+    <if test="keyword!=null and keyword !=''">
+      and n.content LIKE '%${keyword}%'
+    </if>
+    <if test="categoryId !=null and categoryId !='' ">
+      and n.categoryId = #{categoryId}
+    </if>
+    <if test="userId !=null and userId !='' ">
+      and n.userId = #{userId}
+    </if>
+    <if test="collegeId !=null and collegeId !='' ">
+      and n.collegeId = #{collegeId}
+    </if>
+    <if test="majorId !=null and major !='' ">
+      and n.majorId = #{majorId}
+    </if>
+    limit ${before},${after}
+  </select>
+
+
 </mapper>

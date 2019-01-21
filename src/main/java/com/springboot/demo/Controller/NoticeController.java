@@ -6,6 +6,7 @@ import com.springboot.demo.Entity.User;
 import com.springboot.demo.Service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,23 +32,15 @@ public class NoticeController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public LayuiResponseDataUtil activityList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
-                                              @RequestParam(value = "keyword",required = false) String keyword,
-                                              @RequestParam(value = "categoryId",required = false) String  categoryId,
-                                              @RequestParam(value = "createbyId",required = false) String  createbyId,
-                                              @RequestParam(value = "creatorRole",required = false) String creatorRole,
-                                              @RequestParam(value = "semester",required = false) String  semester,
-                                              @RequestParam(value = "schoolyear",required = false) String schoolyear){
+    public LayuiResponseDataUtil activityList(@RequestParam("page")int page, @RequestParam("limit") int pageSize){
 
 //        pageSize 前端设置10
         int before = pageSize*(page-1);
         Map<String,String> map = new HashMap<String,String>();
-        map.put("keyword",keyword);
-        map.put("categoryId", String.valueOf(categoryId));
-        map.put("createbyId", String.valueOf(createbyId));
-        map.put("creatorRole",creatorRole);
-        map.put("semester", String.valueOf(semester));
-        map.put("schoolyear",schoolyear);
+//        map.put("keyword",keyword);
+//        map.put("categoryId", String.valueOf(categoryId));
+//        map.put("collegeId", String.valueOf(collegeId));
+//        map.put("majorId", String.valueOf(majorId));
         int totalCount = this.noticeService.getTotalCount(map);
         LayuiResponseDataUtil noticeResponseData = new LayuiResponseDataUtil();
         noticeResponseData.setCode("0");
@@ -70,14 +63,30 @@ public class NoticeController {
         User user = (User) request.getSession().getAttribute("loginUser");
         int userId = user.getId();
         String title = request.getParameter("title");
+        String time = request.getParameter("time");
         int categoryId = Integer.parseInt(request.getParameter("categoryId"));
         String content = request.getParameter("content");
         int collegeId = Integer.parseInt(request.getParameter("college"));
         int majorId = Integer.parseInt(request.getParameter("major"));
-        String time = request.getParameter("time");
-        Notice notice = new Notice(title,categoryId,content,time,userId,collegeId,majorId);
+        Notice notice = new Notice();
+        if (collegeId!=0){
+            if (majorId!=0){
+                 notice = new Notice(title,categoryId,content,time,userId,collegeId,majorId);
+            }else {
+                notice = new Notice(title, categoryId, content, time, userId, collegeId);
+            }
+        }else {
+            notice = new Notice(title,categoryId,content,time,userId);
+        }
         this.noticeService.add(notice);
         return goList();
+    }
+
+    @RequestMapping("/goShow")
+    public String goShow(@RequestParam("id") int id, Model model){
+        Notice notice = this.noticeService.getNoticeById(id);
+        model.addAttribute("notice",notice);
+        return "/WEB-INF/jsp/notice/noticeShow.jsp";
     }
 
 }

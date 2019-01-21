@@ -75,7 +75,7 @@
         <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
         <th lay-data="{field:'title', width:200}">标题</th>
         <th lay-data="{field:'category', width:200}">类别</th>
-        <th lay-data="{field:'time', width:150}">时间</th>
+        <th lay-data="{field:'time', width:200}">时间</th>
         <th lay-data="{field:'user', width:150}">用户</th>
         <th lay-data="{field:'college', width:150}">学院</th>
         <th lay-data="{field:'major', width:150}">专业</th>
@@ -156,12 +156,12 @@
             table.reload('idTest', {
                 // url:'/notice/list',
                 where: {
-                    keyword: keyword.val(),
-                    categoryId: categoryId.val(),
-                    createbyId: createbyId.val(),
-                    creatorRole:creatorRole.val(),
-                    semester:semester.val(),
-                    schoolyear:schoolyear.val()
+                    // keyword: keyword.val(),
+                    // categoryId: categoryId.val(),
+                    // createbyId: createbyId.val(),
+                    // creatorRole:creatorRole.val(),
+                    // semester:semester.val(),
+                    // schoolyear:schoolyear.val()
                 }
             });
         });

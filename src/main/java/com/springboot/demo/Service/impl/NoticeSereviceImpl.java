@@ -5,6 +5,7 @@ import com.springboot.demo.Entity.Notice;
 import com.springboot.demo.Service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -17,16 +18,35 @@ public class NoticeSereviceImpl implements NoticeService {
 
     @Override
     public int getTotalCount(Map<String, String> map) {
-        return 0;
+        return noticeMapper.getTotalCount(map);
     }
 
     @Override
     public List<Notice> getAllNotice(Map<String, String> map) {
-        return null;
+        List<Notice> noticeList = noticeMapper.getAllNotice(map);
+        for (Notice notice:noticeList) {
+            if (StringUtils.isEmpty(notice.getCollege())){
+                 notice.setCollege("全校");
+        }if (StringUtils.isEmpty(notice.getMajor())){
+                notice.setMajor(notice.getCollege());
+            }
+        }
+        return noticeList;
     }
 
     @Override
     public void add(Notice notice) {
         noticeMapper.insert(notice);
+    }
+
+    @Override
+    public Notice getNoticeById(int id) {
+        Notice notice = noticeMapper.selectByPrimaryKey(id);
+        if (StringUtils.isEmpty(notice.getCollege())){
+            notice.setCollege("全校");
+        }if (StringUtils.isEmpty(notice.getMajor())){
+            notice.setMajor(notice.getCollege());
+        }
+        return notice;
     }
 }

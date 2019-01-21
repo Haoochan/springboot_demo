@@ -34,7 +34,7 @@
     </div>
     <div class="layui-form-item">
         <label for="categoryId" class="layui-form-label">公告类别</label>
-        <div class="layui-input-block ">
+        <div class="layui-input-inline ">
             <select  id="categoryId" name="categoryId" lay-verify="required">
                 <option >请选择类别</option>
             </select>
@@ -46,9 +46,9 @@
             <input type="text" id="time" name="time" lay-verify="required" placeholder="请选择日期" autocomplete="off" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item layui-form-text">
+    <div class="layui-form-item" >
         <label class="layui-form-label">工作内容</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline" style ="width:350px">
             <textarea id="content" name="content" class="layui-textarea" lay-verify="required"></textarea>
         </div>
     </div>
@@ -56,7 +56,7 @@
         <label for="college" class="layui-form-label">学院</label>
         <div class="layui-input-inline">
             <select  id="college" name="college">
-                <option >请选择学院</option>
+                <option value=0>请选择学院</option>
             </select>
         </div>
     </div>
@@ -64,7 +64,7 @@
         <label for="major" class="layui-form-label">专业</label>
         <div class="layui-input-inline">
             <select  id="major" name="major">
-                <option >请选择专业</option>
+                <option value=0>请选择专业</option>
             </select>
         </div>
     </div>

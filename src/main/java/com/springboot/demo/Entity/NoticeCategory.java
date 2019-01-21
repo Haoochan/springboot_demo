@@ -7,6 +7,11 @@ public class NoticeCategory {
 
     private String description;
 
+    public NoticeCategory(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public NoticeCategory(String name, String description) {
         this.name = name;
         this.description = description;

@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50724
+Source Server         : localhost_3306
+Source Server Version : 50710
 Source Host           : localhost:3306
 Source Database       : teacherdemo
 
 Target Server Type    : MYSQL
-Target Server Version : 50724
+Target Server Version : 50710
 File Encoding         : 65001
 
-Date: 2019-01-18 18:24:05
+Date: 2019-01-22 01:28:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `activity`
+-- Table structure for activity
 -- ----------------------------
 DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity` (
@@ -44,7 +44,7 @@ INSERT INTO `activity` VALUES ('1', '参加会议', '参加班主任工作会议
 INSERT INTO `activity` VALUES ('2', '参加助班会议', '参加助班工作会议', '1', '1', '2018-12-24 00:00:00', '教三105', '1', '2018-2019', '2018-12-24 14:38:00');
 
 -- ----------------------------
--- Table structure for `activity_category`
+-- Table structure for activity_category
 -- ----------------------------
 DROP TABLE IF EXISTS `activity_category`;
 CREATE TABLE `activity_category` (
@@ -64,7 +64,7 @@ INSERT INTO `activity_category` VALUES ('4', '学生交流', '与学生进行沟
 INSERT INTO `activity_category` VALUES ('23', '其他', '其他');
 
 -- ----------------------------
--- Table structure for `activity_image`
+-- Table structure for activity_image
 -- ----------------------------
 DROP TABLE IF EXISTS `activity_image`;
 CREATE TABLE `activity_image` (
@@ -84,7 +84,7 @@ CREATE TABLE `activity_image` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `class`
+-- Table structure for class
 -- ----------------------------
 DROP TABLE IF EXISTS `class`;
 CREATE TABLE `class` (
@@ -106,7 +106,7 @@ INSERT INTO `class` VALUES ('4', '15', '车辆1班', '30', '3');
 INSERT INTO `class` VALUES ('5', '15', '信管1班', '30', '1');
 
 -- ----------------------------
--- Table structure for `college`
+-- Table structure for college
 -- ----------------------------
 DROP TABLE IF EXISTS `college`;
 CREATE TABLE `college` (
@@ -140,7 +140,7 @@ INSERT INTO `college` VALUES ('22', '艺术学院', '艺术学院');
 INSERT INTO `college` VALUES ('23', '外国语学院', '外国语学院');
 
 -- ----------------------------
--- Table structure for `major`
+-- Table structure for major
 -- ----------------------------
 DROP TABLE IF EXISTS `major`;
 CREATE TABLE `major` (
@@ -160,7 +160,7 @@ INSERT INTO `major` VALUES ('3', '车辆工程', null, '2');
 INSERT INTO `major` VALUES ('4', '工业工程', '工业工程', '1');
 
 -- ----------------------------
--- Table structure for `notice`
+-- Table structure for notice
 -- ----------------------------
 DROP TABLE IF EXISTS `notice`;
 CREATE TABLE `notice` (
@@ -173,14 +173,15 @@ CREATE TABLE `notice` (
   `collegeId` int(11) DEFAULT NULL,
   `majorId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of notice
 -- ----------------------------
+INSERT INTO `notice` VALUES ('1', '测试', '1', '测试', '2019-01-22 00:03:47', '10', null, null);
 
 -- ----------------------------
--- Table structure for `notice_category`
+-- Table structure for notice_category
 -- ----------------------------
 DROP TABLE IF EXISTS `notice_category`;
 CREATE TABLE `notice_category` (
@@ -197,7 +198,7 @@ INSERT INTO `notice_category` VALUES ('1', '通知', '通知');
 INSERT INTO `notice_category` VALUES ('3', '类别2', '类别2');
 
 -- ----------------------------
--- Table structure for `user`
+-- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -224,7 +225,7 @@ INSERT INTO `user` VALUES ('9', '工程学院管理员', '123', '学院管理员
 INSERT INTO `user` VALUES ('10', 'admin', '123', '系统管理员', 'admin', '男', '123', '123');
 
 -- ----------------------------
--- Table structure for `user_class_college_map`
+-- Table structure for user_class_college_map
 -- ----------------------------
 DROP TABLE IF EXISTS `user_class_college_map`;
 CREATE TABLE `user_class_college_map` (

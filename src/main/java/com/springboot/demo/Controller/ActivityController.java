@@ -116,7 +116,6 @@ public class ActivityController {
     public String goShow(@RequestParam("id") int id, Model model){
         Activity activity = this.activityService.getActivityById(id);
         model.addAttribute("activity",activity);
-
         return "/WEB-INF/jsp/activity/activityShow.jsp";
     }
 

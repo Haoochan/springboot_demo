@@ -27,7 +27,27 @@ public class Notice {
 
     private String major;
 
-    public Notice(String title, String content,String time, Integer userId, Integer collegeId) {
+    public Notice() {
+
+    }
+    public Notice(String title, Integer categoryId,String content,String time, Integer userId) {
+        this.title = title;
+        this.time = time;
+        this.userId = userId;
+        this.content = content;
+        this.categoryId=categoryId;
+    }
+
+    public Notice(String title, Integer categoryId,String content,String time, Integer userId, Integer collegeId) {
+        this.title = title;
+        this.time = time;
+        this.userId = userId;
+        this.collegeId = collegeId;
+        this.content = content;
+        this.categoryId=categoryId;
+    }
+
+    public Notice(String title, String content, String time, Integer userId, Integer collegeId) {
         this.title = title;
         this.time = time;
         this.userId = userId;
@@ -45,7 +65,7 @@ public class Notice {
         this.categoryId=categoryId;
     }
 
-    public Notice(Integer id,String content, String title, String time,Integer categoryId,String category, Integer userId,String user, Integer collegeId,String college, Integer majorId,String major) {
+    public Notice(Integer id,String title, String content, String time,Integer categoryId,String category, Integer userId,String user, Integer collegeId,String college, Integer majorId,String major) {
         this.id = id;
         this.title = title;
         this.time = time;

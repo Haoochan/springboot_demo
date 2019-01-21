@@ -90,7 +90,7 @@ public class NoticeCategoryController {
 
     //获取所有分类 给到公告添加那边的下拉框取值
     @ResponseBody
-    @RequestMapping(value = "/getnoticeCategory",method =RequestMethod.GET)
+    @RequestMapping(value = "/getNoticeCategory",method =RequestMethod.GET)
     public Object getNoticeCategory(){
         List<NoticeCategory> list = this.noticeCategoryService.getNoticeCategory();
         return list;

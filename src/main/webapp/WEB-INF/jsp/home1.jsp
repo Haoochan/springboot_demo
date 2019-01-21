@@ -70,7 +70,22 @@
                            class="site-demo-active" data-type="tabAdd">我的工作</a>
                     </dd>
                 </dl>
-            </li>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">公告管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="10" data-title="公告列表" data-url="/notice/goList"
+                               class="site-demo-active" data-type="tabAdd">公告列表</a>
+                        </dd>
+                    </dl>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="11" data-title="我的公告" data-url="/notice/goMyList"
+                               class="site-demo-active" data-type="tabAdd">我的公告</a>
+                        </dd>
+                    </dl>
+                </li>
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">用户管理</a>
                     <dl class="layui-nav-child">

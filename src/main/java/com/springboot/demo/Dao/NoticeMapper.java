@@ -2,6 +2,9 @@ package com.springboot.demo.Dao;
 
 import com.springboot.demo.Entity.Notice;
 
+import java.util.List;
+import java.util.Map;
+
 public interface NoticeMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +19,8 @@ public interface NoticeMapper {
     int updateByPrimaryKeyWithBLOBs(Notice record);
 
     int updateByPrimaryKey(Notice record);
+
+    int getTotalCount(Map<String, String> map);
+
+    List<Notice> getAllNotice(Map<String, String> map);
 }
