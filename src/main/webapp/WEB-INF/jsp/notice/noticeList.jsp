@@ -23,39 +23,17 @@
     <%--<label for="categoryId" class="layui-form-label">工作类别</label>--%>
     <div class="layui-input-inline ">
         <select  id="categoryId" name="categoryId">
-            <option value="">请选择工作类别</option>
+            <option value="">请选择公告类别</option>
         </select>
     </div>
-    <%--<label for="createbyId" class="layui-form-label">创建者</label>--%>
     <div class="layui-input-inline ">
-        <select  id="createbyId" name="createbyId">
-            <option value="">请选择创建者</option>
+        <select  id="collegeId" name="collegeId">
+            <option value="">请选择学院</option>
         </select>
     </div>
-    <%--<label for="creatorRole" class="layui-form-label">创建者角色</label>--%>
     <div class="layui-input-inline ">
-        <select  id="creatorRole" name="creatorRole">
-            <option value="">请选择创建者角色</option>
-            <option value="助班">助班</option>
-            <option value="班主任">班主任</option>
-            <option value="学院管理员">学院管理员</option>
-            <option value="班主任">班主任</option>
-        </select>
-    </div>
-    <%--<label for="semester" class="layui-form-label">学期</label>--%>
-    <div class="layui-input-inline">
-        <select  id="semester" name="semester">
-            <option value="">请选择学期</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-        </select>
-    </div>
-    <%--<label for="schoolyear" class="layui-form-label">学年</label>--%>
-    <div class="layui-input-inline">
-        <select  id="schoolyear" name="schoolyear">
-            <option value="">请选择学年</option>
-            <option value="2018-2019">2018-2019</option>
-            <option value="2017-2018">2017-2018</option>
+        <select  id="majorId" name="majorId">
+            <option value="">请选择专业</option>
         </select>
     </div>
     <div class="layui-form-item">
@@ -147,21 +125,17 @@
         $("#search").click(function () {
             var keyword = $('#keyword');
             var categoryId = $('#categoryId');
-            var createbyId = $('#createbyId');
-            var creatorRole = $('#creatorRole');
-            var semester = $('#semester');
-            var schoolyear = $('#schoolyear');
+            var collegeId = $('#collegeId');
+            var majorId = $('#majorId');
 
             //idTest 是表单lay-data 里面的id
             table.reload('idTest', {
-                // url:'/notice/list',
+                url:'/notice/list',
                 where: {
-                    // keyword: keyword.val(),
-                    // categoryId: categoryId.val(),
-                    // createbyId: createbyId.val(),
-                    // creatorRole:creatorRole.val(),
-                    // semester:semester.val(),
-                    // schoolyear:schoolyear.val()
+                    keyword: keyword.val(),
+                    categoryId: categoryId.val(),
+                    collegeId: collegeId.val(),
+                    majorId: majorId.val()
                 }
             });
         });
@@ -180,20 +154,44 @@
             }
         });
 
-        //创建者添加到下拉框中
+        //学院添加到下拉框中
         $.ajax({
-            url: '/user/getUser',
+            url: '/college/getCollege',
             dataType: 'json',
             type: 'get',
-            success: function (creator) {
-                $.each(creator, function (index, item) {
-                    $('#createbyId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
-                    // $('#creatorRole').append(new Option(item.role, item.id));// 下拉菜单里添加元素
+            success: function (college) {
+                $.each(college, function (index, item) {
+                    $('#collegeId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                 });
                 form.render("select");
                 //重新渲染 固定写法
             }
         });
+
+        //监听学院下拉框 把专业添加到下拉框中
+        form.on('select(collegeId)', function(data){
+            $('#majorId').html("");//清空下拉框
+            $('#majorId').append(new Option("请选择专业"));//添加提示
+            form.render('select');
+            var value = data.value;
+            console.log(value);
+            if (value!='') {
+                $.ajax({
+                    url: '/major/getMajor?id=' + value,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (major) {
+                        console.log(major);
+                        $.each(major, function (index, item) {
+                            $('#majorId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                        });
+                        form.render("select");
+                        //重新渲染 固定写法
+                    }
+                });
+            }
+        });
+
 
 
         //监听表格复选框选择

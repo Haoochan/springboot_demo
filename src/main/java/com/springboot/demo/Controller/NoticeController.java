@@ -7,6 +7,7 @@ import com.springboot.demo.Service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,15 +33,19 @@ public class NoticeController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public LayuiResponseDataUtil activityList(@RequestParam("page")int page, @RequestParam("limit") int pageSize){
+    public LayuiResponseDataUtil activityList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
+                                              @RequestParam(value = "keyword",required = false) String keyword,
+                                              @RequestParam(value = "categoryId",required = false) String categoryId,
+                                              @RequestParam(value = "collegeId",required = false) String collegeId,
+                                              @RequestParam(value = "majorId",required = false) String majorId){
 
 //        pageSize 前端设置10
         int before = pageSize*(page-1);
         Map<String,String> map = new HashMap<String,String>();
-//        map.put("keyword",keyword);
-//        map.put("categoryId", String.valueOf(categoryId));
-//        map.put("collegeId", String.valueOf(collegeId));
-//        map.put("majorId", String.valueOf(majorId));
+        map.put("keyword",keyword);
+        map.put("categoryId", String.valueOf(categoryId));
+        map.put("collegeId", collegeId);
+        map.put("majorId", majorId);
         int totalCount = this.noticeService.getTotalCount(map);
         LayuiResponseDataUtil noticeResponseData = new LayuiResponseDataUtil();
         noticeResponseData.setCode("0");
