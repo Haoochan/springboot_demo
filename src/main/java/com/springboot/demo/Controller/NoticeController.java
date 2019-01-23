@@ -43,7 +43,7 @@ public class NoticeController {
         int before = pageSize*(page-1);
         Map<String,String> map = new HashMap<String,String>();
         map.put("keyword",keyword);
-        map.put("categoryId", String.valueOf(categoryId));
+        map.put("categoryId", categoryId);
         map.put("collegeId", collegeId);
         map.put("majorId", majorId);
         int totalCount = this.noticeService.getTotalCount(map);

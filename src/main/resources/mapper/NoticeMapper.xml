@@ -168,13 +168,13 @@
     <if test="keyword!=null and keyword !=''">
       and n.content LIKE '%${keyword}%'
     </if>
-    <if test="categoryId !='null' and categoryId !='' ">
+    <if test="categoryId !=null and categoryId !='' ">
       and n.categoryId = #{categoryId}
     </if>
     <if test="collegeId !=null and collegeId !='' ">
       and n.collegeId = #{collegeId}
     </if>
-    <if test="majorId !=null and major !='' ">
+    <if test="majorId !=null and majorId !='' ">
       and n.majorId = #{majorId}
     </if>
   </select>
@@ -202,13 +202,13 @@
     <if test="keyword!=null and keyword !=''">
       and n.content LIKE '%${keyword}%'
     </if>
-    <if test="categoryId !='null' and categoryId !='' ">
-      and n.categoryId = 1
+    <if test="categoryId !=null and categoryId !='' ">
+      and n.categoryId = #{categoryId}
     </if>
     <if test="collegeId !=null and collegeId !='' ">
       and n.collegeId = #{collegeId}
     </if>
-    <if test="majorId !=null and major !='' ">
+    <if test="majorId !=null and majorId !='' ">
       and n.majorId = #{majorId}
     </if>
     limit ${before},${after}
