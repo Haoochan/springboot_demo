@@ -122,7 +122,6 @@ public class ActivityController {
     @RequestMapping("/goEdit")
     public String goEdit(@RequestParam("id") int id,Model model){
         Activity activity = this.activityService.getActivityById(id);
-        System.out.println(activity.toString());
         model.addAttribute("activity",activity);
         return "/WEB-INF/jsp/activity/activityEdit.jsp";
     }

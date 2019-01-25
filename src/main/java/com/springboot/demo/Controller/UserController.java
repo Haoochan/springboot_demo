@@ -35,7 +35,6 @@ public class UserController {
         System.out.println("用户登录" + username + password + role);
         User user = this.userService.login(username, password, role);
         request.getSession().setAttribute("loginUser",user);
-        System.out.println(request.getSession().getAttribute("loginUser"));
         if(!StringUtils.isEmpty(user)){
             model.addAttribute("user", user);
             return "/WEB-INF/jsp/home1.jsp";

@@ -49,4 +49,9 @@ public class NoticeSereviceImpl implements NoticeService {
         }
         return notice;
     }
+
+    @Override
+    public void edit(Notice notice) {
+        noticeMapper.updateByPrimaryKey(notice);
+    }
 }

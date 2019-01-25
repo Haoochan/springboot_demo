@@ -48,9 +48,8 @@
     </div>
     <div class="layui-form-item">
         <label for="categoryId" class="layui-form-label">工作类别</label>
-        <div class="layui-input-block ">
-                <select  id="categoryId" name="categoryId">
-                </select>
+        <div class="layui-input-inline ">
+                <select  id="categoryId" name="categoryId"></select>
         </div>
     </div>
     <div class="layui-form-item" style="display: none">

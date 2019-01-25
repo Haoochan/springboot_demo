@@ -13,4 +13,6 @@ public interface NoticeService {
     void add(Notice notice);
 
     Notice getNoticeById(int id);
+
+    void edit(Notice notice);
 }

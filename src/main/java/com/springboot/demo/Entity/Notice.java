@@ -30,7 +30,18 @@ public class Notice {
     public Notice() {
 
     }
-    public Notice(String title, Integer categoryId,String content,String time, Integer userId) {
+
+    public Notice(Integer id, String title, Integer categoryId,String content,String time, Integer collegeId, Integer majorId) {
+        this.id = id;
+        this.title = title;
+        this.time = time;
+        this.categoryId = categoryId;
+        this.collegeId = collegeId;
+        this.majorId = majorId;
+        this.content = content;
+    }
+
+    public Notice(String title, Integer categoryId, String content, String time, Integer userId) {
         this.title = title;
         this.time = time;
         this.userId = userId;

@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -73,16 +70,16 @@ public class NoticeController {
         String content = request.getParameter("content");
         int collegeId = Integer.parseInt(request.getParameter("college"));
         int majorId = Integer.parseInt(request.getParameter("major"));
-        Notice notice = new Notice();
-        if (collegeId!=0){
-            if (majorId!=0){
-                 notice = new Notice(title,categoryId,content,time,userId,collegeId,majorId);
-            }else {
-                notice = new Notice(title, categoryId, content, time, userId, collegeId);
-            }
-        }else {
-            notice = new Notice(title,categoryId,content,time,userId);
-        }
+        Notice notice = new Notice(title,categoryId,content,time,userId,collegeId,majorId);
+//        if (collegeId!=0){
+//            if (majorId!=0){
+//                 notice = new Notice(title,categoryId,content,time,userId,collegeId,majorId);
+//            }else {
+//                notice = new Notice(title, categoryId, content, time, userId, collegeId);
+//            }
+//        }else {
+//            notice = new Notice(title,categoryId,content,time,userId);
+//        }
         this.noticeService.add(notice);
         return goList();
     }
@@ -92,6 +89,30 @@ public class NoticeController {
         Notice notice = this.noticeService.getNoticeById(id);
         model.addAttribute("notice",notice);
         return "/WEB-INF/jsp/notice/noticeShow.jsp";
+    }
+
+    @RequestMapping("/goEdit")
+    public String goEdit(@RequestParam("id") int id,Model model){
+        Notice notice = this.noticeService.getNoticeById(id);
+        model.addAttribute("notice",notice);
+        return "/WEB-INF/jsp/notice/noticeEdit.jsp";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/edit",method = RequestMethod.POST)
+    public String edit(@RequestBody Map<String, String> map, Model model) {
+        int noticeId = Integer.parseInt(map.get("id"));
+        String title = map.get("title");
+        int categoryId = Integer.parseInt(map.get("category"));
+        String content = map.get("content");
+        String time = map.get("time");
+        int collegeId = Integer.parseInt(map.get("college"));
+        int majorId = Integer.parseInt(map.get("major"));
+        Notice notice = new Notice(noticeId,title,categoryId,content,time,collegeId,majorId);
+        this.noticeService.edit(notice);
+
+
+        return "ok";
     }
 
 }
