@@ -110,8 +110,15 @@ public class NoticeController {
         int majorId = Integer.parseInt(map.get("major"));
         Notice notice = new Notice(noticeId,title,categoryId,content,time,collegeId,majorId);
         this.noticeService.edit(notice);
+        model.addAttribute("notice",notice);
+        return "ok";
+    }
 
-
+    @ResponseBody
+    @RequestMapping("/delete")
+    public String delete(HttpServletRequest request){
+        int deleteId = Integer.parseInt(request.getParameter("id"));
+        this.noticeService.delete(deleteId);
         return "ok";
     }
 

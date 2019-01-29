@@ -15,4 +15,6 @@ public interface NoticeService {
     Notice getNoticeById(int id);
 
     void edit(Notice notice);
+
+    void delete(int deleteId);
 }

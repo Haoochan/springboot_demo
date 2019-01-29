@@ -30,7 +30,6 @@
         <th lay-data="{field:'description', width:300}">描述</th>
         <th lay-data="{field:'userName', width:300}">学院管理员</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
-        <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo1'}"></th>
     </tr>
     </thead>
 </table>
@@ -40,10 +39,6 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-<script type="text/html" id="barDemo1">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail1">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit1">编辑管理员</a>
-</script>
 
 
 <script src="../../../static/layui/layui.js" charset="utf-8"></script>
@@ -51,6 +46,10 @@
 <script>
     //添加方法
     function add() {
+        var role ="${sessionScope.loginUser.role}";
+        if (role !=="系统管理员"){
+            layer.msg("没有权限");
+        }else {
         layer.open({
             type: 2,
             title: '添加学院',
@@ -59,7 +58,12 @@
             content: '/college/goAdd'  //调到新增页面
         });
     }
+    }
     function  edit(data) {
+        var role ="${sessionScope.loginUser.role}";
+        if (role !=="系统管理员"){
+            layer.msg("没有权限");
+        }else {
         var index = layui.layer.open({
             title : "编辑学院",
             type : 2,
@@ -68,6 +72,7 @@
             content : "/college/goEdit?id="+data.id//弹出层页面
         })
     }
+    }
     function show(data) {
         var index = layui.layer.open({
             title : "查看学院",
@@ -75,15 +80,6 @@
             closeBtn: 2,         //是否显示关闭按钮
             area: ['500px', '560px'],
             content : "/college/goShow?id="+data.id//弹出层页面
-        })
-    }
-    function  edit1(data) {
-        var index = layui.layer.open({
-            title : "编辑用户",
-            type : 2,
-            closeBtn: 2,         //是否显示关闭按钮
-            area: ['500px', '560px'],
-            content : "/college/goEdit?id="+data.id//弹出层页面
         })
     }
 
@@ -101,6 +97,10 @@
             if(obj.event === 'detail'){
                 show(data);
             } else if(obj.event === 'del'){
+                var role ="${sessionScope.loginUser.role}";
+                if (role !=="系统管理员"){
+                    layer.msg("没有权限");
+                }else {
                 layer.confirm('真的删除行么', function(index){
                     $.ajax({
                         url: "/college/delete",
@@ -124,12 +124,10 @@
 
                     });
                 });
+                }
             } else if(obj.event === 'edit'){
                 //这里一般是发送修改的Ajax请求
                 edit(data);
-            } else if(obj.event === 'edit1'){
-                //这里一般是发送修改的Ajax请求
-                edit1(data);
             }
 
         });

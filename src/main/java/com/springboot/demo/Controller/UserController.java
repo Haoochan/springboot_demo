@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +29,14 @@ public class UserController {
     private UserClassCollegeMapService userClassCollegeMapService;
 
     @RequestMapping("/login")
-    public String login(HttpServletRequest request, Model model) {
+    public String login(HttpServletRequest request, Model model, HttpSession session) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
         System.out.println("用户登录" + username + password + role);
         User user = this.userService.login(username, password, role);
         request.getSession().setAttribute("loginUser",user);
+        session.setAttribute("loginUser",user);
         if(!StringUtils.isEmpty(user)){
             model.addAttribute("user", user);
             return "/WEB-INF/jsp/home1.jsp";

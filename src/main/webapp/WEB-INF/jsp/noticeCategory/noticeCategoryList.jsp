@@ -46,6 +46,10 @@
 <script>
     //添加方法
     function add() {
+        var role ="${sessionScope.loginUser.role}";
+        if (role !=="系统管理员"){
+            layer.msg("没有权限");
+        }else {
 //页面层
         layer.open({
             type: 2,
@@ -55,8 +59,12 @@
             content: '/noticeCategory/goAdd'  //调到新增页面
         });
     }
+    }
     function  edit(data) {
-        console.log(data);
+        var role ="${sessionScope.loginUser.role}";
+        if (role !=="系统管理员"){
+            layer.msg("没有权限");
+        }else {
         var index = layui.layer.open({
             title : "编辑公告类别",
             type : 2,
@@ -65,9 +73,9 @@
             content : "/noticeCategory/goEdit?id="+data.id//弹出层页面
         })
     }
+    }
 
     function show(data) {
-        console.log(data);
         var index = layui.layer.open({
             title : "查看公告类别",
             type : 2,
@@ -92,30 +100,35 @@
             if(obj.event === 'detail'){
                 show(data);
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    console.log(data);
-                    $.ajax({
-                        url: "/noticeCategory/delete",
-                        type: "POST",
-                        data:{"id":data.id},
-                        // dataType: "json",
-                        success: function(data){
-                            if(data=="ok"){
-                                //前端页面删除这一行 有下面提示出来的
-                                obj.del();
-                                //页面刷新 没有下面提示出来的
-                                // location.reload();
-                                //关闭弹框
-                                layer.close(index);
-                                layer.msg("删除成功", {icon: 6});
+                var role ="${sessionScope.loginUser.role}";
+                if (role !=="系统管理员"){
+                    layer.msg("没有权限");
+                }else {
+                    layer.confirm('真的删除行么', function (index) {
+                        console.log(data);
+                        $.ajax({
+                            url: "/noticeCategory/delete",
+                            type: "POST",
+                            data: {"id": data.id},
+                            // dataType: "json",
+                            success: function (data) {
+                                if (data == "ok") {
+                                    //前端页面删除这一行 有下面提示出来的
+                                    obj.del();
+                                    //页面刷新 没有下面提示出来的
+                                    // location.reload();
+                                    //关闭弹框
+                                    layer.close(index);
+                                    layer.msg("删除成功", {icon: 6});
 
-                            }else{
-                                layer.msg("删除失败", {icon: 5});
+                                } else {
+                                    layer.msg("删除失败", {icon: 5});
+                                }
                             }
-                        }
 
+                        });
                     });
-                });
+                }
             } else if(obj.event === 'edit'){
                 //这里一般是发送修改的Ajax请求
                 edit(data);

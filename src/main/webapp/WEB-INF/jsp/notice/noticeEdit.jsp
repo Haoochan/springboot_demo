@@ -40,7 +40,9 @@
     <div class="layui-form-item">
         <label for="category" class="layui-form-label">公告类别</label>
         <div class="layui-input-inline">
-            <select  id="category" name="category"></select>
+            <select  id="category" name="category" lay-filter="category">
+                <option></option>
+            </select>
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
@@ -52,19 +54,21 @@
     <div class="layui-form-item">
         <label for="time" class="layui-form-label">时间</label>
         <div class="layui-input-inline">
-            <input type="text" id="time" name="time" value="${notice.time}" autocomplete="off" class="layui-input">
+            <input type="text" id="time" name="time" value="${notice.time}" autocomplete="off" class="layui-input" >
         </div>
     </div>
     <div class="layui-form-item">
         <label for="college" class="layui-form-label">学院</label>
         <div class="layui-input-inline">
-            <select  id="college" name="college"></select>
+            <select  id="college" name="college" lay-filter="college">
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
         <label for="major" class="layui-form-label">专业</label>
         <div class="layui-input-inline">
-            <select  id="major" name="major"></select>
+            <select  id="major" name="major" lay-filter="major">
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
@@ -84,6 +88,7 @@
 
     layui.use('form', function() {
         var form = layui.form;
+        var laydate = layui.laydate;
         form.render();
 
         //日期插件
@@ -116,7 +121,6 @@
             dataType: 'json',
             type: 'get',
             success: function (college) {
-                $('#college').append(new Option("全校", '',false,true));
                 $.each(college, function (index, item) {
                     if (item.id==${notice.collegeId}){
                         $('#college').append(new Option(item.name, item.id,false,true));
@@ -131,11 +135,10 @@
 
         //专业添加到下拉框中 并默认选中
         $.ajax({
-            url: '/major/getMajor',
+            url: '/major/getMajor?id='+${notice.collegeId},
             dataType: 'json',
             type: 'get',
             success: function (major) {
-                $('#major').append(new Option("全校", '',false,true));
                 $.each(major, function (index, item) {
                     if (item.id==${notice.majorId}){
                         $('#major').append(new Option(item.name, item.id,false,true));
@@ -151,7 +154,6 @@
         //监听学院下拉框选择变动 把专业添加到下拉框中
         form.on('select(college)', function(data){
             $('#major').html("");//清空下拉框
-            $('#major').append(new Option("全校", '',false,true));
             form.render('select');
             var value = data.value;
             if (value!='') {
@@ -191,7 +193,7 @@
             });
             // return false;
         });
-    }
+    });
 </script>
 </body>
 

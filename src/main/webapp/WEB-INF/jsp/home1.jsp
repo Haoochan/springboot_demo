@@ -20,7 +20,7 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">XXXX业务管理平台</div>
+        <div class="layui-logo" style="width: 300px">华南农业大学班主任工作管理平台</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -138,10 +138,10 @@
 
     <div class="layui-footer" style="text-align:center;">
         <!-- 底部固定区域 -->
-        © sunway.tk XXXX业务管理平台
+        © sunway.tk 华南农业大学班主任工作管理平台
     </div>
 </div>
-<%--<script src="/js/layui/layui.js"></script>--%>
+
 <script>
     <!--这里是放置js代码区域-->
     layui.use(['element', 'layer', 'jquery'], function () {

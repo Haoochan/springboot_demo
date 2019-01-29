@@ -180,7 +180,6 @@ public class ActivityController {
     @RequestMapping("/delete")
     public String delete(HttpServletRequest request){
         int deleteId = Integer.parseInt(request.getParameter("id"));
-        System.out.println(deleteId);
         this.activityService.delete(deleteId);
         return "ok";
     }

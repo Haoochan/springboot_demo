@@ -24,13 +24,6 @@ public class NoticeSereviceImpl implements NoticeService {
     @Override
     public List<Notice> getAllNotice(Map<String, String> map) {
         List<Notice> noticeList = noticeMapper.getAllNotice(map);
-        for (Notice notice:noticeList) {
-            if (StringUtils.isEmpty(notice.getCollege())){
-                 notice.setCollege("全校");
-        }if (StringUtils.isEmpty(notice.getMajor())){
-                notice.setMajor(notice.getCollege());
-            }
-        }
         return noticeList;
     }
 
@@ -42,16 +35,17 @@ public class NoticeSereviceImpl implements NoticeService {
     @Override
     public Notice getNoticeById(int id) {
         Notice notice = noticeMapper.selectByPrimaryKey(id);
-        if (StringUtils.isEmpty(notice.getCollege())){
-            notice.setCollege("全校");
-        }if (StringUtils.isEmpty(notice.getMajor())){
-            notice.setMajor(notice.getCollege());
-        }
+
         return notice;
     }
 
     @Override
     public void edit(Notice notice) {
-        noticeMapper.updateByPrimaryKey(notice);
+        noticeMapper.updateByPrimaryKeySelective(notice);
+    }
+
+    @Override
+    public void delete(int deleteId) {
+        noticeMapper.deleteByPrimaryKey(deleteId);
     }
 }
