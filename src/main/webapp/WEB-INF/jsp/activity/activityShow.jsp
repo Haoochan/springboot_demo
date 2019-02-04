@@ -70,6 +70,12 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label for="college" class="layui-form-label">学院</label>
+        <div class="layui-input-inline">
+            <input type="text" id="college" name="college" readonly="readonly" value="${activity.college}" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label for="creatorRole" class="layui-form-label">创建者角色</label>
         <div class="layui-input-inline">
             <input type="text" id="creatorRole" name="creatorRole" readonly="readonly" value="${activity.creatorRole}" autocomplete="off" class="layui-input">

@@ -171,6 +171,7 @@
 
   <select id="getAllActivity"  resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
     select
+           distinct
         a.id as id,
         a.topic as topic,
         a.content as content,
@@ -183,10 +184,13 @@
         a.location as location,
         a.semester as semester,
         a.schoolyear as schoolyear,
-        a.create_time
+        a.create_time,
+        co.name as college
     from activity as a
          LEFT JOIN activity_category as ac on ac.id=a.category_id
          LEFT JOIN `user` as u on u.id = a.createby_id
+         LEFT JOIN user_class_college_map as uccm on uccm.userId = u.id
+         LEFT JOIN college as co on co.id=uccm.collegeId
     where 1=1
     <if test="keyword!=null and keyword !=''">
       and a.content LIKE '%${keyword}%'
@@ -206,11 +210,15 @@
     <if test="schoolyear !=null and schoolyear !='' ">
       and a.schoolyear = #{schoolyear}
     </if>
+    <if test="collegeId !=null and collegeId !='' ">
+      and uccm.collegeId = #{collegeId}
+    </if>
     limit ${before},${after}
   </select>
 
     <select id="getActivityById"  resultMap="ResultMapWithBLOBs">
         SELECT
+               distinct
             a.id as id,
             a.topic as topic,
             a.content as content,
@@ -223,23 +231,28 @@
             a.location as location,
             a.semester as semester,
             a.schoolyear as schoolyear,
-            a.create_time
+            a.create_time,
+            co.name as college
         FROM
             activity a
             left JOIN activity_category ac on a.category_id=ac.id
             left JOIN `user` u on a.createby_id=u.id
+            LEFT JOIN user_class_college_map as uccm on uccm.userId = u.id
+            LEFT JOIN college as co on co.id=uccm.collegeId
         where a.id = #{id,jdbcType=INTEGER}
     </select>
 
   <select id="getTotalCount"  resultType="java.lang.Integer" >
+    SELECT COUNT(1) FROM(
     select
-    count(1)
+    DISTINCT
+    a.id as id
     from activity as a
     LEFT JOIN activity_category as ac on ac.id=a.category_id
     LEFT JOIN `user` as u on u.id = a.createby_id
+    LEFT JOIN user_class_college_map as uccm on uccm.userId = u.id
     where 1=1
-    <if test="keyword!=null and keyword !=''">
-    and a.content LIKE '%${keyword}%'
+    <if test="keyword!=null and keyword !=''">and a.content LIKE '%${keyword}%'
     </if>
     <if test="categoryId !='null' and categoryId !='' ">
       and a.category_id = #{categoryId}
@@ -256,6 +269,10 @@
     <if test="schoolyear !=null and schoolyear !='' ">
       and a.schoolyear = #{schoolyear}
     </if>
+    <if test="collegeId !=null and collegeId !='' ">
+      and uccm.collegeId = #{collegeId}
+    </if>
+    ) AS t
   </select>
 
   <select id="getTotalCountByUserId"  resultType="java.lang.Integer" >
@@ -300,10 +317,13 @@
     a.location as location,
     a.semester as semester,
     a.schoolyear as schoolyear,
-    a.create_time
+    a.create_time,
+    co.name as college
     from activity as a
     LEFT JOIN activity_category as ac on ac.id=a.category_id
     LEFT JOIN `user` as u on u.id = a.createby_id
+    LEFT JOIN user_class_college_map as uccm on uccm.userId = u.id
+    LEFT JOIN college as co on co.id=uccm.collegeId
     where 1=1
       and a.createby_id=${userId}
     <if test="keyword!=null and keyword !=''">
@@ -311,12 +331,6 @@
     </if>
     <if test="categoryId !='null' and categoryId !='' ">
       and a.category_id = #{categoryId}
-    </if>
-    <if test="createbyId !='null' and createbyId !='' ">
-      and a.createby_id = #{createbyId}
-    </if>
-    <if test="creatorRole !=null and creatorRole !='' ">
-      and u.role = #{creatorRole}
     </if>
     <if test="semester !='null' and semester !='' ">
       and a.semester = #{semester}

@@ -33,6 +33,8 @@ public class Activity {
 
     private String category;
 
+    private String college;
+
     public Activity(){
     }
 
@@ -47,6 +49,20 @@ public class Activity {
         this.createTime = createTime;
         this.content = content;
         this.location =location;
+    }
+
+    public Activity(Integer id, String topic, String content,Integer categoryId, Integer createbyId, String time,String location, Integer semester, String schoolyear, String createTime,String college) {
+        this.id = id;
+        this.topic = topic;
+        this.categoryId = categoryId;
+        this.createbyId = createbyId;
+        this.time = time;
+        this.semester = semester;
+        this.schoolyear = schoolyear;
+        this.createTime = createTime;
+        this.content = content;
+        this.location =location;
+        this.college = college;
     }
 
     public Activity(String topic, String content,Integer categoryId, Integer createbyId, String time, String location,Integer semester, String schoolyear, String createTime) {
@@ -209,6 +225,14 @@ public class Activity {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
     }
 
     @Override

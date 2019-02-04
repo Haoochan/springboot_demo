@@ -20,20 +20,12 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     ActivityImageMapper activityImageMapper;
 
-//    @Override
-//    public int getTotalCount() {
-//        return this.activityMapper.getTotalCount();
-//    }
 
     @Override
     public int getTotalCount(Map<String,String> map) {
         return this.activityMapper.getTotalCount(map);
     }
 
-//    @Override
-//    public List<Activity> getAllActivity(int before, int pageSize,Map<String,String> map) {
-//        return this.activityMapper.getAllActivity(before,pageSize,map);
-//    }
     @Override
     public List<Activity> getAllActivity(Map<String,String> map) {
         return this.activityMapper.getAllActivity(map);

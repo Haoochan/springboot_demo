@@ -27,34 +27,20 @@
             <option value="">请选择工作类别</option>
         </select>
     </div>
-        <div class="layui-input-inline ">
-            <select  id="createbyId" name="createbyId">
-                <option value="">请选择创建者</option>
-            </select>
-        </div>
-        <div class="layui-input-inline ">
-            <select  id="creatorRole" name="creatorRole">
-                <option value="">请选择创建者角色</option>
-                <option value="助班">助班</option>
-                <option value="班主任">班主任</option>
-                <option value="学院管理员">学院管理员</option>
-                <option value="班主任">班主任</option>
-            </select>
-        </div>
-        <div class="layui-input-inline">
-            <select  id="semester" name="semester">
-                <option value="">请选择学期</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-            </select>
-        </div>
-        <div class="layui-input-inline">
-            <select  id="schoolyear" name="schoolyear">
-                <option value="">请选择学年</option>
-                <option value="2018-2019">2018-2019</option>
-                <option value="2017-2018">2017-2018</option>
-            </select>
-        </div>
+    <div class="layui-input-inline">
+        <select  id="semester" name="semester">
+            <option value="">请选择学期</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+    </div>
+    <div class="layui-input-inline">
+        <select  id="schoolyear" name="schoolyear">
+            <option value="">请选择学年</option>
+            <option value="2018-2019">2018-2019</option>
+            <option value="2017-2018">2017-2018</option>
+        </select>
+    </div>
     <div class="layui-form-item">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
@@ -69,10 +55,11 @@
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
+        <th lay-data="{title: '序号', width:50, type:'numbers'}">序号</th>
         <th lay-data="{field:'topic', width:200}">主题</th>
-        <th lay-data="{field:'category', width:200}">类别</th>
+        <th lay-data="{field:'category', width:150}">类别</th>
         <th lay-data="{field:'creator', width:150}">用户</th>
+        <th lay-data="{field:'college', width:150}">学院</th>
         <th lay-data="{field:'creatorRole', width:100}">角色</th>
         <th lay-data="{field:'time', width:150}">时间</th>
         <th lay-data="{field:'location', width:150}">地点</th>
@@ -147,8 +134,6 @@
         $("#search").click(function () {
                 var keyword = $('#keyword');
                 var categoryId = $('#categoryId');
-                var createbyId = $('#createbyId');
-                var creatorRole = $('#creatorRole');
                 var semester = $('#semester');
                 var schoolyear = $('#schoolyear');
 
@@ -158,8 +143,6 @@
                     where: {
                         keyword: keyword.val(),
                         categoryId: categoryId.val(),
-                        createbyId: createbyId.val(),
-                        creatorRole:creatorRole.val(),
                         semester:semester.val(),
                         schoolyear:schoolyear.val()
                     }

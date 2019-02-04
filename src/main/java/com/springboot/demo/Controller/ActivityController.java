@@ -6,9 +6,11 @@ import com.springboot.demo.Entity.ActivityImage;
 import com.springboot.demo.Entity.LayuiResponseDataUtil;
 import com.springboot.demo.Entity.User;
 import com.springboot.demo.Service.ActivityService;
+import com.springboot.demo.Service.UserService;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -34,6 +36,9 @@ public class ActivityController {
     @Autowired
     ActivityService activityService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping("/goList")
     public String goList(){
         return "/WEB-INF/jsp/activity/activityList.jsp";
@@ -41,13 +46,15 @@ public class ActivityController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public LayuiResponseDataUtil activityList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
-                                                      @RequestParam(value = "keyword",required = false) String keyword,
-                                                      @RequestParam(value = "categoryId",required = false) String  categoryId,
-                                                      @RequestParam(value = "createbyId",required = false) String  createbyId,
-                                                      @RequestParam(value = "creatorRole",required = false) String creatorRole,
-                                                      @RequestParam(value = "semester",required = false) String  semester,
-                                                      @RequestParam(value = "schoolyear",required = false) String schoolyear){
+    public LayuiResponseDataUtil activityList(HttpServletRequest request,
+                                              @RequestParam("page")int page, @RequestParam("limit") int pageSize,
+                                              @RequestParam(value = "keyword",required = false) String keyword,
+                                              @RequestParam(value = "categoryId",required = false) String  categoryId,
+                                              @RequestParam(value = "createbyId",required = false) String  createbyId,
+                                              @RequestParam(value = "creatorRole",required = false) String creatorRole,
+                                              @RequestParam(value = "semester",required = false) String  semester,
+                                              @RequestParam(value = "schoolyear",required = false) String schoolyear,
+                                              @RequestParam(value = "collegeId",required = false) String collegeId){
 
 //        pageSize 前端设置10
         int before = pageSize*(page-1);
@@ -58,6 +65,13 @@ public class ActivityController {
         map.put("creatorRole",creatorRole);
         map.put("semester", String.valueOf(semester));
         map.put("schoolyear",schoolyear);
+        //设置不是系统管理员的话就只显示该学院
+        User user = userService.getUserById(((User) request.getSession().getAttribute("loginUser")).getId());
+        if (!"系统管理员".equals(user.getRole())){
+            map.put("collegeId", String.valueOf(user.getCollegeId()));
+        }else {
+            map.put("collegeId", collegeId);
+        }
         int totalCount = this.activityService.getTotalCount(map);
         LayuiResponseDataUtil activityResponseData = new LayuiResponseDataUtil();
         activityResponseData.setCode("0");
@@ -84,8 +98,6 @@ public class ActivityController {
                                                 @RequestParam("page")int page, @RequestParam("limit") int pageSize,
                                               @RequestParam(value = "keyword",required = false) String keyword,
                                               @RequestParam(value = "categoryId",required = false) String  categoryId,
-                                              @RequestParam(value = "createbyId",required = false) String  createbyId,
-                                              @RequestParam(value = "creatorRole",required = false) String creatorRole,
                                               @RequestParam(value = "semester",required = false) String  semester,
                                               @RequestParam(value = "schoolyear",required = false) String schoolyear){
 
@@ -94,8 +106,6 @@ public class ActivityController {
         Map<String,String> map = new HashMap<String,String>();
         map.put("keyword",keyword);
         map.put("categoryId", String.valueOf(categoryId));
-        map.put("createbyId", String.valueOf(createbyId));
-        map.put("creatorRole",creatorRole);
         map.put("semester", String.valueOf(semester));
         map.put("schoolyear",schoolyear);
         map.put("userId", String.valueOf(userId));
@@ -130,16 +140,11 @@ public class ActivityController {
     @RequestMapping("/edit")
     public String edit(HttpServletRequest request, Model model) throws ParseException {
         int id = Integer.parseInt(request.getParameter("id"));
-        System.out.println(id);
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
         int categoryId = Integer.parseInt(request.getParameter("categoryId"));
         int createbyId = Integer.parseInt(request.getParameter("createbyId"));
-        DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat  sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date time = format1.parse(request.getParameter("time"));
-//        Date createTime = format2.parse(sdf.format(new Date()));
         String time = request.getParameter("time");
         String location = request.getParameter("location");
         String createTime = sdf.format(new Date());

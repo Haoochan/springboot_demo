@@ -93,6 +93,7 @@
 <script>
     //添加方法
     function add() {
+        var role ="${sessionScope.loginUser.role}";
         if (role !== "系统管理员" || role !== "学院管理员") {
             layer.msg("没有权限");
         } else {
@@ -107,9 +108,9 @@
     }
     //编辑方法
     function  edit(data) {
-        if (role !== "系统管理员" || role !== "学院管理员") {
-            layer.msg("没有权限");
-        } else {
+        var role ="${sessionScope.loginUser.role}";
+        var userId =${sessionScope.loginUser.id};
+        if (userId ===data.id ||role === "系统管理员" || role === "学院管理员"){
             var index = layui.layer.open({
                 title: "编辑用户",
                 type: 2,
@@ -120,6 +121,8 @@
                     location.reload();
                 }
             })
+        }else {
+            layer.msg("没有权限");
         }
     }
     //查看方法
@@ -244,6 +247,7 @@
             if(obj.event === 'detail'){
                 show(data);
             } else if(obj.event === 'del'){
+                var role ="${sessionScope.loginUser.role}";
                 if (role !=="系统管理员" || role !=="学院管理员"){
                     layer.msg("没有权限");
                 }else {

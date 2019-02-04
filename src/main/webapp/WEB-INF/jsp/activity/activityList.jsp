@@ -19,48 +19,47 @@
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
-    <%--<label for="keyword" class="layui-form-label">关键词</label>--%>
     <div class="layui-inline">
         <input class="layui-input" name="keyword" id="keyword" placeholder="请输入关键词" autocomplete="off">
     </div>
-    <%--<label for="categoryId" class="layui-form-label">工作类别</label>--%>
     <div class="layui-input-inline ">
         <select  id="categoryId" name="categoryId">
             <option value="">请选择工作类别</option>
         </select>
     </div>
-        <%--<label for="createbyId" class="layui-form-label">创建者</label>--%>
-        <div class="layui-input-inline ">
-            <select  id="createbyId" name="createbyId">
-                <option value="">请选择创建者</option>
-            </select>
-        </div>
-        <%--<label for="creatorRole" class="layui-form-label">创建者角色</label>--%>
-        <div class="layui-input-inline ">
-            <select  id="creatorRole" name="creatorRole">
-                <option value="">请选择创建者角色</option>
-                <option value="助班">助班</option>
-                <option value="班主任">班主任</option>
-                <option value="学院管理员">学院管理员</option>
-                <option value="班主任">班主任</option>
-            </select>
-        </div>
-        <%--<label for="semester" class="layui-form-label">学期</label>--%>
-        <div class="layui-input-inline">
-            <select  id="semester" name="semester">
-                <option value="">请选择学期</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-            </select>
-        </div>
-        <%--<label for="schoolyear" class="layui-form-label">学年</label>--%>
-        <div class="layui-input-inline">
-            <select  id="schoolyear" name="schoolyear">
-                <option value="">请选择学年</option>
-                <option value="2018-2019">2018-2019</option>
-                <option value="2017-2018">2017-2018</option>
-            </select>
-        </div>
+    <div class="layui-input-inline ">
+        <select  id="createbyId" name="createbyId">
+            <option value="">请选择创建者</option>
+        </select>
+    </div>
+    <div class="layui-input-inline " id="college">
+        <select  id="collegeId" name="collegeId">
+            <option value="">请选择学院</option>
+        </select>
+    </div>
+    <div class="layui-input-inline ">
+        <select  id="creatorRole" name="creatorRole">
+            <option value="">请选择创建者角色</option>
+            <option value="助班">助班</option>
+            <option value="班主任">班主任</option>
+            <option value="学院管理员">学院管理员</option>
+            <option value="系统管理员">系统管理员</option>
+        </select>
+    </div>
+    <div class="layui-input-inline">
+        <select  id="semester" name="semester">
+            <option value="">请选择学期</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+    </div>
+    <div class="layui-input-inline">
+        <select  id="schoolyear" name="schoolyear">
+            <option value="">请选择学年</option>
+            <option value="2018-2019">2018-2019</option>
+            <option value="2017-2018">2017-2018</option>
+        </select>
+    </div>
     <div class="layui-form-item">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
@@ -75,10 +74,11 @@
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
+        <th lay-data="{title: '序号', width:50, type:'numbers'}">序号</th>
         <th lay-data="{field:'topic', width:200}">主题</th>
-        <th lay-data="{field:'category', width:200}">类别</th>
+        <th lay-data="{field:'category', width:150}">类别</th>
         <th lay-data="{field:'creator', width:150}">用户</th>
+        <th lay-data="{field:'college', width:150}">学院</th>
         <th lay-data="{field:'creatorRole', width:100}">角色</th>
         <th lay-data="{field:'time', width:150}">时间</th>
         <th lay-data="{field:'location', width:150}">地点</th>
@@ -102,7 +102,6 @@
 <script>
     //添加方法
     function add() {
-//页面层
         layer.open({
             type: 2,
             title: '添加类别',
@@ -112,9 +111,10 @@
         });
     }
     function  edit(data) {
-        console.log(data);
+        var userId =${sessionScope.loginUser.id};
+        if (userId ===data.createbyId){
         var index = layui.layer.open({
-            title : "编辑用户",
+            title : "编辑工作",
             type : 2,
             closeBtn: 2,         //是否显示关闭按钮
             area: ['90%', '90%'],
@@ -123,12 +123,17 @@
                 location.reload();
             }
         })
+        }else {
+            layer.msg("没有权限");
+        }
     }
 
     function show(data) {
-        console.log(data);
+        var role ="${sessionScope.loginUser.role}";
+        var userId =${sessionScope.loginUser.id};
+        if (userId ===data.createbyId ||role === "系统管理员" || role === "学院管理员"){
         var index = layui.layer.open({
-            title : "查看用户",
+            title : "查看工作",
             type : 2,
             closeBtn: 2,         //是否显示关闭按钮
             area: ['90%', '90%'],
@@ -138,6 +143,9 @@
                 location.reload();
             }
         })
+        }else {
+            layer.msg("没有权限");
+        }
     }
 
 
@@ -149,6 +157,14 @@
         var form = layui.form;
         table.render();
 
+        //如果不是系统管理员 无法搜索学院
+        var role ="${sessionScope.loginUser.role}";
+        if (role !== "系统管理员")
+        {
+            $('#college').hide();
+            form.render();
+        }
+
         //条件搜索
         $("#search").click(function () {
                 var keyword = $('#keyword');
@@ -157,6 +173,7 @@
                 var creatorRole = $('#creatorRole');
                 var semester = $('#semester');
                 var schoolyear = $('#schoolyear');
+                var collegeId = $('#collegeId');
 
                 //idTest 是表单lay-data 里面的id
                 table.reload('idTest', {
@@ -167,7 +184,8 @@
                         createbyId: createbyId.val(),
                         creatorRole:creatorRole.val(),
                         semester:semester.val(),
-                        schoolyear:schoolyear.val()
+                        schoolyear:schoolyear.val(),
+                        collegeId:collegeId.val()
                     }
                 });
         });
@@ -196,13 +214,25 @@
                 console.log(creator);
                 $.each(creator, function (index, item) {
                     $('#createbyId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
-                    // $('#creatorRole').append(new Option(item.role, item.id));// 下拉菜单里添加元素
                 });
                 form.render("select");
                 //重新渲染 固定写法
             }
         });
 
+        //学院添加到下拉框中
+        $.ajax({
+            url: '/college/getCollege',
+            dataType: 'json',
+            type: 'get',
+            success: function (college) {
+                $.each(college, function (index, item) {
+                    $('#collegeId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                });
+                form.render("select");
+                //重新渲染 固定写法
+            }
+        });
 
         //监听表格复选框选择
         table.on('checkbox(demo)', function(obj){
@@ -214,30 +244,33 @@
             if(obj.event === 'detail'){
             show(data);
             } else if(obj.event === 'del'){
-                layer.confirm('真的删除行么', function(index){
-                    console.log(data);
-                    $.ajax({
-                        url: "/activity/delete",
-                        type: "POST",
-                        data:{"id":data.id},
-                        // dataType: "json",
-                        success: function(data){
-                            if(data=="ok"){
-                                //前端页面删除这一行 有下面提示出来的
-                                obj.del();
-                                //页面刷新 没有下面提示出来的
-                                // location.reload();
-                                //关闭弹框
-                                layer.close(index);
-                                layer.msg("删除成功", {icon: 6});
+                var role ="${sessionScope.loginUser.role}";
+                var userId =${sessionScope.loginUser.id};
+                if (userId ===data.createbyId ||role === "系统管理员" || role === "学院管理员") {
+                    layer.confirm('真的删除行么', function (index) {
+                        $.ajax({
+                            url: "/activity/delete",
+                            type: "POST",
+                            data: {"id": data.id},
+                            success: function (data) {
+                                if (data == "ok") {
+                                    //前端页面删除这一行 有下面提示出来的
+                                    obj.del();
+                                    //页面刷新 没有下面提示出来的
+                                    // location.reload();
+                                    //关闭弹框
+                                    layer.close(index);
+                                    layer.msg("删除成功", {icon: 6});
 
-                            }else{
-                                layer.msg("删除失败", {icon: 5});
+                                } else {
+                                    layer.msg("删除失败", {icon: 5});
+                                }
                             }
-                        }
-
+                        });
                     });
-                });
+                }else {
+                    layer.msg("没有权限");
+                }
             } else if(obj.event === 'edit'){
                 //这里一般是发送修改的Ajax请求
                 edit(data);
