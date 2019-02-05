@@ -55,8 +55,8 @@
     <div class="layui-form-item">
         <label for="college" class="layui-form-label">学院</label>
         <div class="layui-input-inline">
-            <select  id="college" name="college">
-                <option value=0>请选择学院</option>
+            <select  id="college" name="college" lay-filter="college">
+                <option value="0">请选择学院</option>
             </select>
         </div>
     </div>
@@ -64,7 +64,7 @@
         <label for="major" class="layui-form-label">专业</label>
         <div class="layui-input-inline">
             <select  id="major" name="major">
-                <option value=0>请选择专业</option>
+                <option value="0">请选择专业</option>
             </select>
         </div>
     </div>
@@ -113,7 +113,6 @@
             dataType: 'json',
             type: 'get',
             success: function (college) {
-                console.log(college);
                 $.each(college, function (index, item) {
                     $('#college').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                 });
@@ -125,11 +124,11 @@
         //监听学院下拉框 把专业添加到下拉框中
         form.on('select(college)', function(data){
             $('#major').html("");//清空下拉框
-            $('#major').append(new Option("请选择专业", 0));//添加提示
+            $('#major').append(new Option("所有专业", "0"));//添加提示
             form.render('select');
             var value = data.value;
             console.log(value);
-            if (value!='') {
+            if (value!=="0") {
                 $.ajax({
                     url: '/major/getMajor?id=' + value,
                     dataType: 'json',

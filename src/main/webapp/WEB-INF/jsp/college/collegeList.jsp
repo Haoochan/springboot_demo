@@ -47,30 +47,30 @@
     //添加方法
     function add() {
         var role ="${sessionScope.loginUser.role}";
-        if (role !=="系统管理员"){
-            layer.msg("没有权限");
+        if (role ==="系统管理员"){
+            layer.open({
+                type: 2,
+                title: '添加学院',
+                skin: 'layui-layer-rim', //加上边框
+                area: ['500px', '500px'], //宽高
+                content: '/college/goAdd'  //调到新增页面
+            });
         }else {
-        layer.open({
-            type: 2,
-            title: '添加学院',
-            skin: 'layui-layer-rim', //加上边框
-            area: ['500px', '500px'], //宽高
-            content: '/college/goAdd'  //调到新增页面
-        });
+            layer.msg("没有权限");
     }
     }
     function  edit(data) {
         var role ="${sessionScope.loginUser.role}";
-        if (role !=="系统管理员"){
-            layer.msg("没有权限");
+        if (role ==="系统管理员"){
+            var index = layui.layer.open({
+                title : "编辑学院",
+                type : 2,
+                closeBtn: 2,         //是否显示关闭按钮
+                area: ['500px', '560px'],
+                content : "/college/goEdit?id="+data.id//弹出层页面
+            })
         }else {
-        var index = layui.layer.open({
-            title : "编辑学院",
-            type : 2,
-            closeBtn: 2,         //是否显示关闭按钮
-            area: ['500px', '560px'],
-            content : "/college/goEdit?id="+data.id//弹出层页面
-        })
+            layer.msg("没有权限");
     }
     }
     function show(data) {
@@ -98,32 +98,32 @@
                 show(data);
             } else if(obj.event === 'del'){
                 var role ="${sessionScope.loginUser.role}";
-                if (role !=="系统管理员"){
-                    layer.msg("没有权限");
-                }else {
-                layer.confirm('真的删除行么', function(index){
-                    $.ajax({
-                        url: "/college/delete",
-                        type: "POST",
-                        data:{"id":data.id},
-                        // dataType: "json",
-                        success: function(data){
-                            if(data=="ok"){
-                                //前端页面删除这一行 有下面提示出来的
-                                obj.del();
-                                //页面刷新 没有下面提示出来的
-                                // location.reload();
-                                //关闭弹框
-                                layer.close(index);
-                                layer.msg("删除成功", {icon: 6});
+                if (role ==="系统管理员"){
+                    layer.confirm('真的删除行么', function(index){
+                        $.ajax({
+                            url: "/college/delete",
+                            type: "POST",
+                            data:{"id":data.id},
+                            // dataType: "json",
+                            success: function(data){
+                                if(data=="ok"){
+                                    //前端页面删除这一行 有下面提示出来的
+                                    obj.del();
+                                    //页面刷新 没有下面提示出来的
+                                    // location.reload();
+                                    //关闭弹框
+                                    layer.close(index);
+                                    layer.msg("删除成功", {icon: 6});
 
-                            }else{
-                                layer.msg("删除失败", {icon: 5});
+                                }else{
+                                    layer.msg("删除失败", {icon: 5});
+                                }
                             }
-                        }
 
+                        });
                     });
-                });
+                }else {
+                    layer.msg("没有权限");
                 }
             } else if(obj.event === 'edit'){
                 //这里一般是发送修改的Ajax请求

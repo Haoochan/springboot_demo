@@ -172,10 +172,10 @@
       and n.categoryId = #{categoryId}
     </if>
     <if test="collegeId !=null and collegeId !='' ">
-      and n.collegeId = #{collegeId}
+      and n.collegeId = #{collegeId} or n.collegeId = 24
     </if>
     <if test="majorId !=null and majorId !='' ">
-      and n.majorId = #{majorId}
+      and n.majorId = #{majorId} or n.majorId = 5
     </if>
   </select>
 
@@ -206,10 +206,10 @@
       and n.categoryId = #{categoryId}
     </if>
     <if test="collegeId !=null and collegeId !='' ">
-      and n.collegeId = #{collegeId}
+      and n.collegeId = #{collegeId} or n.collegeId = 24
     </if>
     <if test="majorId !=null and majorId !='' ">
-      and n.majorId = #{majorId}
+      and n.majorId = #{majorId} or n.majorId = 5
     </if>
     limit ${before},${after}
   </select>

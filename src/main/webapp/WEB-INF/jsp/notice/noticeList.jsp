@@ -26,8 +26,8 @@
             <option value="">请选择公告类别</option>
         </select>
     </div>
-    <div class="layui-input-inline ">
-        <select  id="collegeId" name="collegeId">
+    <div class="layui-input-inline " id="college">
+        <select  id="collegeId" name="collegeId" lay-filter="collegeId">
             <option value="">请选择学院</option>
         </select>
     </div>
@@ -76,9 +76,7 @@
     //添加方法
     function add() {
         var role ="${sessionScope.loginUser.role}";
-        if (role !== "系统管理员" || role !== "学院管理员") {
-            layer.msg("没有权限");
-        } else {
+        if (role === "系统管理员" || role === "学院管理员") {
             layer.open({
                 type: 2,
                 title: '添加公告',
@@ -86,13 +84,13 @@
                 area: ['90%', '90%'], //宽高
                 content: '/notice/goAdd'  //调到新增页面
             });
+        } else {
+            layer.msg("没有权限");
         }
     }
     function  edit(data) {
         var role ="${sessionScope.loginUser.role}";
-        if (role !== "系统管理员" || role !== "学院管理员") {
-            layer.msg("没有权限");
-        } else {
+        if (role === "系统管理员" || role === "学院管理员") {
             var index = layui.layer.open({
                 title: "编辑公告",
                 type: 2,
@@ -103,6 +101,8 @@
                     location.reload();
                 }
             })
+        } else {
+            layer.msg("没有权限");
         }
     }
 
@@ -129,6 +129,14 @@
         var table = layui.table;
         var form = layui.form;
         table.render();
+
+        //如果不是系统管理员 无法搜索学院
+        var role ="${sessionScope.loginUser.role}";
+        if (role !== "系统管理员")
+        {
+            $('#college').hide();
+            form.render();
+        }
 
         //条件搜索
         $("#search").click(function () {
@@ -177,10 +185,29 @@
             }
         });
 
+        //本学院专业添加到下拉框中
+        var role ="${sessionScope.loginUser.role}";
+        if (role !== "系统管理员"){
+            var userCollegeId =${sessionScope.userCollegeId};
+            $.ajax({
+                url: '/major/getMajor?id='+userCollegeId,
+                dataType: 'json',
+                type: 'get',
+                success: function (major) {
+                    $.each(major, function (index, item) {
+                        $('#majorId').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    });
+                    form.render("select");
+                    //重新渲染 固定写法
+                }
+            });
+        }
+
+
         //监听学院下拉框 把专业添加到下拉框中
         form.on('select(collegeId)', function(data){
             $('#majorId').html("");//清空下拉框
-            $('#majorId').append(new Option("请选择专业"));//添加提示
+            $('#majorId').append(new Option("请选择专业",""));//添加提示
             form.render('select');
             var value = data.value;
             console.log(value);
@@ -214,11 +241,8 @@
                 show(data);
             } else if(obj.event === 'del'){
                 var role ="${sessionScope.loginUser.role}";
-                if (role !=="系统管理员" || role !=="学院管理员"){
-                    layer.msg("没有权限");
-                }else {
+                if (role ==="系统管理员" || role ==="学院管理员"){
                     layer.confirm('真的删除行么', function (index) {
-                        console.log(data);
                         $.ajax({
                             url: "/notice/delete",
                             type: "POST",
@@ -241,6 +265,8 @@
 
                         });
                     });
+                }else {
+                    layer.msg("没有权限");
                 }
             } else if(obj.event === 'edit'){
                 //这里一般是发送修改的Ajax请求

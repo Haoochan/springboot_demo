@@ -94,9 +94,7 @@
     //添加方法
     function add() {
         var role ="${sessionScope.loginUser.role}";
-        if (role !== "系统管理员" || role !== "学院管理员") {
-            layer.msg("没有权限");
-        } else {
+        if (role === "系统管理员" || role === "学院管理员") {
             layer.open({
                 type: 2,
                 title: '添加类别',
@@ -104,6 +102,8 @@
                 area: ['500px', '500px'], //宽高
                 content: '/user/goAdd' //调到新增页面
             });
+        } else {
+            layer.msg("没有权限");
         }
     }
     //编辑方法
@@ -248,9 +248,7 @@
                 show(data);
             } else if(obj.event === 'del'){
                 var role ="${sessionScope.loginUser.role}";
-                if (role !=="系统管理员" || role !=="学院管理员"){
-                    layer.msg("没有权限");
-                }else {
+                if (role ==="系统管理员" || role ==="学院管理员"){
                     layer.confirm('真的删除行么', function (index) {
                         console.log(data);
                         $.ajax({
@@ -274,6 +272,8 @@
 
                         });
                     });
+                }else {
+                    layer.msg("没有权限");
                 }
             } else if(obj.event === 'edit'){
                 //这里一般是发送修改的Ajax请求

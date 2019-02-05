@@ -4,6 +4,7 @@ import com.springboot.demo.Entity.LayuiResponseDataUtil;
 import com.springboot.demo.Entity.Notice;
 import com.springboot.demo.Entity.User;
 import com.springboot.demo.Service.NoticeService;
+import com.springboot.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,9 @@ public class NoticeController {
     @Autowired
     NoticeService noticeService;
 
+    @Autowired
+    UserService userService;
+
     @RequestMapping("/goList")
     public String goList(){
         return "/WEB-INF/jsp/notice/noticeList.jsp";
@@ -30,7 +34,8 @@ public class NoticeController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public LayuiResponseDataUtil activityList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
+    public LayuiResponseDataUtil activityList(HttpServletRequest request,
+                                              @RequestParam("page")int page, @RequestParam("limit") int pageSize,
                                               @RequestParam(value = "keyword",required = false) String keyword,
                                               @RequestParam(value = "categoryId",required = false) String categoryId,
                                               @RequestParam(value = "collegeId",required = false) String collegeId,
@@ -43,6 +48,13 @@ public class NoticeController {
         map.put("categoryId", categoryId);
         map.put("collegeId", collegeId);
         map.put("majorId", majorId);
+        //设置不是系统管理员的话就只显示该学院
+        User user = userService.getUserById(((User) request.getSession().getAttribute("loginUser")).getId());
+        if (!"系统管理员".equals(user.getRole())){
+            map.put("collegeId", String.valueOf(user.getCollegeId()));
+        }else {
+            map.put("collegeId", collegeId);
+        }
         int totalCount = this.noticeService.getTotalCount(map);
         LayuiResponseDataUtil noticeResponseData = new LayuiResponseDataUtil();
         noticeResponseData.setCode("0");
@@ -71,15 +83,6 @@ public class NoticeController {
         int collegeId = Integer.parseInt(request.getParameter("college"));
         int majorId = Integer.parseInt(request.getParameter("major"));
         Notice notice = new Notice(title,categoryId,content,time,userId,collegeId,majorId);
-//        if (collegeId!=0){
-//            if (majorId!=0){
-//                 notice = new Notice(title,categoryId,content,time,userId,collegeId,majorId);
-//            }else {
-//                notice = new Notice(title, categoryId, content, time, userId, collegeId);
-//            }
-//        }else {
-//            notice = new Notice(title,categoryId,content,time,userId);
-//        }
         this.noticeService.add(notice);
         return goList();
     }

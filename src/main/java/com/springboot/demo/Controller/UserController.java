@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 //@RestController
 @Controller
@@ -37,6 +38,11 @@ public class UserController {
         User user = this.userService.login(username, password, role);
         request.getSession().setAttribute("loginUser",user);
         session.setAttribute("loginUser",user);
+        if(!Objects.isNull(user)) {
+            User user1 = this.userService.getUserById(user.getId());
+            session.setAttribute("userCollegeId",user1.getCollegeId());
+        }
+
         if(!StringUtils.isEmpty(user)){
             model.addAttribute("user", user);
             return "/WEB-INF/jsp/home1.jsp";

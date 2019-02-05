@@ -80,23 +80,21 @@
     //添加方法
     function add() {
         var role ="${sessionScope.loginUser.role}";
-        if (role !=="系统管理员" || role !=="学院管理员"){
-            layer.msg("没有权限");
+        if (role ==="系统管理员" || role ==="学院管理员"){
+            layer.open({
+                type: 2,
+                title: '添加班级',
+                skin: 'layui-layer-rim', //加上边框
+                area: ['500px', '500px'], //宽高
+                content: '/classes/goAdd'  //调到新增页面
+            });
         }else {
-        layer.open({
-            type: 2,
-            title: '添加班级',
-            skin: 'layui-layer-rim', //加上边框
-            area: ['500px', '500px'], //宽高
-            content: '/classes/goAdd'  //调到新增页面
-        });
+            layer.msg("没有权限");
         }
     }
     function  edit(data) {
         var role ="${sessionScope.loginUser.role}";
-        if (role !== "系统管理员" || role !== "学院管理员") {
-            layer.msg("没有权限");
-        } else {
+        if (role === "系统管理员" || role === "学院管理员") {
             var index = layui.layer.open({
                 title: "编辑班级",
                 type: 2,
@@ -104,6 +102,8 @@
                 area: ['500px', '560px'],
                 content: "/classes/goEdit?id=" + data.id//弹出层页面
             })
+        } else {
+            layer.msg("没有权限");
         }
     }
 
@@ -195,9 +195,7 @@
                 show(data);
             } else if(obj.event === 'del'){
                 var role ="${sessionScope.loginUser.role}";
-                if (role !=="系统管理员" || role !=="学院管理员"){
-                    layer.msg("没有权限");
-                }else {
+                if (role ==="系统管理员" || role ==="学院管理员"){
                     layer.confirm('真的删除行么', function (index) {
                         console.log(data);
                         $.ajax({
@@ -222,6 +220,8 @@
 
                         });
                     });
+                }else {
+                    layer.msg("没有权限");
                 }
             } else if(obj.event === 'edit'){
                 //这里一般是发送修改的Ajax请求
