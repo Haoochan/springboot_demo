@@ -286,16 +286,13 @@
     <if test="keyword!=null and keyword !=''">
       and a.content LIKE '%${keyword}%'
     </if>
-    <if test="categoryId !='null' and categoryId !='' ">
+    <if test="categoryId !=null and categoryId !='' ">
       and a.category_id = #{categoryId}
-    </if>
-    <if test="createbyId !='null' and createbyId !='' ">
-      and a.createby_id = #{createbyId}
     </if>
     <if test="creatorRole !=null and creatorRole !='' ">
       and u.role = #{creatorRole}
     </if>
-    <if test="semester !='null' and semester !='' ">
+    <if test="semester !=null and semester !='' ">
       and a.semester = #{semester}
     </if>
     <if test="schoolyear !=null and schoolyear !='' ">
@@ -305,6 +302,7 @@
 
   <select id="getAllActivityByUserId"  resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
     select
+           distinct
     a.id as id,
     a.topic as topic,
     a.content as content,
@@ -329,16 +327,30 @@
     <if test="keyword!=null and keyword !=''">
       and a.content LIKE '%${keyword}%'
     </if>
-    <if test="categoryId !='null' and categoryId !='' ">
+    <if test="categoryId !=null and categoryId !='' ">
       and a.category_id = #{categoryId}
     </if>
-    <if test="semester !='null' and semester !='' ">
+    <if test="semester !=null and semester !='' ">
       and a.semester = #{semester}
     </if>
     <if test="schoolyear !=null and schoolyear !='' ">
       and a.schoolyear = #{schoolyear}
     </if>
     limit ${before},${after}
+  </select>
+
+  <select id="getActivityCountByUser"  resultType="java.lang.Integer" parameterType="java.util.Map">
+    SELECT
+    count(1)
+    from activity as a
+    LEFT JOIN user as u on a.createby_id=u.id
+    WHERE u.id=#{userId}
+    <if test="semester !=null and semester !='' ">
+        and a.semester = #{semester}
+    </if>
+    <if test="schoolyear !=null and schoolyear !='' ">
+        and a.schoolyear = #{schoolyear}
+    </if>
   </select>
 
 </mapper>

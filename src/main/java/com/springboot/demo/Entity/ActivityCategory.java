@@ -7,6 +7,10 @@ public class ActivityCategory {
 
     private String description;
 
+    public ActivityCategory(){
+
+    }
+
     public ActivityCategory(Integer id, String name, String description) {
         this.id = id;
         this.name = name;

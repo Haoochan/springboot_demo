@@ -154,8 +154,10 @@
 
   <!--获取总数-->
   <select id="getTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT COUNT(1) FROM(
     select
-    count(1)
+    distinct
+    u.id
     from user as u
     LEFT JOIN user_class_college_map as uccm on uccm.userId=u.id
     LEFT JOIN class as c on uccm.classesId = c.id
@@ -171,15 +173,19 @@
     <if test="sex !=null and sex !='' ">
       and u.sex = #{sex}
     </if>
-    <if test="college !=null and college !='' ">
-      and m.collegeId = #{college}
+    <if test="collegeId !=null and collegeId !='' ">
+      and uccm.collegeId = #{collegeId}
     </if>
-    <if test="major !=null and major !='' ">
-      and c.majorId = #{major}
+    <if test="majorId !=null and majorId !='' ">
+      and c.majorId = #{majorId}
     </if>
-    <if test="classes !=null and classes !='' ">
-      and uccm.classesId = #{classes}
+    <if test="classesId !=null and classesId !='' ">
+      and uccm.classesId = #{classesId}
     </if>
+    <if test="creatorId !=null and creatorId !='' ">
+      and u.id= #{creatorId}
+    </if>
+    ) AS t
   </select>
 
   <!--获取所有user-->
@@ -214,17 +220,35 @@
     <if test="sex !=null and sex !='' ">
       and u.sex = #{sex}
     </if>
-    <if test="college !=null and college !='' ">
-      and m.collegeId = #{college}
+    <if test="collegeId !=null and collegeId !='' ">
+      and uccm.collegeId = #{collegeId}
     </if>
-    <if test="major !=null and major !='' ">
-      and c.majorId = #{major}
+    <if test="majorId !=null and majorId !='' ">
+      and c.majorId = #{majorId}
     </if>
-    <if test="classes !=null and classes !='' ">
-      and uccm.classesId = #{classes}
+    <if test="classesId !=null and classesId !='' ">
+      and uccm.classesId = #{classesId}
+    </if>
+    <if test="creatorId !=null and creatorId !='' ">
+      and u.id= #{creatorId}
     </if>
     GROUP BY u.id
     limit ${before},${after}
+  </select>
+
+  <!--下拉框user-->
+  <select id="getUser" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+           distinct
+     u.id,
+     u.role,
+     u.name
+    from user as u
+    LEFT JOIN user_class_college_map as uccm on uccm.userId=u.id
+    where 1=1
+    <if test="collegeId !=null and collegeId !='' ">
+      and uccm.collegeId = #{collegeId}
+    </if>
   </select>
 
 </mapper>

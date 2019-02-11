@@ -31,4 +31,11 @@ public interface ActivityMapper {
     int getTotalCountByUserId(Map<String, String> map);
 
     List<Activity> getAllActivityByUserId(Map<String, String> map);
+
+//    @Select("SELECT\n" +
+//            "count(1)\n" +
+//            "from activity as a \n" +
+//            "LEFT JOIN user as u on a.createby_id=u.id\n" +
+//            "WHERE u.id=#{userId}")
+    Integer getActivityCountByUser(Map<String, String> map);
 }

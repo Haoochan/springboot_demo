@@ -52,9 +52,9 @@
             <textarea id="content" name="content" class="layui-textarea" lay-verify="required"></textarea>
         </div>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-form-item" id="collegeDiv">
         <label for="college" class="layui-form-label">学院</label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" >
             <select  id="college" name="college" lay-filter="college">
                 <option value="0">请选择学院</option>
             </select>
@@ -114,12 +114,34 @@
             type: 'get',
             success: function (college) {
                 $.each(college, function (index, item) {
-                    $('#college').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    if (item.id==${sessionScope.userCollegeId}){
+                        $('#college').append(new Option(item.name, item.id,false,true));
+                    }else {
+                        $('#college').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    }
                 });
                 form.render("select");
                 //重新渲染 固定写法
             }
         });
+
+        //本学院专业添加到下拉框中
+        var role ="${sessionScope.loginUser.role}";
+        if (role !== "系统管理员"){
+            var userCollegeId =${sessionScope.userCollegeId};
+            $('#collegeDiv').hide();
+            $.ajax({
+                url: '/major/getMajor?id='+userCollegeId,
+                dataType: 'json',
+                type: 'get',
+                success: function (major) {
+                    $.each(major, function (index, item) {
+                        $('#major').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                    });
+                    form.render("select");
+                }
+            });
+        }
 
         //监听学院下拉框 把专业添加到下拉框中
         form.on('select(college)', function(data){
@@ -127,7 +149,6 @@
             $('#major').append(new Option("所有专业", "0"));//添加提示
             form.render('select');
             var value = data.value;
-            console.log(value);
             if (value!=="0") {
                 $.ajax({
                     url: '/major/getMajor?id=' + value,

@@ -92,6 +92,13 @@ public class ActivityController {
         return "/WEB-INF/jsp/activity/activityMyList.jsp";
     }
 
+    @RequestMapping("/goUserList")
+    public String goUserList(HttpServletRequest request,Model model){
+        User user = this.userService.getUserById(Integer.parseInt(request.getParameter("userId")));
+        model.addAttribute("user",user);
+        return "/WEB-INF/jsp/activity/activityMyList.jsp";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/myList",method = RequestMethod.GET)
     public LayuiResponseDataUtil activityMyList(@RequestParam("userId") int userId,
@@ -105,8 +112,8 @@ public class ActivityController {
         int before = pageSize*(page-1);
         Map<String,String> map = new HashMap<String,String>();
         map.put("keyword",keyword);
-        map.put("categoryId", String.valueOf(categoryId));
-        map.put("semester", String.valueOf(semester));
+        map.put("categoryId", categoryId);
+        map.put("semester", semester);
         map.put("schoolyear",schoolyear);
         map.put("userId", String.valueOf(userId));
         int totalCount = this.activityService.getTotalCountByUserId(map);
@@ -118,7 +125,6 @@ public class ActivityController {
         map.put("after", String.valueOf(pageSize));
         List<Activity> list = this.activityService.getAllActivityByUserId(map);
         activityResponseData.setData(list);
-        System.out.println(activityResponseData);
         return activityResponseData;
     }
 

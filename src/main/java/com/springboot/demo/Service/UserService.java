@@ -15,7 +15,7 @@ public interface UserService {
 
     int userInfoUpdate(User user);
 
-    List<User> getUser();
+    List<User> getUser(Map<String, String> map);
 
     int getTotalCount(Map<String, String> map);
 

@@ -152,49 +152,6 @@ public class UserController {
         return "/WEB-INF/jsp/user/userEdit.jsp";
     }
 
-//    @RequestMapping("/edit")
-//    public String edit(HttpServletRequest request,Model model){
-//        int userId = Integer.parseInt(request.getParameter("id"));
-//        String username = request.getParameter("username");
-//        String password = request.getParameter("password");
-//        String role = request.getParameter("role");
-//        String name = request.getParameter("name");
-//        String sex = request.getParameter("sex");
-//        int phone = Integer.parseInt(request.getParameter("phone"));
-//        String email = request.getParameter("email");
-//        User user = new User(userId,username,password,role,name,sex,phone,email);
-//        this.userService.userInfoUpdate(user);
-//        model.addAttribute("user",user);
-//        //修改学院专业班级
-//        if (!role.equals("系统管理员")){
-//            int collegeId = Integer.parseInt(request.getParameter("college"));
-//            int classesId = Integer.parseInt(request.getParameter("classes"));
-//            int classesId2 = Integer.parseInt(request.getParameter("classes2"));
-//            if(role.equals("学院管理员")){
-//                UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,collegeId);
-//                userClassCollegeMapService.editFirstClass(userClassCollegeMap);
-//            }else {
-//                int classCount=userClassCollegeMapService.getCountByUserId(userId);
-//                if (classesId2!=0){//多班级
-//                    UserClassCollegeMap userClassCollegeMap1 = new UserClassCollegeMap(userId,classesId,collegeId);
-//                    UserClassCollegeMap userClassCollegeMap2 = new UserClassCollegeMap(userId,classesId2,collegeId);
-//                    userClassCollegeMapService.editFirstClass(userClassCollegeMap1);
-//                    if (classCount==2) {//原本就有第二个班级
-//                        userClassCollegeMapService.editSecondClass(userClassCollegeMap2);
-//                    }else {//原来没有第二个班级
-//                        userClassCollegeMapService.add(userClassCollegeMap2);
-//                    }
-//                }else {//一个班级
-//                    UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,classesId,collegeId);
-//                    userClassCollegeMapService.editFirstClass(userClassCollegeMap);
-//                    if (classCount==2){//原来有第二个班级 删除第二个
-//                        userClassCollegeMapService.deleteSecondClass(userId);
-//                    }
-//                }
-//            }
-//        }
-//        return "/user/goShow?id="+user.getId();
-//    }
 
     @ResponseBody
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
@@ -246,29 +203,6 @@ public class UserController {
                 }
             }
         }
-//        if (!role.equals("系统管理员")){
-//            if(role.equals("学院管理员")){
-//                UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,collegeId);
-//                userClassCollegeMapService.editFirstClass(userClassCollegeMap);
-//            }else {
-//                if (classesId2!=0){//多班级
-//                    UserClassCollegeMap userClassCollegeMap1 = new UserClassCollegeMap(userId,classesId,collegeId);
-//                    UserClassCollegeMap userClassCollegeMap2 = new UserClassCollegeMap(userId,classesId2,collegeId);
-//                    userClassCollegeMapService.editFirstClass(userClassCollegeMap1);
-//                    if (classCount==2) {//原本就有第二个班级
-//                        userClassCollegeMapService.editSecondClass(userClassCollegeMap2);
-//                    }else {//原来没有第二个班级
-//                        userClassCollegeMapService.add(userClassCollegeMap2);
-//                    }
-//                }else {//一个班级
-//                    UserClassCollegeMap userClassCollegeMap = new UserClassCollegeMap(userId,classesId,collegeId);
-//                    userClassCollegeMapService.editFirstClass(userClassCollegeMap);
-//                    if (classCount==2){//原来有第二个班级 删除第二个
-//                        userClassCollegeMapService.deleteSecondClass(userId);
-//                    }
-//                }
-//            }
-//        }
         return "ok";
     }
 
@@ -292,9 +226,9 @@ public class UserController {
         map.put("keyword",keyword);
         map.put("role",role);
         map.put("sex",sex);
-        map.put("college",college);
-        map.put("major",major);
-        map.put("classes",classes);
+        map.put("collegeId",college);
+        map.put("majorId",major);
+        map.put("classesId",classes);
         System.out.println(map.toString());
         int totalCount = this.userService.getTotalCount(map);
         LayuiResponseDataUtil userResponseData = new LayuiResponseDataUtil();
@@ -320,8 +254,16 @@ public class UserController {
     //获取所有分类 给到活动添加那边的下拉框取值
     @ResponseBody
     @RequestMapping(value = "/getUser",method = RequestMethod.GET)
-    public Object getUser(){
-        List<User> list = this.userService.getUser();
+    public Object getUser(HttpServletRequest request,
+                          @RequestParam(value = "collegeId",required = false) String collegeId){
+        Map<String,String> map = new HashMap<String,String>();
+        User user = userService.getUserById(((User) request.getSession().getAttribute("loginUser")).getId());
+        if (!"系统管理员".equals(user.getRole())){
+            map.put("collegeId", String.valueOf(user.getCollegeId()));
+        }else {
+            map.put("collegeId", collegeId);
+        }
+        List<User> list = this.userService.getUser(map);
         return list;
     }
 

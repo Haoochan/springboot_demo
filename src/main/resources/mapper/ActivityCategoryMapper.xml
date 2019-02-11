@@ -76,16 +76,26 @@
     limit #{before},#{after}
   </select>
 
-  <select id="getActivityCategory"   resultMap="BaseResultMap">
-    select
-      *
-    from activity_category
-  </select>
-
   <select id="getTotalCount"  resultType="java.lang.Integer">
     select
     count(name)
     from activity_category
+  </select>
+
+  <select id="getCategoryCountByUser"  resultType="java.lang.Integer" parameterType="java.util.Map">
+    select
+    count(1)
+    FROM activity as a
+    LEFT JOIN activity_category as ac on a.category_id=ac.id
+    WHERE
+    a.category_id=#{categoryId}
+    and a.createby_id =#{userId}
+    <if test="semester !=null and semester !='' ">
+      and a.semester = #{semester}
+    </if>
+    <if test="schoolyear !=null and schoolyear !='' ">
+      and a.schoolyear = #{schoolyear}
+    </if>
   </select>
 
 </mapper>

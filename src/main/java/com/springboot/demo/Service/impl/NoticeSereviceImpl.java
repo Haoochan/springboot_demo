@@ -24,6 +24,11 @@ public class NoticeSereviceImpl implements NoticeService {
     @Override
     public List<Notice> getAllNotice(Map<String, String> map) {
         List<Notice> noticeList = noticeMapper.getAllNotice(map);
+        for (Notice notice:noticeList) {
+            if (0==(notice.getMajorId())){
+                notice.setMajor("全学院");
+            }
+        }
         return noticeList;
     }
 

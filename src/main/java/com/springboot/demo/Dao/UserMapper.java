@@ -21,8 +21,7 @@ public interface UserMapper {
 
     User selectByUsernameAndPassword(String username, String password, String role);
 
-    @Select("SELECT id,role,name FROM user")
-    List<User> getUser();
+    List<User> getUser(Map<String, String> map);
 
     int getTotalCount(Map<String, String> map);
 

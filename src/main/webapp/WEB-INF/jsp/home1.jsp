@@ -123,6 +123,15 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
+                    <a class="" href="javascript:;">工作统计</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="12" data-title="工作统计报表" data-url="/report/goList"
+                               class="site-demo-active" data-type="tabAdd">工作统计报表</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
                     <a href="javascript:;" data-id="" data-title="图片上传" data-url="/activity/golist"
                        class="site-demo-active" data-type="tabAdd">图片上传</a>
                 </li>
