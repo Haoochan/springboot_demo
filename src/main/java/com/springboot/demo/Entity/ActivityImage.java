@@ -5,9 +5,7 @@ import java.util.Date;
 public class ActivityImage {
     private Integer id;
 
-    private String oldFileName;
-
-    private String newFileName;
+    private String filename;
 
     private String path;
 
@@ -15,14 +13,20 @@ public class ActivityImage {
 
     private Integer activityId;
 
-    public ActivityImage() {
+
+
+    public ActivityImage(){
 
     }
 
-    public ActivityImage(Integer id, String oldFileName, String newFileName, String path, Date date, Integer activityId) {
+    public ActivityImage(String filename, String path) {
+        this.filename = filename;
+        this.path = "/image/"+path;
+    }
+
+    public ActivityImage(Integer id, String filename, String path, Date date, Integer activityId) {
         this.id = id;
-        this.oldFileName = oldFileName;
-        this.newFileName = newFileName;
+        this.filename = filename;
         this.path = path;
         this.date = date;
         this.activityId = activityId;
@@ -36,20 +40,12 @@ public class ActivityImage {
         this.id = id;
     }
 
-    public String getOldFileName() {
-        return oldFileName;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setOldFileName(String oldFileName) {
-        this.oldFileName = oldFileName == null ? null : oldFileName.trim();
-    }
-
-    public String getNewFileName() {
-        return newFileName;
-    }
-
-    public void setNewFileName(String newFileName) {
-        this.newFileName = newFileName == null ? null : newFileName.trim();
+    public void setFilename(String filename) {
+        this.filename = filename == null ? null : filename.trim();
     }
 
     public String getPath() {
@@ -57,7 +53,9 @@ public class ActivityImage {
     }
 
     public void setPath(String path) {
-        this.path = path == null ? null : path.trim();
+//        String pathTemp = path == null ? null : path.trim();
+//        this.path = "/image/"+pathTemp;
+        this.path=path == null ? null : path.trim();
     }
 
     public Date getDate() {

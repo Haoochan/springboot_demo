@@ -38,4 +38,8 @@ public interface ActivityMapper {
 //            "LEFT JOIN user as u on a.createby_id=u.id\n" +
 //            "WHERE u.id=#{userId}")
     Integer getActivityCountByUser(Map<String, String> map);
+
+    //找最后一个Id 给照片上传那里
+    @Select("SELECT id from activity ORDER BY id DESC LIMIT 1")
+    int getLastActivityId();
 }

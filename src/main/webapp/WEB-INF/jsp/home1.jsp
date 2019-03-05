@@ -132,7 +132,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;" data-id="" data-title="图片上传" data-url="/activity/golist"
+                    <a href="javascript:;" data-id="" data-title="图片上传" data-url="/activity/goUpload"
                        class="site-demo-active" data-type="tabAdd">图片上传</a>
                 </li>
             </ul>

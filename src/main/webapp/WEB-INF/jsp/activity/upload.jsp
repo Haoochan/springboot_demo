@@ -16,11 +16,6 @@
     <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
     <script src="../../../static/jquery-1.10.2.js"></script>
     <script src="../../../static/layui/layui.all.js"></script>
-    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
-    <!--[if lt IE 9]>
-    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
-    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 <div class="layui-upload">
     <div class="layui-upload-list">
@@ -40,6 +35,7 @@
             elem: '#test1'
             ,method:'post'
             ,url: '/activity/upload'
+            ,multiple:true
             ,done: function(res){
                 //如果上传失败
                 if(res.code > 0){
@@ -47,7 +43,7 @@
                 }
                 //上传成功
                 if(res.code==0){
-                    $('.upload-img').html('<img class="layui-upload-img" style="width:80px;height:100px" src="'+res.src+'" id="demo1"> <p id="demoText"></p>');
+                    $('.upload-img').html('<img class="layui-upload-img" style="width:80px;height:100px" src="/image/'+res.src+'" id="demo1"> <p id="demoText"></p>');
                     $('.layui-btn-img').css({"margin-left":"104px","width":"90px","margin-top":"6px"});
                     $('.layui-btn-img').text("重新上传");
                     return layer.msg('上传成功',{time:700});

@@ -7,27 +7,29 @@ import com.springboot.demo.Entity.LayuiResponseDataUtil;
 import com.springboot.demo.Entity.User;
 import com.springboot.demo.Service.ActivityService;
 import com.springboot.demo.Service.UserService;
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
+
+import static com.sun.xml.internal.fastinfoset.util.DuplicateAttributeVerifier.MAP_SIZE;
 
 @Controller
 @RequestMapping("/activity")
@@ -178,7 +180,7 @@ public class ActivityController {
         String schoolyear = request.getParameter("schoolyear");
         String time = request.getParameter("time");
         String location = request.getParameter("location");
-        SimpleDateFormat  sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String createTime = sdf.format(new Date());
         Activity activity = new Activity(topic,content,categoryId,createbyId,time,location,semester,schoolyear,createTime);
         this.activityService.add(activity);
@@ -200,35 +202,101 @@ public class ActivityController {
     //测试上传
     @RequestMapping("/goUpload")
     public String goUpload(){
-        return "/WEB-INF/jsp/activity/upload.jsp";
+        return "/WEB-INF/jsp/activity/testUpload.jsp";
+//        return "/WEB-INF/jsp/activity/multipleUpload.jsp";
     }
 
     //上传照片
-    @RequestMapping(value = "/upload",method = RequestMethod.POST)
+    public final static String UPLOAD_FILE_PATH = "E:\\Github\\springboot_demo\\src\\main\\webapp\\image";
+//    @RequestMapping(value = "upload")
+//    @ResponseBody
+//    public String uploadImage(@RequestParam("file") MultipartFile file) {
+//        if (!file.isEmpty()) {
+//            Map<String, String> resObj = new HashMap<>(MAP_SIZE);
+//            String newFilename;
+//            SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMddHHmmss");
+//            String time = sdf.format(new Date());
+//            try {
+//                String filename = file.getOriginalFilename();
+//                newFilename = time+filename;
+//                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(UPLOAD_FILE_PATH, newFilename)));
+//                out.write(file.getBytes());
+//                out.flush();
+//                out.close();
+//            } catch (IOException e) {
+//                resObj.put("msg", "error");
+//                resObj.put("code", "1");
+//                return JSONObject.toJSONString(resObj);
+//            }
+//            resObj.put("msg", "ok");
+//            resObj.put("code", "0");
+//            resObj.put("src", newFilename);
+//            return JSONObject.toJSONString(resObj);
+//        } else {
+//            return null;
+//        }
+//    }
+
+    //多照片上传 每一张都调用一次
+    @RequestMapping(value = "upload")
     @ResponseBody
-    public JSONObject uploadHeadImage(@RequestParam("file") MultipartFile file)
-            throws IOException {
-        Assert.notNull(file, "上传文件不能为空");
-//        String src="/plug-in/images/people/";
-//        String path="C:/Users/lenove/Desktop/why123/why123/src/main/webapp/plug-in/images/people";
-        String src="/plug-in/images/people/";
-        String path="E:\\GitHub\\Java\\springboot_demo\\src\\main\\webapp\\image";
-        JSONObject json = new JSONObject();
-        //System.currentTimeMillis()根据系统时间产生随机数，保证上传的图片名字不一样
-        String name=System.currentTimeMillis()+file.getOriginalFilename();
-        File dir = new File(path, name);
-        src=src+name;
-        if (!dir.exists()) {
-            dir.mkdirs();
-            json.put("msg","上传成功");
-            json.put("code",0);
-            json.put("src",src);
+    public String uploadImage(@RequestParam("file") MultipartFile file) {
+        if (!file.isEmpty()) {
+            Map<String, String> resObj = new HashMap<>(MAP_SIZE);
+            String newFilename;
+            int imageId;
+            SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMddHHmmss");
+            String time = sdf.format(new Date());
+            try {
+                String filename = file.getOriginalFilename();
+                newFilename = time+"-"+filename;
+                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(UPLOAD_FILE_PATH, newFilename)));
+                out.write(file.getBytes());
+                out.flush();
+                out.close();
+                //构造
+                ActivityImage activityImage = new ActivityImage(filename,newFilename);
+                imageId =  this.activityService.saveImage(activityImage);
+            } catch (IOException e) {
+                resObj.put("msg", "error");
+                resObj.put("code", "1");
+                return JSONObject.toJSONString(resObj);
+            }
+            resObj.put("msg", "ok");
+            resObj.put("code", "0");
+            resObj.put("src", newFilename);
+            resObj.put("imageId", String.valueOf(imageId));
+            return JSONObject.toJSONString(resObj);
         } else {
-            json.put("msg","上传失败");
-            json.put("code",1);
+            return null;
         }
-        file.transferTo(dir);
-        return json;
+    }
+
+    //根据活动Id获取对应活动的图片
+    @RequestMapping(value = "getImage")
+    @ResponseBody
+    public String getImage(@RequestParam("id") int activityId){
+        List<ActivityImage> activityImages = this.activityService.getImageByActivityId(activityId);
+        String jsonArray = JSONArray.toJSONString(activityImages);
+        return jsonArray;
+    }
+
+    //删除图片
+    @ResponseBody
+    @RequestMapping("/imageDelete")
+    public String imageDelete(HttpServletRequest request){
+        int imageId = Integer.parseInt(request.getParameter("id"));
+        String filename = this.activityService.getImageById(imageId).getPath().substring(7);
+        //删除目录文件下的
+        File folder = new File(UPLOAD_FILE_PATH);
+        File[] files = folder.listFiles();
+        for(File file:files){
+            if(file.getName().equals(filename)){
+                file.delete();
+            }
+        }
+        this.activityService.imageDelete(imageId);
+        return "ok";
     }
 
 

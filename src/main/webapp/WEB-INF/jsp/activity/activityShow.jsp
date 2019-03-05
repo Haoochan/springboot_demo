@@ -113,32 +113,46 @@
     </div>
 </form>
 
-<button class="layui-btn layui-btn-normal" onclick="window.location.href=('/activity/goEdit?id='+${activity.id})">修改</button>
-
 <%--图片轮播 展示照片--%>
 <div class="layui-carousel" id="test10">
-    <div carousel-item="">
-        <div><img src="../../../image/1.png"></div>
-        <div><img src="//image/1.png"></div>
-        <div><img src="../../../image/2.png"></div>
+    <div carousel-item="" class="carousel-wrapper">
     </div>
 </div>
 
+<button class="layui-btn layui-btn-normal" onclick="window.location.href=('/activity/goEdit?id='+${activity.id})">修改</button>
 
 <script>
-    layui.use(['form','carousel'], function() {
-        var form = layui.form;
-        var carousel = layui.carousel;
-        form.render();
-        //图片轮播
-        carousel.render({
-            elem: '#test10'
-            ,width: '778px'
-            ,height: '440px'
-            ,interval: 5000
-        });
-    });
+    window.onload = function() {
+        $.ajax({
+            url: '/activity/getImage?id='+${activity.id},
+            success: function(res) {
+                var arr = JSON.parse(res);
+                if (!arr.length) {
+                    $('.layui-carousel').hide();
+                    return;
+                }
+                var str = '';
+                arr.forEach(function(item) {
+                    str = str + '<div><img src="'+ item.path +'" height="440px" width="778px"></div>';
+                });
+                $('.carousel-wrapper').html(str);
 
+                layui.use(['form','carousel'], function() {
+                    var form = layui.form;
+                    var carousel = layui.carousel;
+                    form.render();
+                    //图片轮播
+                    carousel.render({
+                        elem: '#test10'
+                        ,width: '778px'
+                        ,height: '440px'
+                        ,interval: 5000
+                    });
+                });
+            }
+        })
+
+    }
 
 </script>
 

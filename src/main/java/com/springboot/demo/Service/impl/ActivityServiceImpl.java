@@ -8,6 +8,7 @@ import com.springboot.demo.Service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -37,11 +38,6 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public void saveImage(ActivityImage activityImage) {
-        this.activityImageMapper.insert(activityImage);
-    }
-
-    @Override
     public void update(Activity activity) {
         this.activityMapper.updateByPrimaryKey(activity);
     }
@@ -65,4 +61,33 @@ public class ActivityServiceImpl implements ActivityService {
     public List<Activity> getAllActivityByUserId(Map<String, String> map) {
         return this.activityMapper.getAllActivityByUserId(map);
     }
+
+    //保存图片
+    @Override
+    public int saveImage(ActivityImage activityImage) {
+        activityImage.setDate(new Date());
+        int activityId = this.activityMapper.getLastActivityId()+1;
+        activityImage.setActivityId(activityId);
+        this.activityImageMapper.insert(activityImage);
+        String path = activityImage.getPath();
+        return this.activityImageMapper.getImageByPath(path);
+    }
+
+    //查找图片
+    @Override
+    public List<ActivityImage> getImageByActivityId(int activityId) {
+        return activityImageMapper.getImageByActivityId(activityId);
+    }
+
+    @Override
+    public void imageDelete(int imageId) {
+        this.activityImageMapper.deleteByPrimaryKey(imageId);
+    }
+
+    @Override
+    public ActivityImage getImageById(int imageId) {
+        return this.activityImageMapper.selectByPrimaryKey(imageId);
+    }
+
+
 }

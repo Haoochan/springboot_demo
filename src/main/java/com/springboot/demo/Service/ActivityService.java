@@ -16,8 +16,6 @@ public interface ActivityService {
 
     Activity getActivityById(int id);
 
-    void saveImage(ActivityImage activityImage);
-
     void update(Activity activity);
 
     void add(Activity activity);
@@ -27,4 +25,15 @@ public interface ActivityService {
     int getTotalCountByUserId(Map<String, String> map);
 
     List<Activity> getAllActivityByUserId(Map<String, String> map);
+
+    //图片上传
+    int saveImage(ActivityImage activityImage);
+
+    //查找图片
+    List<ActivityImage> getImageByActivityId(int activityId);
+
+    //删除图片
+    void imageDelete(int imageId);
+
+    ActivityImage getImageById(int imageId);
 }

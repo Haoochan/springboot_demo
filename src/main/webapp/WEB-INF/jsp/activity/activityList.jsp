@@ -106,7 +106,7 @@
             type: 2,
             title: '添加类别',
             skin: 'layui-layer-rim', //加上边框
-            area: ['90%', '90%'], //宽高
+            area: ['95%', '95%'], //宽高
             content: '/activity/goAdd'  //调到新增页面
         });
     }
