@@ -121,6 +121,13 @@
                                class="site-demo-active" data-type="tabAdd">学院管理</a>
                         </dd>
                     </dl>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" data-id="" data-title="学年管理" data-url="/schoolyear/goList"
+                               class="site-demo-active" data-type="tabAdd">学年管理</a>
+                        </dd>
+                    </dl>
+
                 </li>
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">工作统计</a>

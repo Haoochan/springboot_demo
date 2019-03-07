@@ -130,6 +130,13 @@
         var form = layui.form;
         table.render();
 
+        //接受工作统计传过来的年份
+        table.reload('idTest', {
+            where:{
+                schoolyear:'${schoolyear}'
+            }
+        });
+
         //条件搜索
         $("#search").click(function () {
                 var keyword = $('#keyword');

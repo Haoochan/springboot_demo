@@ -22,7 +22,7 @@
     <div class="layui-inline">
         <input class="layui-input" name="keyword" id="keyword" placeholder="请输入关键词" autocomplete="off">
     </div>
-    <div class="layui-input-inline">
+    <div class="layui-input-inline" style="display: none">
         <select  id="college" name="college" lay-filter="college">
             <option value="">请选择学院</option>
         </select>
@@ -107,17 +107,24 @@
     layui.use(['table','form'], function(){
         var table = layui.table;
         var form = layui.form;
-        form.render();
         table.render();
 
+        var role ="${sessionScope.loginUser.role}";
+        if (role ==="系统管理员"){
+            $('.layui-input-inline').show();
+            console.log(role);
+        }
+        form.render();
 
-        //学院添加到下拉框中
+
+
+
+        // 学院添加到下拉框中
         $.ajax({
             url: '/college/getCollege',
             dataType: 'json',
             type: 'get',
             success: function (college) {
-                console.log(college);
                 $.each(college, function (index, item) {
                     $('#college').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                 });

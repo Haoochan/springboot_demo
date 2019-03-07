@@ -2,7 +2,10 @@ package com.springboot.demo.Controller;
 
 import com.springboot.demo.Entity.LayuiResponseDataUtil;
 import com.springboot.demo.Entity.Major;
+import com.springboot.demo.Entity.User;
 import com.springboot.demo.Service.MajorService;
+import com.springboot.demo.Service.UserClassCollegeMapService;
+import com.springboot.demo.Service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,12 @@ public class MajorController {
     @Resource
     private MajorService majorService;
 
+    @Resource
+    private UserService userService;
+
+    @Resource
+    private UserClassCollegeMapService userClassCollegeMapService;
+
     @RequestMapping("/goList")
     public String goList(){
         return "/WEB-INF/jsp/major/majorList.jsp";
@@ -30,12 +39,18 @@ public class MajorController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public LayuiResponseDataUtil majorList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
+    public LayuiResponseDataUtil majorList(HttpServletRequest request,
+                                            @RequestParam("page")int page, @RequestParam("limit") int pageSize,
                                            @RequestParam(value = "keyword",required = false) String keyword,
                                            @RequestParam(value = "collegeId",required = false) String collegeId){
 //        pageSize 前端设置10
         int before = pageSize*(page-1);
         Map<String,String> map = new HashMap<String,String>();
+        //根据用户筛选专业
+        User user = userService.getUserById(((User) request.getSession().getAttribute("loginUser")).getId());
+        if (!"系统管理员".equals(user.getRole())) {
+            collegeId = String.valueOf(userClassCollegeMapService.getCollegeIdByUserId(user.getId()));
+        }
         map.put("before", String.valueOf(before));
         map.put("pageSize", String.valueOf(pageSize));
         map.put("keyword",keyword);
@@ -101,8 +116,8 @@ public class MajorController {
     //提供下拉框
     @ResponseBody
     @RequestMapping("/getMajor")
-    public Object getMajor(@RequestParam("id") int id) {
-        List<Major> list = this.majorService.getMajor(id);
+    public Object getMajor(@RequestParam("id") int collegeId) {
+        List<Major> list = this.majorService.getMajor(collegeId);
         return list;
     }
 }

@@ -42,4 +42,9 @@ public class UserClassCollegeMapServiceImpl implements UserClassCollegeMapServic
     public void deleteAllByUserId(int userId) {
         userClassCollegeMapMapper.deleteByUserId(userId);
     }
+
+    @Override
+    public int getCollegeIdByUserId(int userId) {
+        return this.userClassCollegeMapMapper.getCollegeIdByUserId(userId);
+    }
 }

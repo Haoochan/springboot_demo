@@ -15,9 +15,10 @@ public class MajorServiceImpl implements MajorService {
     @Autowired
     private MajorMapper majorMapper;
 
+    //根据学院找专业
     @Override
-    public List<Major> getMajor(int id) {
-        return this.majorMapper.getMajor(id);
+    public List<Major> getMajor(int collegeId) {
+        return this.majorMapper.getMajor(collegeId);
     }
 
     @Override

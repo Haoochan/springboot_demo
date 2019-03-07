@@ -45,6 +45,14 @@ public class User {
 
     }
 
+    //注册 用户名 密码 角色 真名
+    public User(String username,String password,String role,String name){
+        this.username=username;
+        this.password=password;
+        this.role=role;
+        this.name=name;
+    }
+
     //带班级-专业-学院 List那里有问题
     public User(Integer id, String username, String password, String role, String name, String sex, Integer phone, String email, String classes,String major,Integer majorId, String college,Integer collegeId) {
         this.id = id;

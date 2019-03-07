@@ -32,4 +32,7 @@ public interface UserClassCollegeMapMapper {
 
     @Delete("delete from user_class_college_map where userId=#{userId}")
     void deleteByUserId(int userId);
+
+    @Select("select collegeId from user_class_college_map where userId=#{userId} limit 1")
+    int getCollegeIdByUserId(int userId);
 }

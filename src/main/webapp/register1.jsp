@@ -23,26 +23,24 @@
 <body class="login-bg">
 
 <div class="login">
-    <div class="message">班主任工作管理系统</div>
+    <div class="message">用户注册</div>
     <div id="darkbannerwrap"></div>
 
-    <form method="post" class="layui-form" action="/user/login">
+    <form method="post" class="layui-form" action="/user/register">
         <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
         <hr class="hr15">
         <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
         <hr class="hr15">
-        <div class="layui-form-item" style="width:100%;" >
+        <input name="name" placeholder="姓名"  type="text" lay-verify="required" class="layui-input" >
+        <hr class="hr15">
+        <div class="layui-form-item" >
             <div class="layui-input-block" style="margin-left: 0">
                 <input type="radio" name="role" value="助班" title="助班" >
                 <input type="radio" name="role" value="班主任" title="班主任" >
-                <input type="radio" name="role" value="学院管理员" title="学院管理员" >
-                <input type="radio" name="role" value="系统管理员" title="系统管理员" >
             </div>
         </div>
 
-        <input class="loginin" value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
-        <hr class="hr20" >
-        <input value="注册" lay-filter="register" style="width:100%;" type="button" onclick="window.location=('register1.jsp')">
+        <input class="loginin" value="注册" lay-submit lay-filter="register" style="width:100%;" type="submit">
         <hr class="hr20" >
     </form>
 </div>
@@ -53,7 +51,7 @@
         var form = layui.form;
         form.render();
 
-        form.on('submit(login)', function (data) {
+        form.on('submit(register)', function (data) {
             console.log(data.field);
             if (!data.field.role){
                 alert('请选择角色')

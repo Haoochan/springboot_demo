@@ -98,6 +98,10 @@ public class ActivityController {
     public String goUserList(HttpServletRequest request,Model model){
         User user = this.userService.getUserById(Integer.parseInt(request.getParameter("userId")));
         model.addAttribute("user",user);
+        if(request.getParameter("schoolyear")!=null){
+            String schoolyear=request.getParameter("schoolyear");
+            model.addAttribute("schoolyear",schoolyear);
+        }
         return "/WEB-INF/jsp/activity/activityMyList.jsp";
     }
 
@@ -208,34 +212,6 @@ public class ActivityController {
 
     //上传照片
     public final static String UPLOAD_FILE_PATH = "E:\\Github\\springboot_demo\\src\\main\\webapp\\image";
-//    @RequestMapping(value = "upload")
-//    @ResponseBody
-//    public String uploadImage(@RequestParam("file") MultipartFile file) {
-//        if (!file.isEmpty()) {
-//            Map<String, String> resObj = new HashMap<>(MAP_SIZE);
-//            String newFilename;
-//            SimpleDateFormat sdf= new SimpleDateFormat("yyyyMMddHHmmss");
-//            String time = sdf.format(new Date());
-//            try {
-//                String filename = file.getOriginalFilename();
-//                newFilename = time+filename;
-//                BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(UPLOAD_FILE_PATH, newFilename)));
-//                out.write(file.getBytes());
-//                out.flush();
-//                out.close();
-//            } catch (IOException e) {
-//                resObj.put("msg", "error");
-//                resObj.put("code", "1");
-//                return JSONObject.toJSONString(resObj);
-//            }
-//            resObj.put("msg", "ok");
-//            resObj.put("code", "0");
-//            resObj.put("src", newFilename);
-//            return JSONObject.toJSONString(resObj);
-//        } else {
-//            return null;
-//        }
-//    }
 
     //多照片上传 每一张都调用一次
     @RequestMapping(value = "upload")

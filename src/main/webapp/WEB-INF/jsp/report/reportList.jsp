@@ -90,12 +90,13 @@
 
     function show(data) {
         console.log(data.userId);
+        var schoolyear =$('#schoolyear').val();
         var index = layui.layer.open({
             title : "查看工作",
             type : 2,
             closeBtn: 2,         //是否显示关闭按钮
             area: ['90%', '90%'],
-            content : "/activity/goUserList?userId="+data.userId//弹出层页面
+            content : "/activity/goUserList?userId="+data.userId+"&schoolyear="+schoolyear//弹出层页面
 
         })
     }

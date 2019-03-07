@@ -12,6 +12,6 @@
 </head>
 <body>
 注册成功 请登录
-<input type="button" value="登录" onclick="window.location=('index')"/>
+<input type="button" value="登录" onclick="window.location=('/login.jsp')"/>
 </body>
 </html>

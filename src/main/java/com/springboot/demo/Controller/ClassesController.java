@@ -3,7 +3,10 @@ package com.springboot.demo.Controller;
 
 import com.springboot.demo.Entity.Classes;
 import com.springboot.demo.Entity.LayuiResponseDataUtil;
+import com.springboot.demo.Entity.User;
 import com.springboot.demo.Service.ClassesService;
+import com.springboot.demo.Service.UserClassCollegeMapService;
+import com.springboot.demo.Service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,12 @@ public class ClassesController {
     @Resource
     private ClassesService classesService;
 
+    @Resource
+    private UserService userService;
+
+    @Resource
+    private UserClassCollegeMapService userClassCollegeMapService;
+
     @RequestMapping("/goList")
     public String goList(){
         return "/WEB-INF/jsp/classes/classesList.jsp";
@@ -31,13 +40,19 @@ public class ClassesController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public LayuiResponseDataUtil classesList(@RequestParam("page")int page, @RequestParam("limit") int pageSize,
+    public LayuiResponseDataUtil classesList(HttpServletRequest request,
+                                            @RequestParam("page")int page, @RequestParam("limit") int pageSize,
                                            @RequestParam(value = "keyword",required = false) String keyword,
                                              @RequestParam(value = "grade",required = false) String grade,
                                              @RequestParam(value = "majorId",required = false) String majorId,
                                            @RequestParam(value = "collegeId",required = false) String collegeId){
 //        pageSize 前端设置10
         int before = pageSize*(page-1);
+        //根据用户筛选专业
+        User user = userService.getUserById(((User) request.getSession().getAttribute("loginUser")).getId());
+        if (!"系统管理员".equals(user.getRole())) {
+            collegeId = String.valueOf(userClassCollegeMapService.getCollegeIdByUserId(user.getId()));
+        }
         Map<String,String> map = new HashMap<String,String>();
         map.put("before", String.valueOf(before));
         map.put("pageSize", String.valueOf(pageSize));

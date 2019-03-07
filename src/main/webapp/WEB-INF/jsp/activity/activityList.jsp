@@ -27,14 +27,14 @@
             <option value="">请选择工作类别</option>
         </select>
     </div>
-    <div class="layui-input-inline ">
-        <select  id="createbyId" name="createbyId">
-            <option value="">请选择创建者</option>
-        </select>
-    </div>
     <div class="layui-input-inline " id="college">
         <select  id="collegeId" name="collegeId">
             <option value="">请选择学院</option>
+        </select>
+    </div>
+    <div class="layui-input-inline ">
+        <select  id="createbyId" name="createbyId">
+            <option value="">请选择创建者</option>
         </select>
     </div>
     <div class="layui-input-inline ">
@@ -120,7 +120,7 @@
             area: ['90%', '90%'],
             content : "/activity/goEdit?id="+data.id,//弹出层页面
             end: function () {
-                location.reload();
+                window.location.reload();
             }
         })
         }else {
@@ -140,7 +140,7 @@
             content : "/activity/goShow?id="+data.id,//弹出层页面
             //点击关闭按钮 页面刷新
             end: function () {
-                location.reload();
+                // window.location.reload();
             }
         })
         }else {

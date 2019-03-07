@@ -32,7 +32,7 @@
             <option value="18">18级</option>
         </select>
     </div>
-    <div class="layui-input-inline">
+    <div class="layui-input-inline" id="collegeDiv" style="display:none;">
         <select  id="college" name="college" lay-filter="college">
             <option value="">请选择学院</option>
         </select>
@@ -127,6 +127,26 @@
         form.render();
         table.render();
 
+        var role ="${sessionScope.loginUser.role}";
+        if (role ==="系统管理员"){
+            $('#collegeDiv').show();
+        }
+        form.render();
+
+        //不是系统管理员 获取用户本学院专业
+        $.ajax({
+            url: '/major/getMajor?id=' + ${sessionScope.userCollegeId},
+            dataType: 'json',
+            type: 'get',
+            success: function (major) {
+                $.each(major, function (index, item) {
+                    $('#major').append(new Option(item.name, item.id));// 下拉菜单里添加元素
+                });
+                form.render("select");
+                //重新渲染 固定写法
+            }
+        });
+
 
         //学院添加到下拉框中
         $.ajax({
@@ -134,7 +154,6 @@
             dataType: 'json',
             type: 'get',
             success: function (college) {
-                console.log(college);
                 $.each(college, function (index, item) {
                     $('#college').append(new Option(item.name, item.id));// 下拉菜单里添加元素
                 });
@@ -149,7 +168,6 @@
             $('#major').append(new Option("请选择专业", ''));//添加提示
             form.render('select');
             var value = data.value;
-            console.log(value);
             if (value!='') {
                 $.ajax({
                     url: '/major/getMajor?id=' + value,

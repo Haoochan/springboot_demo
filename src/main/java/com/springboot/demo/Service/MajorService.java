@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface MajorService {
 
-    List<Major> getMajor(int id);
+    List<Major> getMajor(int collegeId);
 
     int getTotalCount(Map<String, String> map);
 

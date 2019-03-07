@@ -19,14 +19,12 @@
     角色：
     助班<input type="radio" name="role" value="助班">
     班主任<input type="radio" name="role" value="班主任"><br>
-    <%--学院管理员<input type="radio" name="role" value="学院管理员">--%>
-    <%--系统管理员<input type="radio" name="role" value="系统管理员"><br>--%>
     姓名：<input type="text" name="name" id="name"/><br/><br/>
-    性别：
-    男<input type="radio" name="sex" value="男">
-    女<input type="radio" name="sex" value="女"><br>
-    电话号码：<input type="text" name="phone" id="phone"/><br/><br/>
-    电子邮箱：<input type="text" name="email" id="email"/><br/><br/>
+    <%--性别：--%>
+    <%--男<input type="radio" name="sex" value="男">--%>
+    <%--女<input type="radio" name="sex" value="女"><br>--%>
+    <%--电话号码：<input type="text" name="phone" id="phone"/><br/><br/>--%>
+    <%--电子邮箱：<input type="text" name="email" id="email"/><br/><br/>--%>
     <input type="submit" value="注册" onclick="return checkLoginAndRegister()"/>
 </form>
 </body>

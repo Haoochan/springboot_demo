@@ -57,11 +57,11 @@ public class UserController {
         String password = request.getParameter("password");
         String role = request.getParameter("role");
         String name = request.getParameter("name");
-        String sex = request.getParameter("sex");
-        int phone = Integer.parseInt(request.getParameter("phone"));
-        String email = request.getParameter("email");
-        User user = new User(username,password,role,name,sex,phone,email);
-        System.out.println("用户注册" + user.toString());
+//        String sex = request.getParameter("sex");
+//        int phone = Integer.parseInt(request.getParameter("phone"));
+//        String email = request.getParameter("email");
+//        User user = new User(username,password,role,name,sex,phone,email);
+        User user = new User(username,password,role,name);
         this.userService.register(user);
         model.addAttribute("msg", "注册成功");
         return "/registerSuccess.jsp";

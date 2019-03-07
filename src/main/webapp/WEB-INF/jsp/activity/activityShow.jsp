@@ -122,6 +122,11 @@
 <button class="layui-btn layui-btn-normal" onclick="window.location.href=('/activity/goEdit?id='+${activity.id})">修改</button>
 
 <script>
+    //不是本人 修改按钮不出现
+    if(${activity.createbyId}!=${sessionScope.loginUser.id}){
+        $('.layui-btn').hide();
+    }
+
     window.onload = function() {
         $.ajax({
             url: '/activity/getImage?id='+${activity.id},
@@ -140,6 +145,7 @@
                 layui.use(['form','carousel'], function() {
                     var form = layui.form;
                     var carousel = layui.carousel;
+
                     form.render();
                     //图片轮播
                     carousel.render({
