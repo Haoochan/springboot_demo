@@ -73,15 +73,6 @@ public class ActivityCategoryController {
         return "/WEB-INF/jsp/activityCategory/activityCategoryEdit.jsp";
     }
 
-//    @ResponseBody
-////    @RequestMapping("/edit")
-////    public void edit(HttpServletRequest request){
-////        int id = Integer.parseInt(request.getParameter("id"));
-////        String name = request.getParameter("name");
-////        String description = request.getParameter("description");
-////        ActivityCategory activityCategory = new ActivityCategory(id,name,description);
-////        this.activityCategoryService.update(activityCategory);
-////    }
 
     @ResponseBody
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
@@ -98,7 +89,6 @@ public class ActivityCategoryController {
     public String goShow(@RequestParam("id") int id,Model model){
         ActivityCategory activityCategory = this.activityCategoryService.getActivityCategoryById(id);
         model.addAttribute("activityCategory",activityCategory);
-
         return "/WEB-INF/jsp/activityCategory/activityCategoryShow.jsp";
     }
 
@@ -107,7 +97,6 @@ public class ActivityCategoryController {
     @RequestMapping(value = "/getActivityCategory",method =RequestMethod.GET)
     public Object getActivityCategory(){
         List<ActivityCategory> list = this.activityCategoryService.getActivityCategory();
-        System.out.println(list.toString());
         return list;
     }
 

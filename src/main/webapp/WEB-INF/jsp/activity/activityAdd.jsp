@@ -77,7 +77,7 @@
     </div>
     <div class="layui-form-item">
         <label for="categoryId" class="layui-form-label">工作类别</label>
-        <div class="layui-input-block ">
+        <div class="layui-input-inline ">
             <select  id="categoryId" name="categoryId" lay-verify="required">
                 <option >请选择类别</option>
             </select>
@@ -110,8 +110,7 @@
         <div class="layui-input-inline">
             <select  id="schoolyear" name="schoolyear" lay-verify="required">
                 <option >请选择学年</option>
-                <option value="2018-2019">2018-2019</option>
-                <option value="2017-2018">2017-2018</option>
+
             </select>
         </div>
     </div>
@@ -184,6 +183,19 @@
                 });
                 form.render("select");
                 //重新渲染 固定写法
+            }
+        });
+
+        //学年添加到下拉框中
+        $.ajax({
+            url:'/schoolyear/getSchoolyear',
+            dataType:'json',
+            type:'get',
+            success:function (schoolyear) {
+                $.each(schoolyear,function (index,item){
+                    $('#schoolyear').append(new Option(item.schoolyear, item.schoolyear));
+                });
+                form.render("select");
             }
         });
     });

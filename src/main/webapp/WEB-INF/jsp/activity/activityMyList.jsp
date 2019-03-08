@@ -37,8 +37,6 @@
     <div class="layui-input-inline">
         <select  id="schoolyear" name="schoolyear">
             <option value="">请选择学年</option>
-            <option value="2018-2019">2018-2019</option>
-            <option value="2017-2018">2017-2018</option>
         </select>
     </div>
     <div class="layui-form-item">
@@ -184,6 +182,18 @@
                 });
                 form.render("select");
                 //重新渲染 固定写法
+            }
+        });
+        //学年添加到下拉框中
+        $.ajax({
+            url:'/schoolyear/getSchoolyear',
+            dataType:'json',
+            type:'get',
+            success:function (schoolyear) {
+                $.each(schoolyear,function (index,item){
+                    $('#schoolyear').append(new Option(item.schoolyear, item.schoolyear));
+                });
+                form.render("select");
             }
         });
 

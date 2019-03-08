@@ -143,8 +143,6 @@
         <label for="schoolyear" class="layui-form-label">学年</label>
         <div class="layui-input-inline">
                 <select  id="schoolyear" name="schoolyear">
-                    <option value="2018-2019">2018-2019</option>
-                    <option value="2017-2018">2017-2018</option>
                 </select>
         </div>
     </div>
@@ -201,6 +199,20 @@
                 //重新渲染 固定写法
             }
         });
+
+        //学年添加到下拉框中
+        $.ajax({
+            url:'/schoolyear/getSchoolyear',
+            dataType:'json',
+            type:'get',
+            success:function (schoolyear) {
+                $.each(schoolyear,function (index,item){
+                    $('#schoolyear').append(new Option(item.schoolyear, item.schoolyear));
+                });
+                form.render("select");
+            }
+        });
+
         //默认选中学期
         var semester = $("#semester").find("option"); //获取select下拉框的所有值
         for (var j = 0; j < semester.length; j++) {
