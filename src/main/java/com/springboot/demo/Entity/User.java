@@ -15,7 +15,7 @@ public class User {
 
     private String sex;
 
-    private Integer phone;
+    private String phone;
 
     private String email;
 
@@ -54,7 +54,7 @@ public class User {
     }
 
     //带班级-专业-学院 List那里有问题
-    public User(Integer id, String username, String password, String role, String name, String sex, Integer phone, String email, String classes,String major,Integer majorId, String college,Integer collegeId) {
+    public User(Integer id, String username, String password, String role, String name, String sex, String phone, String email, String classes,String major,Integer majorId, String college,Integer collegeId) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -83,7 +83,7 @@ public class User {
         this.role = role;
     }
 
-    public User(Integer id, String username, String password, String role, String name, String sex, Integer phone, String email) {
+    public User(Integer id, String username, String password, String role, String name, String sex, String phone, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -94,7 +94,7 @@ public class User {
         this.email = email;
     }
 
-    public User(String username, String password, String role, String name, String sex, Integer phone, String email) {
+    public User(String username, String password, String role, String name, String sex, String phone, String email) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -104,7 +104,7 @@ public class User {
         this.email = email;
     }
 
-    public User(Integer id, String username, String password, String role, String name, String sex, Integer phone, String email, String classes, String classesId, String major, Integer majorId, String college, Integer collegeId) {
+    public User(Integer id, String username, String password, String role, String name, String sex, String phone, String email, String classes, String classesId, String major, Integer majorId, String college, Integer collegeId) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -186,11 +186,11 @@ public class User {
         this.sex = sex;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

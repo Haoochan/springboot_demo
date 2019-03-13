@@ -19,25 +19,25 @@
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
-    <div class="layui-inline">
+    <div class="layui-input-inline" style="width: 150px">
         <input class="layui-input" name="keyword" id="keyword" placeholder="请输入关键词" autocomplete="off">
     </div>
-    <div class="layui-input-inline ">
+    <div class="layui-input-inline " style="width: 150px">
         <select  id="categoryId" name="categoryId">
             <option value="">请选择工作类别</option>
         </select>
     </div>
-    <div class="layui-input-inline " id="college">
+    <div class="layui-input-inline " id="college" style="width: 150px">
         <select  id="collegeId" name="collegeId">
             <option value="">请选择学院</option>
         </select>
     </div>
-    <div class="layui-input-inline ">
+    <div class="layui-input-inline " style="width: 150px">
         <select  id="createbyId" name="createbyId">
             <option value="">请选择创建者</option>
         </select>
     </div>
-    <div class="layui-input-inline ">
+    <div class="layui-input-inline " style="width: 150px">
         <select  id="creatorRole" name="creatorRole">
             <option value="">请选择创建者角色</option>
             <option value="助班">助班</option>
@@ -46,14 +46,14 @@
             <option value="系统管理员">系统管理员</option>
         </select>
     </div>
-    <div class="layui-input-inline">
+    <div class="layui-input-inline" style="width: 150px">
         <select  id="semester" name="semester">
             <option value="">请选择学期</option>
             <option value="1">1</option>
             <option value="2">2</option>
         </select>
     </div>
-    <div class="layui-input-inline">
+    <div class="layui-input-inline" style="width: 150px">
         <select  id="schoolyear" name="schoolyear" >
             <option value="">请选择学年</option>
         </select>
@@ -68,7 +68,8 @@
 </button>
 
 
-<table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/activity/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
+<table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/activity/list', page:true, limit:10, id:'idTest',
+           initSort:{field:'time',type:'desc'}}" lay-filter="demo">
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>

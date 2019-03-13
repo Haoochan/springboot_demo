@@ -48,7 +48,7 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">公告内容</label>
         <div class="layui-input-block">
-            <textarea id="content" name="content" class="layui-textarea">${notice.content}</textarea>
+            <textarea id="content" name="content" class="layui-textarea" style="height: 320px">${notice.content}</textarea>
         </div>
     </div>
     <div class="layui-form-item">
@@ -72,8 +72,8 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <%--<button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>--%>
-            <button class="layui-btn" lay-filter="add" lay-submit="" >确定</button>
+        <button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>
+            <%--<button class="layui-btn" lay-filter="add" lay-submit="" >确定</button>--%>
     </div>
 </form>
 
@@ -139,6 +139,7 @@
             dataType: 'json',
             type: 'get',
             success: function (major) {
+                $('#major').append(new Option('全学院','0'));
                 $.each(major, function (index, item) {
                     if (item.id==${notice.majorId}){
                         $('#major').append(new Option(item.name, item.id,false,true));
@@ -154,6 +155,7 @@
         //监听学院下拉框选择变动 把专业添加到下拉框中
         form.on('select(college)', function(data){
             $('#major').html("");//清空下拉框
+            $('#major').append(new Option('全学院','0'));
             form.render('select');
             var value = data.value;
             if (value!='') {

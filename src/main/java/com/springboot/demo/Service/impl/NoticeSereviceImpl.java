@@ -40,7 +40,9 @@ public class NoticeSereviceImpl implements NoticeService {
     @Override
     public Notice getNoticeById(int id) {
         Notice notice = noticeMapper.selectByPrimaryKey(id);
-
+        if (0==(notice.getMajorId())){
+            notice.setMajor("全学院");
+        }
         return notice;
     }
 

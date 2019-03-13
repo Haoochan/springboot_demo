@@ -46,13 +46,14 @@
 </button>
 
 
-<table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/notice/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
+<table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/notice/list', page:true, limit:10, id:'idTest',
+           initSort:{field:'time',type:'desc'} }" lay-filter="demo">
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
         <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
-        <th lay-data="{field:'title', width:200}">标题</th>
-        <th lay-data="{field:'category', width:200}">类别</th>
+        <th lay-data="{field:'title', width:400}">标题</th>
+        <th lay-data="{field:'category', width:80}">类别</th>
         <th lay-data="{field:'time', width:200}">时间</th>
         <th lay-data="{field:'user', width:150}">用户</th>
         <th lay-data="{field:'college', width:150}">学院</th>
@@ -107,7 +108,6 @@
     }
 
     function show(data) {
-        console.log(data);
         var index = layui.layer.open({
             title : "查看公告",
             type : 2,

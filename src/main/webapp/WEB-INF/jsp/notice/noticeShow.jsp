@@ -46,7 +46,7 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">公告内容</label>
         <div class="layui-input-block">
-            <textarea id="content" name="content" class="layui-textarea" readonly="readonly">${notice.content}</textarea>
+            <textarea id="content" name="content" class="layui-textarea" readonly="readonly" style="height: 320px">${notice.content}</textarea>
         </div>
     </div>
     <div class="layui-form-item">

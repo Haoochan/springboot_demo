@@ -120,15 +120,22 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <%--<button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>--%>
-        <button class="layui-btn" lay-filter="add" lay-submit="" >确定</button>
+        <button class="layui-btn" lay-filter="add" lay-submit="" onclick="reload()">确定</button>
+        <%--<button class="layui-btn" lay-filter="add" lay-submit="" >确定</button>--%>
+        <button class="layui-btn" type="button" onclick="closeLayer()">关闭</button>
     </div>
 </form>
 
 <script>
     // 关闭弹窗 刷新列表
     function reload() {
-        window.parent.location.reload();
+        // window.parent.location.reload();
+        // var index = parent.layer.getFrameIndex(window.name);
+        // parent.layer.close(index);
+        location.reload();
+    }
+
+    function closeLayer() {
         var index = parent.layer.getFrameIndex(window.name);
         parent.layer.close(index);
     }

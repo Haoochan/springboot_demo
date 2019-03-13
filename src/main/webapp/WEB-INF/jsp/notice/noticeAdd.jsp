@@ -47,9 +47,9 @@
         </div>
     </div>
     <div class="layui-form-item" >
-        <label class="layui-form-label">工作内容</label>
-        <div class="layui-input-inline" style ="width:350px">
-            <textarea id="content" name="content" class="layui-textarea" lay-verify="required"></textarea>
+        <label class="layui-form-label">公告内容</label>
+        <div class="layui-input-block">
+            <textarea id="content" name="content" class="layui-textarea" lay-verify="required" style="height: 320px"></textarea>
         </div>
     </div>
     <div class="layui-form-item" id="collegeDiv">

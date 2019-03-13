@@ -89,7 +89,7 @@ public class UserController {
         String role = request.getParameter("role");
         String name = request.getParameter("name");
         String sex = request.getParameter("sex");
-        int phone = Integer.parseInt(request.getParameter("phone"));
+        String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         User user = new User(id,username,password,role,name,sex,phone,email);
         this.userService.userInfoUpdate(user);
@@ -118,7 +118,7 @@ public class UserController {
         String role = request.getParameter("role");
         String name = request.getParameter("name");
         String sex = request.getParameter("sex");
-        int phone = Integer.parseInt(request.getParameter("phone"));
+        String phone =request.getParameter("phone");
         String email = request.getParameter("email");
         User user = new User(username,password,role,name,sex,phone,email);
         this.userService.add(user);
@@ -162,7 +162,7 @@ public class UserController {
         String role = map.get("role");
         String name = map.get("name");
         String sex = map.get("sex");
-        int phone = Integer.parseInt(map.get("phone"));
+        String phone = map.get("phone");
         String email = map.get("email");
         User user = new User(userId,username,password,role,name,sex,phone,email);
         this.userService.userInfoUpdate(user);
