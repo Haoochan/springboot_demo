@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<h3>工作记录列表</h3>
+<%--<h3>工作记录列表</h3>--%>
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
@@ -58,7 +58,7 @@
             <option value="">请选择学年</option>
         </select>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-input-inline">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
 </form>
@@ -72,7 +72,7 @@
            initSort:{field:'time',type:'desc'}}" lay-filter="demo">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+        <%--<th lay-data="{type:'checkbox', fixed: 'left'}"></th>--%>
         <th lay-data="{title: '序号', width:50, type:'numbers'}">序号</th>
         <th lay-data="{field:'topic', width:200}">主题</th>
         <th lay-data="{field:'category', width:150}">类别</th>
@@ -81,7 +81,7 @@
         <th lay-data="{field:'creatorRole', width:100}">角色</th>
         <th lay-data="{field:'time', width:150}">时间</th>
         <th lay-data="{field:'location', width:150}">地点</th>
-        <th lay-data="{field:'schoolyear', width:150}">学年</th>
+        <th lay-data="{field:'schoolyear', width:100}">学年</th>
         <th lay-data="{field:'semester', width:80}">学期</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
     </tr>
@@ -103,7 +103,7 @@
     function add() {
         layer.open({
             type: 2,
-            title: '添加类别',
+            title: '添加工作',
             skin: 'layui-layer-rim', //加上边框
             area: ['95%', '95%'], //宽高
             content: '/activity/goAdd'  //调到新增页面

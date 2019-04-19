@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<h3>用户列表</h3>
+<%--<h3>用户列表</h3>--%>
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
@@ -53,7 +53,7 @@
             <option value="">请选择班级</option>
         </select>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-input-inline">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
 </form>
@@ -65,16 +65,16 @@
 <table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/user/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
-        <th lay-data="{field:'name', width:200}">名字</th>
-        <th lay-data="{field:'role', width:200}">角色</th>
-        <th lay-data="{field:'classes', width:200}">班级</th>
+        <%--<th lay-data="{type:'checkbox', fixed: 'left'}"></th>--%>
+        <th lay-data="{title: '序号', width:50, type:'numbers'}">序号</th>
+        <th lay-data="{field:'name', width:130}">名字</th>
+        <th lay-data="{field:'role', width:100}">角色</th>
+        <th lay-data="{field:'classes', width:180}">班级</th>
         <th lay-data="{field:'major', width:200}">专业</th>
         <th lay-data="{field:'college', width:200}">学院</th>
-        <th lay-data="{field:'sex', width:200}">性别</th>
-        <th lay-data="{field:'phone', width:300}">电话</th>
-        <th lay-data="{field:'email', width:300}">邮箱</th>
+        <th lay-data="{field:'sex', width:60}">性别</th>
+        <th lay-data="{field:'phone', width:150}">电话</th>
+        <th lay-data="{field:'email', width:200}">邮箱</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
     </tr>
     </thead>
@@ -97,9 +97,9 @@
         if (role === "系统管理员" || role === "学院管理员") {
             layer.open({
                 type: 2,
-                title: '添加类别',
+                title: '添加用户',
                 skin: 'layui-layer-rim', //加上边框
-                area: ['500px', '500px'], //宽高
+                area: ['500px', '600px'], //宽高
                 content: '/user/goAdd' //调到新增页面
             });
         } else {
@@ -115,7 +115,7 @@
                 title: "编辑用户",
                 type: 2,
                 closeBtn: 2,         //是否显示关闭按钮
-                area: ['500px', '560px'],
+                area: ['500px', '600px'],
                 content: "/user/goEdit?id=" + data.id,//弹出层页面
                 end: function () {
                     location.reload();
@@ -132,7 +132,7 @@
             title : "查看用户",
             type : 2,
             closeBtn: 2,         //是否显示关闭按钮
-            area: ['500px', '560px'],
+            area: ['500px', '600px'],
             content : "/user/goShow?id="+data.id//弹出层页面
             //点击关闭按钮 页面刷新
             // end: function () {

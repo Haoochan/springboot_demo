@@ -10,12 +10,13 @@ public class IndexController {
 
     @RequestMapping("/")
     public String Index(){
-        return "/login.jsp";
+//        return "/login.jsp";
+        return "/index.jsp";
     }
 
     @RequestMapping("/user/index")
     public String toIndex(){
-        return "/login.jsp";
+        return "/index.jsp";
     }
 
     @RequestMapping("/register")

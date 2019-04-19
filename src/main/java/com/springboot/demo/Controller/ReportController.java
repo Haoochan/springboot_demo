@@ -34,7 +34,7 @@ public class ReportController {
 
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    public LayuiResponseDataUtil activityList(HttpServletRequest request,
+    public LayuiResponseDataUtil reportList(HttpServletRequest request,
                                               @RequestParam("page")int page, @RequestParam("limit") int pageSize,
                                               @RequestParam(value = "collegeId",required = false) String collegeId,
                                               @RequestParam(value = "schoolyear") String schoolyear,
@@ -52,6 +52,11 @@ public class ReportController {
         }else {
             map.put("collegeId", collegeId);
         }
+        map.put("creatorId", creatorId);
+        map.put("schoolyear",schoolyear);
+        map.put("semester",semester);
+        map.put("role",role);
+        map.put("keyword",keyword);
         int userTotalCount = this.reportService.getUserTotalCount(map);
         LayuiResponseDataUtil reportResponseData = new LayuiResponseDataUtil();
         reportResponseData.setCode("0");
@@ -59,11 +64,6 @@ public class ReportController {
         reportResponseData.setCount(userTotalCount);
         map.put("before", String.valueOf(before));
         map.put("after", String.valueOf(pageSize));
-        map.put("creatorId", creatorId);
-        map.put("schoolyear",schoolyear);
-        map.put("semester",semester);
-        map.put("role",role);
-        map.put("keyword",keyword);
         List<Report> list = this.reportService.getActivityCount(map);
         reportResponseData.setData(list);
         return reportResponseData;

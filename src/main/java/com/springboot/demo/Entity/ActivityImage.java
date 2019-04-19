@@ -24,6 +24,12 @@ public class ActivityImage {
         this.path = "/image/"+path;
     }
 
+    public ActivityImage(String filename, String path,int activityId) {
+        this.filename = filename;
+        this.path = "/image/"+path;
+        this.activityId = activityId;
+    }
+
     public ActivityImage(Integer id, String filename, String path, Date date, Integer activityId) {
         this.id = id;
         this.filename = filename;

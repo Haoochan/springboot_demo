@@ -35,7 +35,7 @@
         <label for="topic" class="layui-form-label">
             <span class="we-red">*</span>工作主题
         </label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" style="width: 800px">
             <input type="text" id="topic" name="topic"  value="${activity.topic}" readonly="readonly" autocomplete="off" class="layui-input">
         </div>
     </div>

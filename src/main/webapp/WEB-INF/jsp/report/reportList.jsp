@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<h3>工作记录列表</h3>
+<%--<h3>工作记录列表</h3>--%>
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
@@ -56,7 +56,7 @@
         </select>
     </div>
 
-    <div class="layui-form-item">
+    <div class="layui-input-inline">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
 </form>
@@ -64,9 +64,11 @@
 <table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/report/list', where:{schoolyear:'2018-2019'}, page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+        <%--<th lay-data="{type:'checkbox', fixed: 'left'}"></th>--%>
         <th lay-data="{title: '序号', width:50, type:'numbers'}">序号</th>
         <th lay-data="{field:'username', width:200}">用户</th>
+        <th lay-data="{field:'role', width:100}">角色</th>
+        <th lay-data="{field:'college', width:200}">学院</th>
         <th lay-data="{field:'categoryCountA', width:100}">工作会议</th>
         <th lay-data="{field:'categoryCountB', width:100}">工作反馈</th>
         <th lay-data="{field:'categoryCountC', width:100}">学生活动</th>

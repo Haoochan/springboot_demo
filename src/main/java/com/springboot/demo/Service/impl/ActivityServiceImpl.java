@@ -7,7 +7,9 @@ import com.springboot.demo.Entity.ActivityImage;
 import com.springboot.demo.Service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -42,9 +44,18 @@ public class ActivityServiceImpl implements ActivityService {
         this.activityMapper.updateByPrimaryKey(activity);
     }
 
+    //添加时 把activityId为空的图片设置activityId
     @Override
     public void add(Activity activity) {
         this.activityMapper.insert(activity);
+        //找图片 设id
+        List<ActivityImage> activityImageList = getImageByActivityId(0);
+        if (!activityImageList.isEmpty()) {
+            for (ActivityImage activityImage : activityImageList) {
+                activityImage.setActivityId(activity.getId());
+                activityImageMapper.updateByPrimaryKey(activityImage);
+            }
+        }
     }
 
     @Override
@@ -66,8 +77,11 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public int saveImage(ActivityImage activityImage) {
         activityImage.setDate(new Date());
-        int activityId = this.activityMapper.getLastActivityId()+1;
-        activityImage.setActivityId(activityId);
+        //如果新增加的活动上传图片则设置活动Id
+        if (StringUtils.isEmpty(activityImage.getActivityId())){
+            //设0
+            activityImage.setActivityId(0);
+        }
         this.activityImageMapper.insert(activityImage);
         String path = activityImage.getPath();
         return this.activityImageMapper.getImageByPath(path);
@@ -87,6 +101,30 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public ActivityImage getImageById(int imageId) {
         return this.activityImageMapper.selectByPrimaryKey(imageId);
+    }
+
+    public final static String UPLOAD_FILE_PATH = "E:\\Github\\springboot_demo\\src\\main\\webapp\\image";
+
+    @Override
+    public void deleteImageByActivityId(int activityId) {
+        //删除文件夹下文件
+        List<ActivityImage> activityImageList = this.getImageByActivityId(activityId);//调用上面方法
+        if(!activityImageList.isEmpty()) {//该活动有图片
+            for (ActivityImage activityImage : activityImageList) {
+                String filename = this.getImageById(activityImage.getId()).getPath().substring(7);
+                //删除目录文件下的
+                File folder = new File(UPLOAD_FILE_PATH);
+                File[] files = folder.listFiles();
+                for (File file : files) {
+                    if (file.getName().equals(filename)) {
+                        file.delete();
+                    }
+                }
+            }
+        }
+        //删除图片数据库
+        activityImageMapper.deleteImageByActivityId(activityId);
+
     }
 
 

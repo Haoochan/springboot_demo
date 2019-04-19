@@ -39,11 +39,13 @@ public class ReportServiceImpl implements ReportService {
         int categoryCount = this.activityCategoryMapper.getTotalCount();
         List<User> userList= this.userMapper.getAllUser(map);//根据学院,id,角色查用户
         List<ActivityCategory> activityCategoryList = this.activityCategoryMapper.getActivityCategory();
-        for(int i=0;i<userTotalCount;i++){
+        for(int i=0;i<userTotalCount;i++){//每个用户的每个类别都去查一下数量
             Report report = new Report();
             User user = userList.get(i);
             report.setUsername(user.getName());
             report.setUserId(user.getId());
+            report.setRole(user.getRole());
+            report.setCollege(user.getCollege());
             List<Integer> categoryCountList = new ArrayList<>();
             for (int j=0;j<categoryCount;j++){
                 ActivityCategory activityCategory = activityCategoryList.get(j);
@@ -54,6 +56,7 @@ public class ReportServiceImpl implements ReportService {
                 categoryCountList.add(this.activityCategoryMapper.getCategoryCountByUser(map));
             }
 //            report.setCategoryCountList(categoryCountList);
+            //五个工作类别分别填充
             report.setCategoryCountA(categoryCountList.get(0));
             report.setCategoryCountB(categoryCountList.get(1));
             report.setCategoryCountC(categoryCountList.get(2));

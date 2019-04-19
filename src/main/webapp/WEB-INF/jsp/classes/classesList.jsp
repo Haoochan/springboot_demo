@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<h3>专业列表</h3>
+<%--<h3>专业列表</h3>--%>
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
@@ -42,7 +42,7 @@
             <option value="">请选择专业</option>
         </select>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-input-inline">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
 </form>
@@ -54,13 +54,13 @@
 <table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/classes/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
-        <th lay-data="{field:'grade', width:200}">年级</th>
-        <th lay-data="{field:'name', width:200}">班级名称</th>
-        <th lay-data="{field:'count', width:200}">班级人数</th>
-        <th lay-data="{field:'majorName', width:300}">专业</th>
-        <th lay-data="{field:'collegeName', width:300}">学院</th>
+        <%--<th lay-data="{type:'checkbox', fixed: 'left'}"></th>--%>
+        <th lay-data="{title: '序号', width:50, type:'numbers'}">序号</th>
+        <th lay-data="{field:'grade', width:80}">年级</th>
+        <th lay-data="{field:'name', width:150}">班级名称</th>
+        <th lay-data="{field:'count', width:120}">班级人数</th>
+        <th lay-data="{field:'majorName', width:180}">专业</th>
+        <th lay-data="{field:'collegeName', width:250}">学院</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
     </tr>
     </thead>

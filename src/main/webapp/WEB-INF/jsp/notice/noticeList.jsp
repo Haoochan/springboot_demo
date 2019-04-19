@@ -12,7 +12,7 @@
     <script src="../../../static/layui/layui.all.js"></script>
 </head>
 <body>
-<h3>公告列表</h3>
+<%--<h3>公告列表</h3>--%>
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
@@ -36,7 +36,7 @@
             <option value="">请选择专业</option>
         </select>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-input-inline">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
 </form>
@@ -50,7 +50,7 @@
            initSort:{field:'time',type:'desc'} }" lay-filter="demo">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+        <%--<th lay-data="{type:'checkbox', fixed: 'left'}"></th>--%>
         <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
         <th lay-data="{field:'title', width:400}">标题</th>
         <th lay-data="{field:'category', width:80}">类别</th>

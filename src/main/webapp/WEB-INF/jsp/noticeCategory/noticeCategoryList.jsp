@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<h3>公告类别列表</h3>
+<%--<h3>公告类别列表</h3>--%>
 
 <button class="layui-btn" onclick="add();">
     <i class="layui-icon">&#xe608;</i> 添加
@@ -24,7 +24,7 @@
 <table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/noticeCategory/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+        <%--<th lay-data="{type:'checkbox', fixed: 'left'}"></th>--%>
         <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
         <th lay-data="{field:'name', width:200}">名称</th>
         <th lay-data="{field:'description', width:300}">描述</th>

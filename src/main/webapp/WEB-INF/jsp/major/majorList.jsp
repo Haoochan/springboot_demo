@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<h3>专业列表</h3>
+<%--<h3>专业列表</h3>--%>
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
@@ -27,7 +27,7 @@
             <option value="">请选择学院</option>
         </select>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-input-inline">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
 </form>
@@ -39,8 +39,8 @@
 <table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/major/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
+        <%--<th lay-data="{type:'checkbox', fixed: 'left'}"></th>--%>
+        <th lay-data="{title: '序号', width:50, type:'numbers'}">序号</th>
         <th lay-data="{field:'name', width:200}">专业名称</th>
         <th lay-data="{field:'description', width:300}">描述</th>
         <th lay-data="{field:'collegeName', width:300}">学院</th>
@@ -115,9 +115,6 @@
             console.log(role);
         }
         form.render();
-
-
-
 
         // 学院添加到下拉框中
         $.ajax({

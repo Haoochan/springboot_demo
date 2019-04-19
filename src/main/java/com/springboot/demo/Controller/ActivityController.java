@@ -12,6 +12,7 @@ import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -94,6 +95,7 @@ public class ActivityController {
         return "/WEB-INF/jsp/activity/activityMyList.jsp";
     }
 
+    //工作统计模块那边
     @RequestMapping("/goUserList")
     public String goUserList(HttpServletRequest request,Model model){
         User user = this.userService.getUserById(Integer.parseInt(request.getParameter("userId")));
@@ -197,7 +199,8 @@ public class ActivityController {
     @RequestMapping("/delete")
     public String delete(HttpServletRequest request){
         int deleteId = Integer.parseInt(request.getParameter("id"));
-        this.activityService.delete(deleteId);
+        this.activityService.delete(deleteId);//删除活动
+        this.activityService.deleteImageByActivityId(deleteId);//删除对应照片
         return "ok";
     }
 
@@ -216,7 +219,8 @@ public class ActivityController {
     //多照片上传 每一张都调用一次
     @RequestMapping(value = "upload")
     @ResponseBody
-    public String uploadImage(@RequestParam("file") MultipartFile file) {
+    public String uploadImage(@RequestParam("file") MultipartFile file,
+                              @RequestParam(value = "activityId",required = false) String  activityId) {
         if (!file.isEmpty()) {
             Map<String, String> resObj = new HashMap<>(MAP_SIZE);
             String newFilename;
@@ -231,7 +235,12 @@ public class ActivityController {
                 out.flush();
                 out.close();
                 //构造
-                ActivityImage activityImage = new ActivityImage(filename,newFilename);
+                ActivityImage activityImage;
+                if (StringUtils.isEmpty(activityId)){//新添加工作的时候上传图片 先让activityId为空 后添加工作时把对应的空图片设置Id进去
+                    activityImage = new ActivityImage(filename,newFilename);
+                }else {//修改工作的时候上传
+                    activityImage = new ActivityImage(filename,newFilename,Integer.parseInt(activityId));
+                }
                 imageId =  this.activityService.saveImage(activityImage);
             } catch (IOException e) {
                 resObj.put("msg", "error");
@@ -257,7 +266,7 @@ public class ActivityController {
         return jsonArray;
     }
 
-    //删除图片
+    //上传、修改时 删除图片
     @ResponseBody
     @RequestMapping("/imageDelete")
     public String imageDelete(HttpServletRequest request){
@@ -274,6 +283,5 @@ public class ActivityController {
         this.activityService.imageDelete(imageId);
         return "ok";
     }
-
 
 }

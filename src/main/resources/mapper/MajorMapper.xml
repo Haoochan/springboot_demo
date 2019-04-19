@@ -94,7 +94,7 @@
     <if test="keyword!=null and keyword !=''">
       and m.name LIKE '%${keyword}%'
     </if>
-    <if test="collegeId !=null and collegeId !='' ">
+    <if test="collegeId !='null' and collegeId !='' ">
       and m.collegeId = #{collegeId}
     </if>
   </select>

@@ -20,16 +20,14 @@
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo" style="width: 300px">华南农业大学班主任工作管理平台</div>
+        <div class="layui-logo" style="width: 400px"><img src="/image/indexImage/logo.jpg" class="layui-nav-img" style="width: 50px;height: 50px">华南农业大学班主任工作管理平台</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                    ${user.username}
+                    ${user.name}
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a onclick="goUserInfo()">基本资料</a></dd>
-                    <dd><a href="">安全设置</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item"><a href="../login.jsp">安全退出</a></li>
@@ -37,10 +35,10 @@
     </div>
 
     <%--左侧菜单栏--%>
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
+    <div class="layui-side layui-bg-black" style="width: 150px">
+        <div class="layui-side-scroll" style="width: 100%">
             <!-- 左侧垂直导航区域-->
-            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <ul class="layui-nav layui-nav-tree" lay-filter="test" style="width: 100%">
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">类别管理</a>
                     <dl class="layui-nav-child">
@@ -77,12 +75,6 @@
                         <dd>
                             <a href="javascript:;" data-id="10" data-title="公告列表" data-url="/notice/goList"
                                class="site-demo-active" data-type="tabAdd">公告列表</a>
-                        </dd>
-                    </dl>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a href="javascript:;" data-id="11" data-title="我的公告" data-url="/notice/goMyList"
-                               class="site-demo-active" data-type="tabAdd">我的公告</a>
                         </dd>
                     </dl>
                 </li>
@@ -129,7 +121,7 @@
                     </dl>
 
                 </li>
-                <li class="layui-nav-item">
+                <li class="layui-nav-item" style="display: none" id="work-statistics">
                     <a class="" href="javascript:;">工作统计</a>
                     <dl class="layui-nav-child">
                         <dd>
@@ -138,23 +130,24 @@
                         </dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;" data-id="" data-title="图片上传" data-url="/activity/goUpload"
-                       class="site-demo-active" data-type="tabAdd">图片上传</a>
-                </li>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a href="javascript:;" data-id="" data-title="图片上传" data-url="/activity/goUpload"--%>
+                       <%--class="site-demo-active" data-type="tabAdd">图片上传</a>--%>
+                <%--</li>--%>
             </ul>
         </div>
     </div>
 
     <!--右部tab标签-->
-    <div class="layui-tab" lay-filter="demo" lay-allowclose="true" style="margin-left: 200px;">
+    <div class="layui-tab" lay-filter="demo" lay-allowclose="true" style="margin-left: 150px;">
         <ul class="layui-tab-title"></ul>
         <div class="layui-tab-content"></div>
     </div>
 
     <div class="layui-footer" style="text-align:center;">
         <!-- 底部固定区域 -->
-        © sunway.tk 华南农业大学班主任工作管理平台
+        <img src="/image/indexImage/logo.jpg" class="layui-nav-img">
+        华南农业大学班主任工作管理平台
     </div>
 </div>
 
@@ -163,6 +156,14 @@
     layui.use(['element', 'layer', 'jquery'], function () {
         var element = layui.element;
         // var layer = layui.layer;
+
+        //判断用户角色，普通用户则隐藏工作统计
+        var role = "${user.role}";
+        if (role === "系统管理员" || role === "学院管理员"){
+            var $ = layui.$;
+            $('#work-statistics').show();
+        }
+
         //点击tab 刷新页面
         element.on('tab(demo)', function(data){
             var src=$(".layui-tab-item.layui-show").find("iframe").attr("src");

@@ -2,7 +2,6 @@ package com.springboot.demo.Entity;
 
 //import java.util.Date; //使用这个只能用空构造方法接 不能用自定义构造方法
 //import java.sql.Date; //改成这个就不需要一个空构造方法
-import java.sql.Timestamp;
 
 
 
@@ -92,34 +91,6 @@ public class Activity {
         this.creatorRole = creatorRole;
         this.category = category;
     }
-
-
-    //java.sql.date 接数据库查询的构造函数
-//    public Activity(Integer id, String topic, String category ,String creator, String creatorRole,Date time,String schoolyear, Integer semester ) {
-//        this.id = id;
-//        this.topic = topic;
-//        this.time = time;
-//        this.semester = semester;
-//        this.schoolyear = schoolyear;
-//        this.creator = creator;
-//        this.creatorRole = creatorRole;
-//        this.category = category;
-//    }
-
-//    public Activity(Integer id, String topic, Integer categoryId, Integer createbyId, Date time, Integer semester, String schoolyear, Date createTime, String content, String creator, String creatorRole, String category) {
-//        this.id = id;
-//        this.topic = topic;
-//        this.categoryId = categoryId;
-//        this.createbyId = createbyId;
-//        this.time = time;
-//        this.semester = semester;
-//        this.schoolyear = schoolyear;
-//        this.createTime = createTime;
-//        this.content = content;
-//        this.creator = creator;
-//        this.creatorRole = creatorRole;
-//        this.category = category;
-//    }
 
     public String getCreator() {
         return creator;

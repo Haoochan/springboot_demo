@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<h3>我的工作记录列表</h3>
+<%--<h3>我的工作记录列表</h3>--%>
 
 <%--搜索列表--%>
 <form class="layui-form layui-form-pane" >
@@ -39,7 +39,7 @@
             <option value="">请选择学年</option>
         </select>
     </div>
-    <div class="layui-form-item">
+    <div class="layui-input-inline">
         <input type=button class="layui-btn" value="搜索" id="search"/>
     </div>
 </form>
@@ -52,7 +52,7 @@
 <table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/activity/myList?userId='+${user.id}, page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+        <%--<th lay-data="{type:'checkbox', fixed: 'left'}"></th>--%>
         <th lay-data="{title: '序号', width:50, type:'numbers'}">序号</th>
         <th lay-data="{field:'topic', width:200}">主题</th>
         <th lay-data="{field:'category', width:150}">类别</th>

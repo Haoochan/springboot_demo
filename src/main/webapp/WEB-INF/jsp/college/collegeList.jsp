@@ -15,7 +15,7 @@
 
 </head>
 <body>
-<h3>工作类别列表</h3>
+<%--<h3>工作类别列表</h3>--%>
 
 <button class="layui-btn" onclick="add();">
     <i class="layui-icon">&#xe608;</i> 添加
@@ -24,11 +24,11 @@
 <table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/college/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
+        <%--<th lay-data="{type:'checkbox', fixed: 'left'}"></th>--%>
+        <th lay-data="{title: '序号', width:50, type:'numbers'}">序号</th>
         <th lay-data="{field:'name', width:200}">学院名称</th>
         <th lay-data="{field:'description', width:300}">描述</th>
-        <th lay-data="{field:'userName', width:300}">学院管理员</th>
+        <th lay-data="{field:'userName', width:250}">学院管理员</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
     </tr>
     </thead>

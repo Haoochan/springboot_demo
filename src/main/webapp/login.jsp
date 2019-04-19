@@ -23,7 +23,10 @@
 <body class="login-bg">
 
 <div class="login">
-    <div class="message">班主任工作管理系统</div>
+    <div class="message">
+        <img src="image/indexImage/logo.jpg" style="height:50px;width: 50px">
+        华南农业大学班主任工作管理系统登录
+    </div>
     <div id="darkbannerwrap"></div>
 
     <form method="post" class="layui-form" action="/user/login">

@@ -33,7 +33,7 @@
     delete from activity
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.springboot.demo.Entity.Activity">
+  <insert id="insert" parameterType="com.springboot.demo.Entity.Activity" useGeneratedKeys="true" keyProperty="id">
     insert into activity (id, topic,
       category_id, createby_id, time, location,
       semester, schoolyear, create_time, 

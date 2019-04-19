@@ -8,6 +8,10 @@ public class Report {
 
     private String username;
 
+    private String role;
+
+    private String college;
+
     private List<Integer> categoryCountList;
 
     private Integer schoolyearCount;
@@ -124,5 +128,21 @@ public class Report {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
     }
 }

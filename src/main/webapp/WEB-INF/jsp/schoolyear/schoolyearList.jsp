@@ -12,7 +12,7 @@
     <script src="../../../static/layui/layui.all.js"></script>
 </head>
 <body>
-<h3>学年列表</h3>
+<%--<h3>学年列表</h3>--%>
 
 <button class="layui-btn" onclick="add();">
     <i class="layui-icon">&#xe608;</i> 添加
@@ -21,7 +21,7 @@
 <table class="layui-table" lay-data="{height: 500, cellMinWidth: 80, url:'/schoolyear/list', page:true, limit:10, id:'idTest'}" lay-filter="demo">
     <thead>
     <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+        <%--<th lay-data="{type:'checkbox', fixed: 'left'}"></th>--%>
         <th lay-data="{title: '序号', width:80, type:'numbers'}">序号</th>
         <th lay-data="{field:'schoolyear', width:200}">学年</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>

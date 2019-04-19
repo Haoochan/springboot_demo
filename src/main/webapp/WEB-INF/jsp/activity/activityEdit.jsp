@@ -259,6 +259,7 @@
         upload.render({
             elem: '#test2'
             , url: '/activity/upload'
+            , data:{"activityId": ${activity.id}}
             , multiple: true
             , before: function (obj) {
                 layer.msg('图片上传中...', {

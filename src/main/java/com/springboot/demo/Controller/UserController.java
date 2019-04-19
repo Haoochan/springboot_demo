@@ -248,6 +248,7 @@ public class UserController {
     public String delete(HttpServletRequest request){
         int deleteId = Integer.parseInt(request.getParameter("id"));
         this.userService.delete(deleteId);
+        this.userClassCollegeMapService.deleteAllByUserId(deleteId);
         return "ok";
     }
 

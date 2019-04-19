@@ -33,7 +33,7 @@
 
     <div class="layui-form-item">
         <label for="title" class="layui-form-label">标题</label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" style="width: 800px">
             <input type="text" id="title" name="title" readonly="readonly" value="${notice.title}" autocomplete="off" class="layui-input">
         </div>
     </div>

@@ -36,4 +36,7 @@ public interface ActivityService {
     void imageDelete(int imageId);
 
     ActivityImage getImageById(int imageId);
+
+    //根据活动id删除图片
+    void deleteImageByActivityId(int activityId);
 }
