@@ -215,6 +215,7 @@ public class ActivityController {
 
     //上传照片
     public final static String UPLOAD_FILE_PATH = "E:\\Github\\springboot_demo\\src\\main\\webapp\\image";
+    public final static int MAP_SIZE = 1;
 
     //多照片上传 每一张都调用一次
     @RequestMapping(value = "upload")

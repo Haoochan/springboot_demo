@@ -45,7 +45,7 @@ public class UserController {
 
         if(!StringUtils.isEmpty(user)){
             model.addAttribute("user", user);
-            return "/WEB-INF/jsp/home1.jsp";
+            return "../WEB-INF/jsp/home1.jsp";
         }
         else
             return "/index.jsp";

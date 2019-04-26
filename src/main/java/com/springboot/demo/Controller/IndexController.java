@@ -21,6 +21,6 @@ public class IndexController {
 
     @RequestMapping("/register")
     public String toRegister(){
-        return "/register.jsp";
+        return "/register1.jsp";
     }
 }
